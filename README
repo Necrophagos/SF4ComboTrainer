@@ -6,7 +6,7 @@ here is a list of things that need fixing
 
 1) code clean up. the current codebase is incosistent with variable names and access modifiers and also doesn't follow established c# coding style. it also doesn't make use of c# specific syntax elements like using properties instead of get/set methods
 
-2) remove any kind of memory allocation during timeline playback. this might happen in Roadie.cs whenever a sound is pressed there are string concatenations happening.
+2) remove any kind of memory allocation during timeline playback. this might happen in Roadie.cs whenever a sound is played there are string concatenations happening.
 
 3) end and dispose all running threads when the program exits.
 
