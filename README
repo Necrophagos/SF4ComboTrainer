@@ -1,0 +1,9 @@
+this is the source code of the streetfighter 4 combo trainer
+written in c# using microsoft visual studio express 2013 for desktop
+
+this may not be the prettiest piece of software as this was my first time programming in c#.
+if you are interested in this source code because you want to write your own sf4 tool
+check out sf4memory.cs and sf4control.cs. to read data from a programs memory you'll also need
+the files inside the memory editor folder.
+
+you may do whatever you want with this code although I have to mention that I decompiled a programm called SF4 Show-off by lullius (slitherware) and stole memory address information and genral ideas from there.

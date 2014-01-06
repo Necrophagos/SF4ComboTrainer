@@ -1,0 +1,39 @@
+# buildstuff
+obj/
+**/Debug/*
+**/Debug/*/
+!**/Debug/sounds/
+!**/Debug/InputSimulator.*
+!**/Debug/sf4keyboard.cfg
+
+**/Release/*
+**/Release/*/
+!**/Release/sounds/
+!**/Release/InputSimulator.*
+!**/Release/sf4keyboard.cfg
+
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+*.pfx
+
+
+#############
+## Windows detritus
+#############
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac crap
+.DS_Store
