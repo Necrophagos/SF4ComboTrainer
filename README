@@ -1,9 +1,27 @@
-this is the source code of the streetfighter 4 combo trainer
-written in c# using microsoft visual studio express 2013 for desktop
+this is the source code of the streetfighter 4 combo trainer written in c# using microsoft visual studio express 2013 for desktop
 
-this may not be the prettiest piece of software as this was my first time programming in c#.
-if you are interested in this source code because you want to write your own sf4 tool
-check out sf4memory.cs and sf4control.cs. to read data from a programs memory you'll also need
-the files inside the memory editor folder.
+# IF YOU WANT TO CONTRIBUTE #
+
+here is a list of things that need fixing
+
+1) code clean up. the current codebase is incosistent with variable names and access modifiers and also doesn't follow established c# coding style. it also doesn't make use of c# specific syntax elements like using properties instead of get/set methods
+
+2) remove any kind of memory allocation during timeline playback. this might happen in Roadie.cs whenever a sound is pressed there are string concatenations happening.
+
+3) end and dispose all running threads when the program exits.
+
+4) break out of the waitframe action when it's obviously taking too long. this might happen when the timeline plays but the game is not in a match but the menu instead, or the game is paused. it seems like the program crashed when its actually just waiting for sf4 to advance frames.
+
+5) stop sending keyboard events when sf4 isn't the foreground window anymore
+
+6) improve the timeline. this is a bigger one. working with the timeline is pretty clumsy atm. when you want to add things to the top of a long combo you have to bubble it all the way up. grouping, collapsing and commenting timeline items are requested features too. this will probably affect the savefile format too.
+
+7) what ever you'd like to add and might improve the software
+
+I'll gladly accept pullrequests, I've never used github to actually collaborate but I think its not that hard.
+
+--------------------------------------
+if you are interested in this source code because you want to write your own sf4 tool check out sf4memory.cs and sf4control.cs. to read data from a programs memory you'll also need the files inside the memory editor folder.
 
 you may do whatever you want with this code although I have to mention that I decompiled a programm called SF4 Show-off by lullius (slitherware) and stole memory address information and genral ideas from there.
+
