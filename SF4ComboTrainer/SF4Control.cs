@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using WindowsInput;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Form;
 
 namespace SF4ComboTrainer
 {
@@ -51,6 +53,7 @@ namespace SF4ComboTrainer
             while (currentFrame < endFrame)
             {
                 currentFrame = sf4memory.getFrameCount();
+                Thread.Sleep(1);
             }
         }
 

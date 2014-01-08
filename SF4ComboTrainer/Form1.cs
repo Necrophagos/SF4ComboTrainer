@@ -115,8 +115,6 @@ namespace SF4ComboTrainer
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
             TimeLine.Items.Add(new PressItem(inputs));
-            resetInputBoxes();
-
         }
 
         private void btnHold_Click(object sender, EventArgs e)
@@ -124,7 +122,6 @@ namespace SF4ComboTrainer
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
             TimeLine.Items.Add(new HoldItem(inputs));
-            resetInputBoxes();
         }
 
         private void btnRelease_Click(object sender, EventArgs e)
@@ -132,7 +129,6 @@ namespace SF4ComboTrainer
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
             TimeLine.Items.Add(new ReleaseItem(inputs));
-            resetInputBoxes();
         }
 
         private Input[] getInputs()
@@ -197,7 +193,9 @@ namespace SF4ComboTrainer
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
                 item.Action(sf4control, chkSendInputs.Checked);
-
+                int visibleItems = TimeLine.ClientSize.Height / TimeLine.ItemHeight;
+                TimeLine.TopIndex = i - visibleItems / 2;
+                TimeLine.SelectedIndex = i;
             }
 
             sf4control.releaseALL();
