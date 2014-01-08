@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SF4ComboTrainer
 {
     public partial class MainForm : Form
@@ -28,6 +29,7 @@ namespace SF4ComboTrainer
         private int selectedTimeLineIndex;
         private void TimeLine_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!TimeLine.Focused) { return; }
             TimeLineItem curItem = (TimeLineItem)TimeLine.SelectedItem;
             if (curItem == null)
             {
@@ -197,15 +199,31 @@ namespace SF4ComboTrainer
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
                 item.Action(sf4control, chkSendInputs.Checked);
-                
+
                 
                 //highlighting of current item
-                //int visibleItems = TimeLine.ClientSize.Height / TimeLine.ItemHeight;
-                //TimeLine.TopIndex = i - visibleItems / 2;
-                //TimeLine.SelectedIndex = i;
+                DoThreadSafe(TimeLine, () =>
+                {                    
+                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                    TimeLine.SelectedItem = item;
+
+                });
+
             }
 
             sf4control.releaseALL();
+        }
+
+        public static void DoThreadSafe(Control control, MethodInvoker action)
+        {
+            if (control.InvokeRequired)
+            {
+                control.BeginInvoke(action);
+            }
+            else
+            {
+                action();
+            }
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -213,7 +231,7 @@ namespace SF4ComboTrainer
             if (chkAutoSwitch.Checked)
             {
                 if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(5);
+                sf4control.waitFrames(10);
             }
 
             freezeTimeline();
@@ -233,7 +251,7 @@ namespace SF4ComboTrainer
             if (chkAutoSwitch.Checked)
             {
                 if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(5);
+                sf4control.waitFrames(10);
             }
 
             //prevent multiple threads

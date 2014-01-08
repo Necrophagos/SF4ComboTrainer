@@ -23,8 +23,11 @@ namespace SF4ComboTrainer
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        [DllImport("USER32.DLL")]
+        [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
 
         public bool switchToSF4()
         {
@@ -35,8 +38,17 @@ namespace SF4ComboTrainer
                 ShowWindow(processes[0].MainWindowHandle, 1);
                 return true;                
             }
-            return false;
-            
+            return false;            
+        }
+
+        public bool SF4isForegroundWindow()
+        {
+            Process[] processes = Process.GetProcessesByName("SSFIV");
+            if (processes.Count() > 0)
+            {
+                return processes[0].MainWindowHandle == GetForegroundWindow();                
+            }
+            return false;         
         }
 
         public SF4Control(SF4Memory sf4memory)
@@ -59,6 +71,8 @@ namespace SF4ComboTrainer
         
         public void press(params Input[] inputs)
         {
+            if (!SF4isForegroundWindow()) { return; }
+
             foreach (Input input in inputs)
             {
                 InputSimulator.SimulateKeyDown(inputResolver.get(input));
@@ -72,6 +86,8 @@ namespace SF4ComboTrainer
 
         public void hold(params Input[] inputs)
         {
+            if (!SF4isForegroundWindow()) { return; }
+
             foreach (Input input in inputs)
             {
                 InputSimulator.SimulateKeyDown(inputResolver.get(input));
@@ -80,6 +96,8 @@ namespace SF4ComboTrainer
 
         public void release(params Input[] inputs)
         {
+            if (!SF4isForegroundWindow()) { return; }
+
             foreach (Input input in inputs)
             {
                 InputSimulator.SimulateKeyUp(inputResolver.get(input));
