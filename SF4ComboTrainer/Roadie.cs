@@ -22,21 +22,22 @@ class Roadie : IDisposable
         return System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\sounds\";
 
     }
-    private static String PRESS_BUTTON_PATH = getSoundDir() + "press_button.wav";
-    private static String PRESS_DIRECTION_PATH = getSoundDir() + "press_direction.wav";
-    private static String HOLD_BUTTON_PATH = getSoundDir() + "hold_button.wav";
-    private static String HOLD_DIRECTION_PATH = getSoundDir() + "hold_direction.wav";
-    private static String RELEASE_BUTTON_PATH = getSoundDir() + "release_button.wav";
-    private static String RELEASE_DIRECTION_PATH = getSoundDir() + "release_direction.wav";
-    private static String WAIT_PATH = getSoundDir() + "wait.wav";
 
-    public static String PRESS_BUTTON_SOUND = "s_pre_but";
-    public static String PRESS_DIRECTION_SOUND = "s_pre_dir";
-    public static String HOLD_BUTTON_SOUND = "s_hol_but";
-    public static String HOLD_DIRECTION_SOUND = "s_hol_dir";
-    public static String RELEASE_BUTTON_SOUND = "s_rel_but";
-    public static String RELEASE_DIRECTION_SOUND = "s_rel_dir";
-    public static String WAIT_SOUND = "s_wait";
+    private static String PRESS_BUTTON = "open \"" + getSoundDir() + "press_button.wav\" type waveaudio alias s_pre_but";
+    private static String PRESS_DIRECTION = "open \"" + getSoundDir() + "press_direction.wav\" type waveaudio alias s_pre_dir";
+    private static String HOLD_BUTTON = "open \"" + getSoundDir() + "hold_button.wav\" type waveaudio alias s_hol_but";
+    private static String HOLD_DIRECTION = "open \"" + getSoundDir() + "hold_direction.wav\" type waveaudio alias s_hol_dir";
+    private static String RELEASE_BUTTON = "open \"" + getSoundDir() + "release_button.wav\" type waveaudio alias s_rel_but";
+    private static String RELEASE_DIRECTION = "open \"" + getSoundDir() + "release_direction.wav\" type waveaudio alias s_rel_dir";
+    private static String WAIT = "open \"" + getSoundDir() + "wait.wav\" type waveaudio alias s_wait";
+
+    public static String PRESS_BUTTON_SOUND = "play s_pre_but from 0";
+    public static String PRESS_DIRECTION_SOUND = "play s_pre_dir from 0";
+    public static String HOLD_BUTTON_SOUND = "play s_hol_but from 0";
+    public static String HOLD_DIRECTION_SOUND = "play s_hol_dir from 0";
+    public static String RELEASE_BUTTON_SOUND = "play s_rel_but from 0";
+    public static String RELEASE_DIRECTION_SOUND = "play s_rel_dir from 0";
+    public static String WAIT_SOUND = "play s_wait from 0";
 
     [DllImport("winmm.dll")]
     static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
@@ -62,13 +63,13 @@ class Roadie : IDisposable
 
     void Work()
     {
-        mciSendString("open \"" + PRESS_BUTTON_PATH + "\" type waveaudio alias " + PRESS_BUTTON_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + PRESS_DIRECTION_PATH + "\" type waveaudio alias " + PRESS_DIRECTION_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + HOLD_BUTTON_PATH + "\" type waveaudio alias " + HOLD_BUTTON_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + HOLD_DIRECTION_PATH + "\" type waveaudio alias " + HOLD_DIRECTION_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + RELEASE_BUTTON_PATH + "\" type waveaudio alias " + RELEASE_BUTTON_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + RELEASE_DIRECTION_PATH + "\" type waveaudio alias " + RELEASE_DIRECTION_SOUND, null, 0, IntPtr.Zero);
-        mciSendString("open \"" + WAIT_PATH + "\" type waveaudio alias " + WAIT_SOUND, null, 0, IntPtr.Zero);
+        mciSendString(PRESS_BUTTON, null, 0, IntPtr.Zero);
+        mciSendString(PRESS_DIRECTION, null, 0, IntPtr.Zero);
+        mciSendString(HOLD_BUTTON, null, 0, IntPtr.Zero);
+        mciSendString(HOLD_DIRECTION, null, 0, IntPtr.Zero);
+        mciSendString(RELEASE_BUTTON, null, 0, IntPtr.Zero);
+        mciSendString(RELEASE_DIRECTION, null, 0, IntPtr.Zero);
+        mciSendString(WAIT, null, 0, IntPtr.Zero);
 
         while (true)
         {
@@ -81,7 +82,7 @@ class Roadie : IDisposable
                 }
             if (task != null)
             {
-                mciSendString(@"play " + task + " from 0", null, 0, IntPtr.Zero);
+                mciSendString(task, null, 0, IntPtr.Zero);
             }
             else
                 _wh.WaitOne();         // No more tasks - wait for a signal
