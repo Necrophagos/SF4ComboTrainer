@@ -51,16 +51,16 @@ class Roadie : IDisposable
 
     public void playSound(string sound)
     {
-        lock (_locker) _tasks.Enqueue(sound);
-        //lock (_locker) _tasks.Enqueue("play " + sound + " from 0");
+        //lock (_locker) _tasks.Enqueue(sound);
+        lock (_locker) _tasks.Enqueue("play " + sound + " from 0");
         _wh.Set();
     }
 
     public void Dispose()
     {
         playSound(null);     // Signal the consumer to exit.
-        _worker.Join();         // Wait for the consumer's thread to finish.
-        //_worker.Abort();         //This will straight kill the background thread.
+        //_worker.Join();         // Wait for the consumer's thread to finish.
+        _worker.Abort();         //This will straight kill the background thread.
         _wh.Close();            // Release any OS resources.
     }
 
@@ -85,8 +85,8 @@ class Roadie : IDisposable
                 }
             if (task != null)
             {
-                mciSendString(@"play " + task + " from 0", null, 0, IntPtr.Zero);
-                //mciSendString(task, null, 0, IntPtr.Zero);
+                //mciSendString(@"play " + task + " from 0", null, 0, IntPtr.Zero);
+                mciSendString(task, null, 0, IntPtr.Zero);
             }
             else
                 _wh.WaitOne();         // No more tasks - wait for a signal
