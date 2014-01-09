@@ -9,3 +9,5 @@ this is probably a non issue since you most likely already have it but if it is 
 arrow keys for directions
 NUM4 - 6 lp mp hp
 NUM1 - 3 lk mk hk
+
+- don't! have your graphic setting for stage quality set to low (black training room)
