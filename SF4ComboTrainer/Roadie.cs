@@ -23,7 +23,6 @@ class Roadie : IDisposable
 
     }
 
-    // I wanted to use the sound constants but it wasnt working.
     private static String PRESS_BUTTON = "open \"" + getSoundDir() + "press_button.wav\" type waveaudio alias s_pre_but";
     private static String PRESS_DIRECTION = "open \"" + getSoundDir() + "press_direction.wav\" type waveaudio alias s_pre_dir";
     private static String HOLD_BUTTON = "open \"" + getSoundDir() + "hold_button.wav\" type waveaudio alias s_hol_but";
@@ -32,13 +31,13 @@ class Roadie : IDisposable
     private static String RELEASE_DIRECTION = "open \"" + getSoundDir() + "release_direction.wav\" type waveaudio alias s_rel_dir";
     private static String WAIT = "open \"" + getSoundDir() + "wait.wav\" type waveaudio alias s_wait";
 
-    public static String PRESS_BUTTON_SOUND = "s_pre_but";
-    public static String PRESS_DIRECTION_SOUND = "s_pre_dir";
-    public static String HOLD_BUTTON_SOUND = "s_hol_but";
-    public static String HOLD_DIRECTION_SOUND = "s_hol_dir";
-    public static String RELEASE_BUTTON_SOUND = "s_rel_but";
-    public static String RELEASE_DIRECTION_SOUND = "s_rel_dir";
-    public static String WAIT_SOUND = "s_wait";
+    public static String PRESS_BUTTON_SOUND = "play s_pre_but from 0";
+    public static String PRESS_DIRECTION_SOUND = "play s_pre_dir from 0";
+    public static String HOLD_BUTTON_SOUND = "play s_hol_but from 0";
+    public static String HOLD_DIRECTION_SOUND = "play s_hol_dir from 0";
+    public static String RELEASE_BUTTON_SOUND = "play s_rel_but from 0";
+    public static String RELEASE_DIRECTION_SOUND = "play s_rel_dir from 0";
+    public static String WAIT_SOUND = "play s_wait from 0";
 
     [DllImport("winmm.dll")]
     static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
@@ -51,16 +50,14 @@ class Roadie : IDisposable
 
     public void playSound(string sound)
     {
-        //lock (_locker) _tasks.Enqueue(sound);
-        lock (_locker) _tasks.Enqueue("play " + sound + " from 0");
+        lock (_locker) _tasks.Enqueue(sound);
         _wh.Set();
     }
 
     public void Dispose()
     {
         playSound(null);     // Signal the consumer to exit.
-        //_worker.Join();         // Wait for the consumer's thread to finish.
-        _worker.Abort();         //This will straight kill the background thread.
+        _worker.Join();         // Wait for the consumer's thread to finish.
         _wh.Close();            // Release any OS resources.
     }
 
@@ -85,7 +82,6 @@ class Roadie : IDisposable
                 }
             if (task != null)
             {
-                //mciSendString(@"play " + task + " from 0", null, 0, IntPtr.Zero);
                 mciSendString(task, null, 0, IntPtr.Zero);
             }
             else
