@@ -73,6 +73,8 @@
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chkAutoSwitch = new System.Windows.Forms.CheckBox();
             this.chkSteamVersion = new System.Windows.Forms.CheckBox();
+            this.scriptBox = new System.Windows.Forms.TextBox();
+            this.parseButton = new System.Windows.Forms.Button();
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numChgWaitFrames)).BeginInit();
             this.grpTimeLine.SuspendLayout();
@@ -86,10 +88,10 @@
             // 
             this.TimeLine.AllowDrop = true;
             this.TimeLine.FormattingEnabled = true;
-            this.TimeLine.Location = new System.Drawing.Point(94, 26);
+            this.TimeLine.Location = new System.Drawing.Point(94, 19);
             this.TimeLine.Name = "TimeLine";
-            this.TimeLine.Size = new System.Drawing.Size(170, 277);
-            this.TimeLine.TabIndex = 0;
+            this.TimeLine.Size = new System.Drawing.Size(159, 277);
+            this.TimeLine.TabIndex = 5;
             this.TimeLine.SelectedIndexChanged += new System.EventHandler(this.TimeLine_SelectedIndexChanged);
             // 
             // grpItemDetails
@@ -220,7 +222,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(7, 279);
+            this.btnClear.Location = new System.Drawing.Point(7, 273);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(82, 23);
             this.btnClear.TabIndex = 4;
@@ -521,11 +523,33 @@
             this.chkSteamVersion.UseVisualStyleBackColor = true;
             this.chkSteamVersion.CheckedChanged += new System.EventHandler(this.chkSteamVersion_CheckedChanged);
             // 
+            // scriptBox
+            // 
+            this.scriptBox.AcceptsReturn = true;
+            this.scriptBox.Location = new System.Drawing.Point(12, 327);
+            this.scriptBox.Multiline = true;
+            this.scriptBox.Name = "scriptBox";
+            this.scriptBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.scriptBox.Size = new System.Drawing.Size(402, 88);
+            this.scriptBox.TabIndex = 6;
+            // 
+            // parseButton
+            // 
+            this.parseButton.Location = new System.Drawing.Point(420, 327);
+            this.parseButton.Name = "parseButton";
+            this.parseButton.Size = new System.Drawing.Size(236, 88);
+            this.parseButton.TabIndex = 7;
+            this.parseButton.Text = "Parse Script";
+            this.parseButton.UseVisualStyleBackColor = true;
+            this.parseButton.Click += new System.EventHandler(this.parseButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 331);
+            this.ClientSize = new System.Drawing.Size(661, 422);
+            this.Controls.Add(this.parseButton);
+            this.Controls.Add(this.scriptBox);
             this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.grpWait);
             this.Controls.Add(this.grpInputs);
@@ -547,11 +571,11 @@
             this.grpOptions.ResumeLayout(false);
             this.grpOptions.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
         private System.Windows.Forms.ListBox TimeLine;
         private System.Windows.Forms.GroupBox grpItemDetails;
         private System.Windows.Forms.Button btnDelete;
@@ -590,6 +614,8 @@
         private System.Windows.Forms.NumericUpDown numChgWaitFrames;
         private System.Windows.Forms.CheckBox chkSendInputs;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.TextBox scriptBox;
+        private System.Windows.Forms.Button parseButton;
 
     }
 }
