@@ -251,9 +251,198 @@ namespace SF4ComboTrainer
                 sf4control.waitFrames(10);
             }
 
-            freezeTimeline();
+            freezeTimeline();            
             playTimeline();
             unfreezeTimeline();
+            
+        }
+
+        private void parseButton_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Clear();
+            parseScriptBox();
+        }
+
+        /*
+         * Parses the input given in the scriptBox component for quicker entry of commands.
+         * 
+         * Syntax:
+         * Every line is interpreted as one TimeLineItem.
+         * Simultaneous commands are input via '.' (eg HP.MP = Press HP MP)
+         * HoldItems are input via '+' (eg +D = Hold DN)
+         * ReleaseItems are input via '-' (eg -D = Release DN)
+         * WaitFrameItems are input via 'W' followed by the number of frames to wait (eg W100 = Wait 100 Frames)
+         * Every other input is interpreted as a PressItem
+         * 
+         * It also supports shorthand notations of common inputs:
+         * 
+         * SRKF = Shoryuken Forward:        FW DN FW+DN
+         * SRKB = Shoryuken Backward:       BK DN BK+DN
+         * QCF  = Quarter Circle Forward:   DN FW+DN FW
+         * QCB  = Quarter Circle Back:      DN BK+DN BK
+         * HCF  = Half Circle Forward:      BK BK+DN DN FW+DN FW
+         * HCB  = Half Circle Backward:     FW FW+DN DN BK+DN BK
+         */
+
+        private void parseScriptBox()
+        {
+            string[] lines = scriptBox.Lines;
+            List<TimeLineItem> items = new List<TimeLineItem>();
+            Input[] inputs;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                inputs = null;
+                lines[i] = lines[i].Replace(" ", string.Empty);             //Removes whitespace
+
+                /* Interprets shorthand notations for common movements 
+                 * 
+                 * SRKF = Shoryuken Forward:        FW DN FW+DN
+                 * SRKB = Shoryuken Backward:       BK DN BK+DN
+                 * QCF  = Quarter Circle Forward:   DN FW+DN FW
+                 * QCB  = Quarter Circle Back:      DN BK+DN BK
+                 * HCF  = Half Circle Forward:      BK BK+DN DN FW+DN FW
+                 * HCB  = Half Circle Backward:     FW FW+DN DN BK+DN BK
+                 */
+
+                switch (lines[i])
+                {
+                    case "SRKF":
+                        items.Add(new PressItem(Input.P1_FW));
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("F.D")));
+                        continue;
+
+                    case "SRKB":
+                        items.Add(new PressItem(Input.P1_BK));
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("B.D")));
+                        continue;
+
+                    case "QCF":
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("F.D")));
+                        items.Add(new PressItem(Input.P1_FW));                    
+                        continue;
+
+                    case "QCB":
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("B.D")));
+                        items.Add(new PressItem(Input.P1_BK));
+                        continue;
+
+                    case "HCF":
+                        items.Add(new PressItem(Input.P1_BK));
+                        items.Add(new PressItem(getInputFromString("B.D")));
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("F.D")));
+                        items.Add(new PressItem(Input.P1_FW));
+                        continue;
+
+                    case "HCB":
+                        items.Add(new PressItem(Input.P1_FW));
+                        items.Add(new PressItem(getInputFromString("F.D")));
+                        items.Add(new PressItem(Input.P1_DN));
+                        items.Add(new PressItem(getInputFromString("B.D")));
+                        items.Add(new PressItem(Input.P1_BK));
+                        continue;
+
+                    case "":
+                        continue;
+
+                }                
+                
+
+                //Checks for kind of TimeLineItem which should be added
+                switch (lines[i][0])
+                {
+                    case '+':
+                        inputs = getInputFromString(lines[i].Substring(1));
+                        if(inputs != null)
+                            items.Add(new HoldItem(inputs));
+                        break;
+
+                    case '-':
+                        inputs = getInputFromString(lines[i].Substring(1));
+                        if(inputs != null)
+                            items.Add(new ReleaseItem(inputs));
+                        break;
+
+                    case 'W':
+                        int framesToWait = 0;
+                        if (int.TryParse(lines[i].Substring(1),out framesToWait) && framesToWait > 0)
+                            items.Add(new WaitFrameItem(framesToWait));
+                        break;
+
+                    default:
+                        inputs = getInputFromString(lines[i]);
+                        if(inputs != null)
+                            items.Add(new PressItem(inputs));
+                        break;
+                }                                            
+              
+            }
+
+            //Adds the parsed TimeLineItem list to the TimeLine
+            foreach (TimeLineItem item in items)
+            {
+                if (item != null)
+                {
+                    TimeLine.Items.Add(item);
+                }
+            }
+        }
+
+
+        //Parses a given String to an Input array. If no valid input is detected it returns null.
+        private Input[] getInputFromString(String s)
+        {
+            String[] split = s.Split('.');
+            List<Input> inputList = new List<Input>();
+            for (int i = 0; i < split.Length; i++)
+            {
+                switch (split[i])
+                {
+                    case "D":   //Down
+                        inputList.Add(Input.P1_DN);
+                        break;
+                    case "U":   //Up
+                        inputList.Add(Input.P1_UP);
+                        break;
+                    case "F":   //Forward
+                        inputList.Add(Input.P1_FW);
+                        break;
+                    case "B":   //Back
+                        inputList.Add(Input.P1_BK);
+                        break;
+
+                    case "LP":  //Light Punch
+                        inputList.Add(Input.P1_LP);
+                        break;
+                    case "MP":  //Medium Punch
+                        inputList.Add(Input.P1_MP);
+                        break;
+                    case "HP":  //Heavy Punch
+                        inputList.Add(Input.P1_HP);
+                        break;
+
+
+                    case "LK":  //Light Kick
+                        inputList.Add(Input.P1_LK);
+                        break;
+                    case "MK":  //Medium Kick
+                        inputList.Add(Input.P1_MK);
+                        break;
+                    case "HK":  //Heavy Kick
+                        inputList.Add(Input.P1_HK);
+                        break;
+                }                     
+
+            }
+
+            if (inputList.Count == 0)
+                return null;
+            
+            return inputList.ToArray<Input>();
         }
 
         //Loop section
