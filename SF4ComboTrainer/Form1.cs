@@ -198,15 +198,32 @@ namespace SF4ComboTrainer
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
-                item.Action(sf4control, chkSendInputs.Checked);
 
-                
+                // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
+                if (sf4control.inMatch) 
+                    item.Action(sf4control, chkSendInputs.Checked);
+                else
+                {
+                    // Get the last item in the list
+                    i = TimeLine.Items.Count - 1;
+                    item = (TimeLineItem)TimeLine.Items[i];
+
+                    //highlighting the last item.
+                    DoThreadSafe(TimeLine, () =>
+                    {
+                        TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                        TimeLine.SelectedItem = item;
+                    });
+
+                    break;
+                }
+
+
                 //highlighting of current item
                 DoThreadSafe(TimeLine, () =>
-                {                    
+                {
                     TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
                     TimeLine.SelectedItem = item;
-
                 });
 
             }
@@ -260,8 +277,8 @@ namespace SF4ComboTrainer
             loopThread = new System.Threading.Thread(playLoop);
             loopThread.Start();
 
-
         }
+
         private void btnStop_Click(object sender, EventArgs e)
         {
             _shouldStop = true;
@@ -277,7 +294,9 @@ namespace SF4ComboTrainer
         public void playLoop()
         {
             _shouldStop = false;
-            while (!_shouldStop)
+
+            // This inMatch check will make it so if you pause the game during the loop it stops the loop.
+            while (!_shouldStop && sf4control.inMatch)
             {
                 playTimeline();
             }

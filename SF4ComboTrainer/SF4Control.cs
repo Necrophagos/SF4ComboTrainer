@@ -18,7 +18,17 @@ namespace SF4ComboTrainer
     {
         private SF4Memory sf4memory;
 
-        private InputResolver inputResolver;        
+        private InputResolver inputResolver;
+
+        // To keep the last frame.
+        private int lastFrame;
+
+        // To tell if the game is paused.
+        private Stopwatch frameTimer = new Stopwatch();
+
+        // This is 15 FPS, needed to find a default value because timing will vary on every CPU.
+        // Only thing i could think of was time between frames and let 15 FPS be too low to use this. (This can be changed to lower FPS)
+        private int MIN_TIME_BETWEEN_FRAMES = 66;
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -29,6 +39,9 @@ namespace SF4ComboTrainer
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
 
+        // to see if in a match.
+        public volatile bool inMatch;
+        
         public bool switchToSF4()
         {
             Process[] processes = Process.GetProcessesByName("SSFIV");            
@@ -59,11 +72,34 @@ namespace SF4ComboTrainer
 
         public void waitFrames(int frames)
         {
+            // Reset / start the frameTimer which is used to get time between frames.
+            frameTimer.Reset();
+            frameTimer.Start();
+
             int currentFrame = sf4memory.getFrameCount();
             int endFrame = currentFrame + frames;
-            while (currentFrame < endFrame)
+
+            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES)
             {
+                // Set lastFrame then the new current frame
+                lastFrame = currentFrame;
                 currentFrame = sf4memory.getFrameCount();
+
+                if (currentFrame != lastFrame)
+                {
+                    // Stop the frame timer since the frame has changed.
+                    frameTimer.Stop();
+
+                    frameTimer.Reset();
+                    frameTimer.Start();
+
+                    // Since we currentFrame != lastFrame we are in a match.
+                    // (frames on menu screen or pause menu are constant).
+                    inMatch = true;
+                }
+                else
+                    inMatch = false;
+                    
                 Thread.Sleep(1);
             }
         }
