@@ -17,9 +17,11 @@
             {
                 components.Dispose();
             }
-            
+
             if (disposing)
-                TimeLineItem.roadie.Dispose();
+            {
+                TimeLineItem.roadie.Dispose();                
+            }
 
             base.Dispose(disposing);
         }

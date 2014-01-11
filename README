@@ -6,17 +6,19 @@ here is a list of things that need fixing
 
 1) code clean up. the current codebase is incosistent with variable names and access modifiers and also doesn't follow established c# coding style. it also doesn't make use of c# specific syntax elements like using properties instead of get/set methods
 
-2) remove any kind of memory allocation during timeline playback. this might happen in Roadie.cs whenever a sound is played there are string concatenations happening.
+2) remove any kind of memory allocation during timeline playback. partially fixed by cbcoolbox. It could still be useful to run some kind of memory trace and see what kind of stuff is happening at runtime.
 
 3) fixed by ceaseless
 
-4) break out of the waitframe action when it's obviously taking too long. this might happen when the timeline plays but the game is not in a match but the menu instead, or the game is paused. it seems like the program crashed when its actually just waiting for sf4 to advance frames.
+4) fixed by cbcoolbox
 
 5) fixed
 
 6) improve the timeline. this is a bigger one. working with the timeline is pretty clumsy atm. when you want to add things to the top of a long combo you have to bubble it all the way up. grouping, collapsing and commenting timeline items are requested features too. this will probably affect the savefile format too.
 
 7) what ever you'd like to add and might improve the software
+
+8) add more cool demo combos
 
 I'll gladly accept pullrequests, I've never used github to actually collaborate but I think its not that hard.
 

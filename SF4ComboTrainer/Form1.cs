@@ -200,7 +200,7 @@ namespace SF4ComboTrainer
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
-                if (sf4control.inMatch) 
+                if (sf4control.inMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
                 else
                 {
@@ -213,7 +213,13 @@ namespace SF4ComboTrainer
                     {
                         TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
                         TimeLine.SelectedItem = item;
+                        //also kill loop
+                        btnStop_Click(null, null);
                     });
+                    string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
+                    MessageBox.Show(message, "SF4 not advancing frames",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    
+                    
 
                     break;
                 }
@@ -284,7 +290,7 @@ namespace SF4ComboTrainer
             _shouldStop = true;
             if (loopThread != null)
             {
-                loopThread.Join();
+                loopThread.Abort();
                 loopThread = null;
             }
             unfreezeTimeline();
@@ -295,8 +301,8 @@ namespace SF4ComboTrainer
         {
             _shouldStop = false;
 
-            // This inMatch check will make it so if you pause the game during the loop it stops the loop.
-            while (!_shouldStop && sf4control.inMatch)
+            
+            while (!_shouldStop)
             {
                 playTimeline();
             }

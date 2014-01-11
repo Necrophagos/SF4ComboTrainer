@@ -26,9 +26,9 @@ namespace SF4ComboTrainer
         // To tell if the game is paused.
         private Stopwatch frameTimer = new Stopwatch();
 
-        // This is 15 FPS, needed to find a default value because timing will vary on every CPU.
-        // Only thing i could think of was time between frames and let 15 FPS be too low to use this. (This can be changed to lower FPS)
-        private int MIN_TIME_BETWEEN_FRAMES = 66;
+        //min time in between frames is set to 3 seconds just so to prevent lockups when game is actually paused
+        //switch to fullscreen sf4 actually takes very long.
+        private int MIN_TIME_BETWEEN_FRAMES = 3000;
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);

@@ -1,0 +1,11 @@
+Hold#False#1#P1_FW
+Wait#False#70
+Release#False#1#P1_FW
+Press#True#2#P1_DN#P1_MP
+Wait#False#24
+Hold#False#1#P1_FW
+Wait#False#4
+Release#False#1#P1_FW
+Hold#True#2#P1_FW#P1_HP
+Wait#False#1
+Press#True#4#P1_FW#P1_LP#P1_HP#P1_LK
