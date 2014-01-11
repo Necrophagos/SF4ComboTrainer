@@ -40,7 +40,7 @@ namespace SF4ComboTrainer
         public static extern IntPtr GetForegroundWindow();
 
         // to see if in a match.
-        public bool inMatch;
+        public volatile bool inMatch;
         
         public bool switchToSF4()
         {

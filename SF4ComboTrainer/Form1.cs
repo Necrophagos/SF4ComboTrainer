@@ -200,11 +200,23 @@ namespace SF4ComboTrainer
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
-                if (sf4control.inMatch) item.Action(sf4control, chkSendInputs.Checked);
+                if (sf4control.inMatch) 
+                    item.Action(sf4control, chkSendInputs.Checked);
+                else
+                {
+                    // Get the last item in the list
+                    i = TimeLine.Items.Count - 1;
+                    item = (TimeLineItem)TimeLine.Items[i];
 
-                // i chose to comment this out because it looks nicer when the highlight goes to the bottom.
-                //else
-                //    break;
+                    //highlighting the last item.
+                    DoThreadSafe(TimeLine, () =>
+                    {
+                        TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                        TimeLine.SelectedItem = item;
+                    });
+
+                    break;
+                }
 
 
                 //highlighting of current item
