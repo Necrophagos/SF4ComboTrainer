@@ -87,6 +87,7 @@ namespace SF4ComboTrainer
             TimeLine.Items[index] = TimeLine.Items[index - 1];
             TimeLine.Items[index - 1] = tmp;
             TimeLine.SetSelected(index - 1, true);
+            selectedTimeLineIndex = index - 1;
 
         }
 
@@ -98,6 +99,7 @@ namespace SF4ComboTrainer
             TimeLine.Items[index] = TimeLine.Items[index + 1];
             TimeLine.Items[index + 1] = tmp;
             TimeLine.SetSelected(index + 1, true);
+            selectedTimeLineIndex = index + 1;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -219,10 +221,10 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
-                    string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
-                    MessageBox.Show(message, "SF4 not advancing frames",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    
-                    
+                    string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
+                    MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
 
                     break;
                 }
@@ -260,7 +262,7 @@ namespace SF4ComboTrainer
                 sf4control.waitFrames(10);
             }
 
-            freezeTimeline();
+            freezeTimeline();            
             playTimeline();
             unfreezeTimeline();
         }
@@ -304,7 +306,7 @@ namespace SF4ComboTrainer
         {
             _shouldStop = false;
 
-            
+
             while (!_shouldStop)
             {
                 playTimeline();
