@@ -197,6 +197,7 @@ namespace SF4ComboTrainer
 
         private void playTimeline()
         {
+            sf4control.resetLockupTimer();
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
@@ -218,7 +219,7 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
-                    string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
+                    string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
                     MessageBox.Show(message, "SF4 not advancing frames",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     
                     

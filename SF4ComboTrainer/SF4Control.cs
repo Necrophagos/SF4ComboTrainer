@@ -72,14 +72,11 @@ namespace SF4ComboTrainer
 
         public void waitFrames(int frames)
         {
-            // Reset / start the frameTimer which is used to get time between frames.
-            frameTimer.Reset();
-            frameTimer.Start();
-
             int currentFrame = sf4memory.getFrameCount();
             int endFrame = currentFrame + frames;
+            long lastFrameTime = frameTimer.ElapsedMilliseconds;
 
-            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES)
+            while (currentFrame < endFrame && (frameTimer.ElapsedMilliseconds-lastFrameTime) < MIN_TIME_BETWEEN_FRAMES)
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
@@ -87,11 +84,7 @@ namespace SF4ComboTrainer
 
                 if (currentFrame != lastFrame)
                 {
-                    // Stop the frame timer since the frame has changed.
-                    frameTimer.Stop();
-
-                    frameTimer.Reset();
-                    frameTimer.Start();
+                    lastFrameTime = frameTimer.ElapsedMilliseconds;
 
                     // Since we currentFrame != lastFrame we are in a match.
                     // (frames on menu screen or pause menu are constant).
@@ -102,6 +95,16 @@ namespace SF4ComboTrainer
                     
                 Thread.Sleep(1);
             }
+        }
+
+        public void resetLockupTimer()
+        {
+            if (frameTimer.IsRunning)
+            {
+                frameTimer.Stop();
+            }
+            frameTimer.Reset();
+            frameTimer.Start();
         }
 
         
