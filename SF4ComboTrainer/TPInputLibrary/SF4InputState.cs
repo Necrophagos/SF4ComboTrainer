@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SF4ComboTrainer;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -44,6 +45,25 @@ namespace TPInputLibrary
 
         public bool NonePressed { get { return Directions.NonePressed && Punches.NonePressed && Kicks.NonePressed; } }
 
+        public Input[] ToInputsArray()
+        {
+            List<Input> tmp = new List<Input>();
+
+            if (Directions.Up) tmp.Add(Input.P1_UP);
+            if (Directions.Down) tmp.Add(Input.P1_DN);
+            if (Directions.Left) tmp.Add(Input.P1_LE);
+            if (Directions.Right) tmp.Add(Input.P1_RI);
+            if (Directions.Forward) tmp.Add(Input.P1_FW);
+            if (Directions.Backward) tmp.Add(Input.P1_BK);
+            if (Punches.Light) tmp.Add(Input.P1_LP);
+            if (Punches.Medium) tmp.Add(Input.P1_MP);
+            if (Punches.Hard) tmp.Add(Input.P1_HP);
+            if (Kicks.Light) tmp.Add(Input.P1_LK);
+            if (Kicks.Medium) tmp.Add(Input.P1_MK);
+            if (Kicks.Hard) tmp.Add(Input.P1_HK);
+
+            return tmp.ToArray();
+        }
         
     }
 }

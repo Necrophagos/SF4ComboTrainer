@@ -45,23 +45,23 @@ namespace SF4ComboTrainer
             _recordStop = true;
 
         }
+
         public void recordForFrames(object maxFrames)
         {
-
-          
 
             int currentFrame = sf4memory.getFrameCount();
             int endFrame = currentFrame + (int)maxFrames;
 
-            inputsList.Clear();
-  // Reset / start the frameTimer which is used to get time between frames.
+            int waitGap = 0;
+
+            //If the state stays empty - add in waittimelineitem
+            SF4InputState prevState = null;
+            List<TimeLineItem> timeLineItems = new List<TimeLineItem>();
+         
+            // Reset / start the frameTimer which is used to get time between frames.
             frameTimer.Reset();
-
-            Debug.WriteLine(currentFrame < endFrame);
-            Debug.WriteLine(frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES);
-            Debug.WriteLine(!_recordStop);
-
             frameTimer.Start();
+
             while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && !_recordStop)
             {
                 // Set lastFrame then the new current frame
@@ -74,13 +74,37 @@ namespace SF4ComboTrainer
                     frameTimer.Stop();
 
                     //Time to check inputs
+
+                    if (prevState == null) //First frame to record
+                    {
+                        
+                    }
+
                     inputHandler.InputUpdate();
+
+                    //If no input - increment the wait gap so we can get timings
                     if (inputHandler.CurrentState.NonePressed == false)
                     {
-                        inputsList.Add(inputHandler.CurrentState);
-                    
-                        Debug.WriteLine("INPUT");
+                        //If nothing pressed in last frame but something pressed now -
+                        // add the wait time to the list and 
+                        if (prevState.NonePressed)
+                        {
+                            timeLineItems.Add(new WaitFrameItem(waitGap));
+                            waitGap = 0;
+                        }
+                        else
+                        {
+                            timeLineItems.Add(new PressItem(inputHandler.CurrentState.ToInputsArray()));
+                            Debug.WriteLine("INPUT");
+                        }
                     }
+                    else
+                    {
+                        waitGap++;
+                    }
+
+                    prevState = inputHandler.CurrentState;
+
                     frameTimer.Reset();
                     frameTimer.Start();
 
