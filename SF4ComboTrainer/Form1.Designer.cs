@@ -74,7 +74,7 @@
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chkAutoSwitch = new System.Windows.Forms.CheckBox();
             this.chkSteamVersion = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRecordStop = new System.Windows.Forms.Button();
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numChgWaitFrames)).BeginInit();
             this.grpTimeLine.SuspendLayout();
@@ -207,7 +207,7 @@
             // 
             this.grpTimeLine.Controls.Add(this.btnClear);
             this.grpTimeLine.Controls.Add(this.chkSendInputs);
-            this.grpTimeLine.Controls.Add(this.button1);
+            this.grpTimeLine.Controls.Add(this.btnRecordStop);
             this.grpTimeLine.Controls.Add(this.btnRecord);
             this.grpTimeLine.Controls.Add(this.btnStop);
             this.grpTimeLine.Controls.Add(this.btnLoad);
@@ -535,15 +535,15 @@
             this.chkSteamVersion.UseVisualStyleBackColor = true;
             this.chkSteamVersion.CheckedChanged += new System.EventHandler(this.chkSteamVersion_CheckedChanged);
             // 
-            // button1
+            // btnRecordStop
             // 
-            this.button1.Location = new System.Drawing.Point(7, 179);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Stop";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnRecordStop_Click);
+            this.btnRecordStop.Location = new System.Drawing.Point(7, 179);
+            this.btnRecordStop.Name = "btnRecordStop";
+            this.btnRecordStop.Size = new System.Drawing.Size(82, 23);
+            this.btnRecordStop.TabIndex = 2;
+            this.btnRecordStop.Text = "Stop";
+            this.btnRecordStop.UseVisualStyleBackColor = true;
+            this.btnRecordStop.Click += new System.EventHandler(this.btnRecordStop_Click);
             // 
             // MainForm
             // 
@@ -615,7 +615,7 @@
         private System.Windows.Forms.CheckBox chkSendInputs;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnRecord;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRecordStop;
 
     }
 }
