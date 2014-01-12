@@ -51,7 +51,9 @@ namespace SF4ComboTrainer
             int currentFrame = 0;
             for (int i = 0; i < index; i++)
             {
-                currentFrame += ((TimeLineItem)TimeLine.Items[i]).getFrameDuration();
+                TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
+                if (!item.enabled) continue;
+                currentFrame += item.getFrameDuration();
             }
             lblCurrentFrame.Text = "Current Frame: " + currentFrame;
             chkPlaySound.Checked = curItem.playSound;
@@ -109,7 +111,7 @@ namespace SF4ComboTrainer
 
         private void btnWait_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new WaitFrameItem((int)numFrames.Value));
+            TimeLine.Items.Add(new WaitFrameItem((int)numFrames.Value), CheckState.Checked);
             numFrames.Value = 1;
         }
 
@@ -117,7 +119,7 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new PressItem(inputs));
+            TimeLine.Items.Add(new PressItem(inputs), CheckState.Checked);
             resetInputBoxes();
         }
 
@@ -125,7 +127,7 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new HoldItem(inputs));
+            TimeLine.Items.Add(new HoldItem(inputs), CheckState.Checked);
             resetInputBoxes();
         }
 
@@ -133,7 +135,7 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new ReleaseItem(inputs));
+            TimeLine.Items.Add(new ReleaseItem(inputs), CheckState.Checked);
             resetInputBoxes();
         }
 
@@ -202,6 +204,15 @@ namespace SF4ComboTrainer
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
+                if (!item.enabled) continue;
+
+                //highlighting of current item
+                DoThreadSafe(TimeLine, () =>
+                {
+                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                    TimeLine.SelectedItem = item;
+                });
+
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
                 if (sf4control.inMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
@@ -221,19 +232,9 @@ namespace SF4ComboTrainer
                     });
                     string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
                     MessageBox.Show(message, "SF4 not advancing frames",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    
-                    
 
                     break;
                 }
-
-
-                //highlighting of current item
-                DoThreadSafe(TimeLine, () =>
-                {
-                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
-                    TimeLine.SelectedItem = item;
-                });
 
             }
 
@@ -318,6 +319,7 @@ namespace SF4ComboTrainer
                 int sum = 0;
                 foreach (TimeLineItem item in TimeLine.Items)
                 {
+                    if (!item.enabled) continue;
                     sum += item.getFrameDuration();
                 }
                 return sum;
@@ -361,7 +363,8 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLineItem t = TimeLineItem.deserialize(line);
+                    TimeLine.Items.Add(t, t.enabled);
                 }
             }
 
@@ -382,7 +385,8 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLineItem t = TimeLineItem.deserialize(line);
+                    TimeLine.Items.Add(t, t.enabled);
                 }
             }
         }
@@ -447,87 +451,94 @@ namespace SF4ComboTrainer
 
         private void btnQCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
         }
 
         private void btnQCB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }), CheckState.Checked);
         }
 
         private void btnDPF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
         }
 
         private void btnDPB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
         }
 
         private void btnHCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
         }
 
         private void btnHCB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }), CheckState.Checked);
         }
 
         private void btn360_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
         }
 
         private void btnPPP_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }), CheckState.Checked);
         }
 
         private void btnKKK_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }), CheckState.Checked);
         }
 
         private void btnDHCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }), CheckState.Checked);
         }
 
         private void btnDelta_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }), CheckState.Checked);
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }), CheckState.Checked);
+        }
+
+        private void TimeLine_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            int index = e.Index;
+            TimeLineItem tmp = (TimeLineItem)TimeLine.Items[index];
+            tmp.enabled = e.NewValue == CheckState.Checked;
         }
 
     }
