@@ -48,6 +48,7 @@
             this.grpTimeLine = new System.Windows.Forms.GroupBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.chkSendInputs = new System.Windows.Forms.CheckBox();
+            this.btnRecord = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -73,6 +74,7 @@
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chkAutoSwitch = new System.Windows.Forms.CheckBox();
             this.chkSteamVersion = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numChgWaitFrames)).BeginInit();
             this.grpTimeLine.SuspendLayout();
@@ -205,6 +207,8 @@
             // 
             this.grpTimeLine.Controls.Add(this.btnClear);
             this.grpTimeLine.Controls.Add(this.chkSendInputs);
+            this.grpTimeLine.Controls.Add(this.button1);
+            this.grpTimeLine.Controls.Add(this.btnRecord);
             this.grpTimeLine.Controls.Add(this.btnStop);
             this.grpTimeLine.Controls.Add(this.btnLoad);
             this.grpTimeLine.Controls.Add(this.btnSave);
@@ -239,6 +243,16 @@
             this.chkSendInputs.TabIndex = 3;
             this.chkSendInputs.Text = "Send Inputs";
             this.chkSendInputs.UseVisualStyleBackColor = true;
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.Location = new System.Drawing.Point(7, 150);
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(82, 23);
+            this.btnRecord.TabIndex = 2;
+            this.btnRecord.Text = "Record";
+            this.btnRecord.UseVisualStyleBackColor = true;
+            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
             // btnStop
             // 
@@ -521,6 +535,16 @@
             this.chkSteamVersion.UseVisualStyleBackColor = true;
             this.chkSteamVersion.CheckedChanged += new System.EventHandler(this.chkSteamVersion_CheckedChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 179);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(82, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Stop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnRecordStop_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,6 +614,8 @@
         private System.Windows.Forms.NumericUpDown numChgWaitFrames;
         private System.Windows.Forms.CheckBox chkSendInputs;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Button button1;
 
     }
 }

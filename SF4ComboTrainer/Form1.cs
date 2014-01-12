@@ -17,12 +17,12 @@ namespace SF4ComboTrainer
         {
             InitializeComponent();
             sf4memory = new SF4Memory(chkSteamVersion.Checked);
-            sf4control = new SF4Control(sf4memory);
+            sf4control = new SF4Record(sf4memory);
 
         }
 
         private SF4Memory sf4memory;
-        private SF4Control sf4control;
+        private SF4Record sf4control;
 
 
         //update item detail box when timeline item is clicked
@@ -216,10 +216,10 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
-                    string message ="The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
-                    MessageBox.Show(message, "SF4 not advancing frames",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    
-                    
+                    string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
+                    MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
 
                     break;
                 }
@@ -301,7 +301,7 @@ namespace SF4ComboTrainer
         {
             _shouldStop = false;
 
-            
+
             while (!_shouldStop)
             {
                 playTimeline();
@@ -322,8 +322,23 @@ namespace SF4ComboTrainer
 
         }
 
-
-
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            if (chkAutoSwitch.Checked)
+            {
+                if (!sf4control.switchToSF4()) { return; }
+                sf4control.waitFrames(10);
+            }
+            if (sf4control.inMatch)
+            {
+                sf4control.startRecording();
+            }
+        }
+        private void btnRecordStop_Click(object sender, EventArgs e)
+        {
+     
+            sf4control.stopRecording();
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -419,9 +434,6 @@ namespace SF4ComboTrainer
 
             TimeLine.Enabled = true;
         }
-
-
-
 
 
 

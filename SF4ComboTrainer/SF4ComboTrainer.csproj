@@ -96,6 +96,7 @@
     <Compile Include="Roadie.cs" />
     <Compile Include="SF4Control.cs" />
     <Compile Include="SF4Memory.cs" />
+    <Compile Include="SF4Record.cs" />
     <Compile Include="TimeLineItem.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -142,6 +143,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="comboicon.ico" />
+    <Content Include="XInputDotNetPure.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TPInputLibrary\TPInputLibrary.csproj">
+      <Project>{88213844-d4da-4802-a4e5-78dd9e5f2a64}</Project>
+      <Name>TPInputLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

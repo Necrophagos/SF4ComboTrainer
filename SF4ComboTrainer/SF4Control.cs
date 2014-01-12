@@ -16,19 +16,19 @@ namespace SF4ComboTrainer
      */
     class SF4Control
     {
-        private SF4Memory sf4memory;
+        protected SF4Memory sf4memory;
 
-        private InputResolver inputResolver;
+        protected InputResolver inputResolver;
 
         // To keep the last frame.
-        private int lastFrame;
+        protected int lastFrame;
 
         // To tell if the game is paused.
-        private Stopwatch frameTimer = new Stopwatch();
+        protected Stopwatch frameTimer = new Stopwatch();
 
         //min time in between frames is set to 3 seconds just so to prevent lockups when game is actually paused
         //switch to fullscreen sf4 actually takes very long.
-        private int MIN_TIME_BETWEEN_FRAMES = 3000;
+        protected int MIN_TIME_BETWEEN_FRAMES = 3000;
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
