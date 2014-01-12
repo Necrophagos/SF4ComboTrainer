@@ -87,6 +87,7 @@ namespace SF4ComboTrainer
             TimeLine.Items[index] = TimeLine.Items[index - 1];
             TimeLine.Items[index - 1] = tmp;
             TimeLine.SetSelected(index - 1, true);
+            selectedTimeLineIndex = index - 1;
 
         }
 
@@ -98,6 +99,7 @@ namespace SF4ComboTrainer
             TimeLine.Items[index] = TimeLine.Items[index + 1];
             TimeLine.Items[index + 1] = tmp;
             TimeLine.SetSelected(index + 1, true);
+            selectedTimeLineIndex = index + 1;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -142,10 +144,15 @@ namespace SF4ComboTrainer
 
             List<Input> inputList = new List<Input>();
 
-            if (chkUP.Checked) { inputList.Add(Input.P1_UP); }
-            if (chkDown.Checked) { inputList.Add(Input.P1_DN); }
-            if (chkBack.Checked) { inputList.Add(Input.P1_BK); }
-            if (chkForward.Checked) { inputList.Add(Input.P1_FW); }
+            if (optUP.Checked) { inputList.Add(Input.P1_UP); }
+            if (optDown.Checked) { inputList.Add(Input.P1_DN); }
+            if (optBack.Checked) { inputList.Add(Input.P1_BK); }
+            if (optForward.Checked) { inputList.Add(Input.P1_FW); }
+            if (optUR.Checked) { inputList.Add(Input.P1_UP); inputList.Add(Input.P1_FW); }
+            if (optUL.Checked) { inputList.Add(Input.P1_UP); inputList.Add(Input.P1_BK); }
+            if (optDL.Checked) { inputList.Add(Input.P1_DN); inputList.Add(Input.P1_BK); }
+            if (optDR.Checked) { inputList.Add(Input.P1_DN); inputList.Add(Input.P1_FW); }
+
             if (chkLP.Checked) { inputList.Add(Input.P1_LP); }
             if (chkMP.Checked) { inputList.Add(Input.P1_MP); }
             if (chkHP.Checked) { inputList.Add(Input.P1_HP); }
@@ -158,10 +165,7 @@ namespace SF4ComboTrainer
 
         private void resetInputBoxes()
         {
-            chkUP.Checked = false;
-            chkDown.Checked = false;
-            chkBack.Checked = false;
-            chkForward.Checked = false;
+            optNeutral.Checked = true;
             chkLP.Checked = false;
             chkMP.Checked = false;
             chkHP.Checked = false;
@@ -195,6 +199,7 @@ namespace SF4ComboTrainer
 
         private void playTimeline()
         {
+            sf4control.resetLockupTimer();
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
@@ -216,7 +221,11 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
+<<<<<<< HEAD
                     string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
+=======
+                    string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
+>>>>>>> 9371bd5b7e68c18f969ddff156621d7b705c2031
                     MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
@@ -257,7 +266,7 @@ namespace SF4ComboTrainer
                 sf4control.waitFrames(10);
             }
 
-            freezeTimeline();
+            freezeTimeline();            
             playTimeline();
             unfreezeTimeline();
         }
@@ -360,7 +369,7 @@ namespace SF4ComboTrainer
 
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void btnAppend_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -379,6 +388,26 @@ namespace SF4ComboTrainer
 
         }
 
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "SF4 Combo|*.cmb";
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string[] lines = System.IO.File.ReadAllLines(openFileDialog.FileName);
+
+                TimeLine.Items.Clear();
+
+                foreach (String line in lines)
+                {
+                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                }
+            }
+        }
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Click yes to delete all timeline items.", "Clear Timeline?", MessageBoxButtons.YesNo);
@@ -392,6 +421,7 @@ namespace SF4ComboTrainer
         private void freezeTimeline()
         {
             btnSave.Enabled = false;
+            btnAppend.Enabled = false;
             btnLoad.Enabled = false;
             btnClear.Enabled = false;
 
@@ -415,6 +445,7 @@ namespace SF4ComboTrainer
         private void unfreezeTimeline()
         {
             btnSave.Enabled = true;
+            btnAppend.Enabled = true;
             btnLoad.Enabled = true;
             btnClear.Enabled = true;
 
@@ -435,9 +466,93 @@ namespace SF4ComboTrainer
             TimeLine.Enabled = true;
         }
 
+        private void btnQCF_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+        }
 
+        private void btnQCB_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+        }
 
+        private void btnDPF_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+        }
 
+        private void btnDPB_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+        }
 
+        private void btnHCF_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+        }
+
+        private void btnHCB_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+        }
+
+        private void btn360_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+        }
+
+        private void btnPPP_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
+        }
+
+<<<<<<< HEAD
+=======
+        private void btnKKK_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
+        }
+
+        private void btnDHCF_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+        }
+
+        private void btnDelta_Click(object sender, EventArgs e)
+        {
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+        }
+
+>>>>>>> 9371bd5b7e68c18f969ddff156621d7b705c2031
     }
 }
