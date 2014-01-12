@@ -35,7 +35,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.TimeLine = new System.Windows.Forms.ListBox();
+            this.TimeLine = new System.Windows.Forms.CheckedListBox();
             this.grpItemDetails = new System.Windows.Forms.GroupBox();
             this.numChgWaitFrames = new System.Windows.Forms.NumericUpDown();
             this.lblCurrentFrame = new System.Windows.Forms.Label();
@@ -80,6 +80,7 @@
             this.chkAutoSwitch = new System.Windows.Forms.CheckBox();
             this.chkSteamVersion = new System.Windows.Forms.CheckBox();
             this.grpQuickInputs = new System.Windows.Forms.GroupBox();
+            this.btnDelta = new System.Windows.Forms.Button();
             this.btnDHCF = new System.Windows.Forms.Button();
             this.btnPPP = new System.Windows.Forms.Button();
             this.btnKKK = new System.Windows.Forms.Button();
@@ -90,7 +91,6 @@
             this.btnQCB = new System.Windows.Forms.Button();
             this.btnDPF = new System.Windows.Forms.Button();
             this.btnQCF = new System.Windows.Forms.Button();
-            this.btnDelta = new System.Windows.Forms.Button();
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numChgWaitFrames)).BeginInit();
             this.grpTimeLine.SuspendLayout();
@@ -109,6 +109,8 @@
             this.TimeLine.Name = "TimeLine";
             this.TimeLine.Size = new System.Drawing.Size(170, 394);
             this.TimeLine.TabIndex = 0;
+            this.TimeLine.ThreeDCheckBoxes = true;
+            this.TimeLine.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.TimeLine_ItemCheck);
             this.TimeLine.SelectedIndexChanged += new System.EventHandler(this.TimeLine_SelectedIndexChanged);
             // 
             // grpItemDetails
@@ -620,6 +622,16 @@
             this.grpQuickInputs.TabStop = false;
             this.grpQuickInputs.Text = "Quick Inputs";
             // 
+            // btnDelta
+            // 
+            this.btnDelta.Image = ((System.Drawing.Image)(resources.GetObject("btnDelta.Image")));
+            this.btnDelta.Location = new System.Drawing.Point(186, 20);
+            this.btnDelta.Name = "btnDelta";
+            this.btnDelta.Size = new System.Drawing.Size(34, 34);
+            this.btnDelta.TabIndex = 10;
+            this.btnDelta.UseVisualStyleBackColor = true;
+            this.btnDelta.Click += new System.EventHandler(this.btnDelta_Click);
+            // 
             // btnDHCF
             // 
             this.btnDHCF.Image = ((System.Drawing.Image)(resources.GetObject("btnDHCF.Image")));
@@ -720,16 +732,6 @@
             this.btnQCF.UseVisualStyleBackColor = true;
             this.btnQCF.Click += new System.EventHandler(this.btnQCF_Click);
             // 
-            // btnDelta
-            // 
-            this.btnDelta.Image = ((System.Drawing.Image)(resources.GetObject("btnDelta.Image")));
-            this.btnDelta.Location = new System.Drawing.Point(186, 20);
-            this.btnDelta.Name = "btnDelta";
-            this.btnDelta.Size = new System.Drawing.Size(34, 34);
-            this.btnDelta.TabIndex = 10;
-            this.btnDelta.UseVisualStyleBackColor = true;
-            this.btnDelta.Click += new System.EventHandler(this.btnDelta_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -743,6 +745,7 @@
             this.Controls.Add(this.grpItemDetails);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SF4ComboTrainer";
             this.grpItemDetails.ResumeLayout(false);
@@ -762,7 +765,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox TimeLine;
+        private System.Windows.Forms.CheckedListBox TimeLine;
         private System.Windows.Forms.GroupBox grpItemDetails;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnMoveDown;

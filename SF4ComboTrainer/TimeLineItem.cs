@@ -32,8 +32,8 @@ namespace SF4ComboTrainer
         /**creates a timeline object from a string serialization and assumes the following
          * formats (specified by the respective serialize methods)
          * 
-         * WaitFrameItem: ITEMTYPE#PLAYSOUND#NUMFRAMES
-         * InputItem:     ITEMTYPE#PLAYSOUND#NUMIMPUTS#INPUT1#INPUT2...
+         * WaitFrameItem: ITEMTYPE#PLAYSOUND#NUMFRAMES[#ENABLED]
+         * InputItem:     ITEMTYPE#PLAYSOUND#NUMIMPUTS#INPUT1#INPUT2...[#ENABLED]
          */
         public static TimeLineItem deserialize(String obj)
         {
@@ -44,6 +44,10 @@ namespace SF4ComboTrainer
             {
                 WaitFrameItem item = new WaitFrameItem(int.Parse(tokens[2]));
                 item.playSound = Boolean.Parse(tokens[1]);
+                if (tokens.Length == 4)
+                {
+                    item.enabled = (bool.Parse(tokens[3]));
+                }
                 return item;
             }
             else if (tokens[0].Equals(PressItem.itemType))
@@ -56,6 +60,10 @@ namespace SF4ComboTrainer
                 }
                 PressItem item= new PressItem(inputs);
                 item.playSound = Boolean.Parse(tokens[1]);
+                if (tokens.Length == 3 + numInputs + 1)
+                {
+                    item.enabled = (bool.Parse(tokens[3 + numInputs]));
+                }
                 return item;
             }
             else if (tokens[0].Equals(HoldItem.itemType))
@@ -68,6 +76,10 @@ namespace SF4ComboTrainer
                 }
                 HoldItem item = new HoldItem(inputs);
                 item.playSound = Boolean.Parse(tokens[1]);
+                if (tokens.Length == 3 + numInputs + 1)
+                {
+                    item.enabled = (bool.Parse(tokens[3 + numInputs]));
+                }
                 return item;
             }
             else if (tokens[0].Equals(ReleaseItem.itemType))
@@ -80,6 +92,10 @@ namespace SF4ComboTrainer
                 }
                 ReleaseItem item = new ReleaseItem(inputs);
                 item.playSound = Boolean.Parse(tokens[1]);
+                if (tokens.Length == 3 + numInputs + 1)
+                {
+                    item.enabled = (bool.Parse(tokens[3 + numInputs]));
+                }
                 return item;
             }
 
@@ -114,6 +130,8 @@ namespace SF4ComboTrainer
 
         public String description;
 
+        public bool enabled = true;
+
         public override string ToString()
         {
             return description;
@@ -139,7 +157,7 @@ namespace SF4ComboTrainer
 
         public override string serialize()
         {
-            return itemType + "#" + playSound + "#" + frames;
+            return itemType + "#" + playSound + "#" + frames + "#" + enabled;
         }
 
         public override void Action(SF4Control sf4control, bool sendInputs)
@@ -192,6 +210,7 @@ namespace SF4ComboTrainer
             {
                 obj += "#" + input;
             }
+            obj += "#" + enabled;
             return obj;
         }
 
@@ -268,6 +287,7 @@ namespace SF4ComboTrainer
             {
                 obj += "#" + input;
             }
+            obj += "#" + enabled;
             return obj;
         }
     }
@@ -316,6 +336,7 @@ namespace SF4ComboTrainer
             {
                 obj += "#" + input;
             }
+            obj += "#" + enabled;
             return obj;
         }
     }
