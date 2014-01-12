@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SF4ComboTrainer
 {
-    enum Input
+    public enum Input
     {
         P1_LE,
         P1_RI,

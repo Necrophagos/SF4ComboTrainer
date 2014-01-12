@@ -46,7 +46,10 @@ namespace SF4ComboTrainer
 
         }
 
-        public void recordForFrames(object maxFrames)
+
+        public delegate void RecordedInputEvent(TimeLineItem timeLineItem);
+        public event RecordedInputEvent OnRecordInput;
+        private void recordForFrames(object maxFrames)
         {
 
             int currentFrame = sf4memory.getFrameCount();
@@ -75,12 +78,13 @@ namespace SF4ComboTrainer
 
                     //Time to check inputs
 
-                    if (prevState == null) //First frame to record
-                    {
+                    //First frame to record - placeholder for apending moves in a string to an existing timelineitemlist
+                    //if (prevState == null)
+                    //{
                         
-                    }
+                    //}
 
-                    inputHandler.InputUpdate();
+                    inputHandler.InputUpdate(); //Get controllers input this frame
 
                     //If no input - increment the wait gap so we can get timings
                     if (inputHandler.CurrentState.NonePressed == false)
@@ -89,13 +93,14 @@ namespace SF4ComboTrainer
                         // add the wait time to the list and 
                         if (prevState.NonePressed)
                         {
-                            timeLineItems.Add(new WaitFrameItem(waitGap));
+                            OnRecordInput(new WaitFrameItem(waitGap));
                             waitGap = 0;
+
                         }
                         else
                         {
-                            timeLineItems.Add(new PressItem(inputHandler.CurrentState.ToInputsArray()));
-                            Debug.WriteLine("INPUT");
+                            OnRecordInput(new PressItem(inputHandler.CurrentState.ToInputsArray()));
+                            Debug.WriteLine("RECORDED INPUT");
                         }
                     }
                     else

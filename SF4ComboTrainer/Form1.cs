@@ -18,7 +18,7 @@ namespace SF4ComboTrainer
             InitializeComponent();
             sf4memory = new SF4Memory(chkSteamVersion.Checked);
             sf4control = new SF4Record(sf4memory);
-
+            sf4control.OnRecordInput += RecordedInputUpdate;
         }
 
         private SF4Memory sf4memory;
@@ -221,11 +221,9 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
-<<<<<<< HEAD
-                    string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is not set to LOW";
-=======
+
                     string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
->>>>>>> 9371bd5b7e68c18f969ddff156621d7b705c2031
+
                     MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
@@ -347,6 +345,13 @@ namespace SF4ComboTrainer
         {
      
             sf4control.stopRecording();
+        }
+
+        private void RecordedInputUpdate(TimeLineItem timeLineItem)
+        {
+            if(TimeLine.InvokeRequired){
+                this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Add(timeLineItem);}));
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -530,8 +535,7 @@ namespace SF4ComboTrainer
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
         }
 
-<<<<<<< HEAD
-=======
+
         private void btnKKK_Click(object sender, EventArgs e)
         {
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
@@ -552,7 +556,5 @@ namespace SF4ComboTrainer
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
         }
-
->>>>>>> 9371bd5b7e68c18f969ddff156621d7b705c2031
     }
 }
