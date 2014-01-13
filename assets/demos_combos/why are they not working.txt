@@ -1,0 +1,7 @@
+if the combo trainer seems to run okay and you don't have frame drops or laggin but these combos still don't work 
+- maybe the combo needs meter and you have none
+- maybe the combo doesn't work in the corner
+- maybe the combo only works in the corner
+- maybe you are to far away from the opponent
+- maybe you selected the wrong ultra
+- maybe the guy who wrote the combo is an idiot
