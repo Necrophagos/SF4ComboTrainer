@@ -42,6 +42,7 @@ A: phecronagos@gmail.com
 https://github.com/cbcoolbox
 https://github.com/Ceaseless
 https://github.com/leemi
+https://github.com/GreenZebra
 for the awesome coding contributions!
 
 reddit r/SF4
@@ -49,3 +50,6 @@ eventhubs
 pr_balrog
 gootecks & mike ross
 for exposure
+
+http://strategywiki.org/wiki/User:Blendmaster
+for button images
