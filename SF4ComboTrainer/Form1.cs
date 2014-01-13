@@ -190,6 +190,7 @@ namespace SF4ComboTrainer
             {
                 int index = selectedTimeLineIndex;
                 TimeLine.Items.Insert(index, new WaitFrameItem((int)numChgWaitFrames.Value));
+                TimeLine.SetItemChecked(index, true);
                 TimeLine.Items.RemoveAt(index + 1);
                 TimeLine.Focus();
                 TimeLine.SetSelected(index, true);
