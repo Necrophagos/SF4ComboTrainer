@@ -12,10 +12,10 @@ using System.Text;
  */
 class Roadie : IDisposable
 {
-    EventWaitHandle _wh = new AutoResetEvent(false);
-    Thread _worker;
-    readonly object _locker = new object();
-    Queue<string> _tasks = new Queue<string>();
+    private EventWaitHandle wh = new AutoResetEvent(false);
+    private Thread worker;
+    private readonly object locker = new object();
+    private Queue<string> tasks = new Queue<string>();
 
     private static String getSoundDir()
     {
@@ -40,25 +40,25 @@ class Roadie : IDisposable
     public static String WAIT_SOUND = "play s_wait from 0";
 
     [DllImport("winmm.dll")]
-    static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+    private static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
 
     public Roadie()
     {
-        _worker = new Thread(Work);
-        _worker.Start();
+        worker = new Thread(Work);
+        worker.Start();
     }
 
-    public void playSound(string sound)
+    public void PlaySound(string sound)
     {
-        lock (_locker) _tasks.Enqueue(sound);
-        _wh.Set();
+        lock (locker) tasks.Enqueue(sound);
+        wh.Set();
     }
 
     public void Dispose()
     {
-        playSound(null);     // Signal the consumer to exit.
-        _worker.Join();         // Wait for the consumer's thread to finish.
-        _wh.Close();            // Release any OS resources.
+        PlaySound(null);    // Signal the consumer to exit.
+        worker.Join();      // Wait for the consumer's thread to finish.
+        wh.Close();         // Release any OS resources.
     }
 
     void Work()
@@ -74,10 +74,10 @@ class Roadie : IDisposable
         while (true)
         {
             string task = null;
-            lock (_locker)
-                if (_tasks.Count > 0)
+            lock (locker)
+                if (tasks.Count > 0)
                 {
-                    task = _tasks.Dequeue();
+                    task = tasks.Dequeue();
                     if (task == null) return;
                 }
             if (task != null)
@@ -85,7 +85,7 @@ class Roadie : IDisposable
                 mciSendString(task, null, 0, IntPtr.Zero);
             }
             else
-                _wh.WaitOne();         // No more tasks - wait for a signal
+                wh.WaitOne();         // No more tasks - wait for a signal
         }
     }
 }

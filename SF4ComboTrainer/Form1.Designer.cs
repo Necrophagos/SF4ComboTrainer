@@ -20,7 +20,7 @@
 
             if (disposing)
             {
-                TimeLineItem.roadie.Dispose();                
+                TimeLineItem.DisposeRoadie();                
             }
 
             base.Dispose(disposing);
