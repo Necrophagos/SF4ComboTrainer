@@ -1,4 +1,6 @@
-﻿namespace SF4ComboTrainer
+﻿using SF4ComboTrainerModel;
+
+namespace SF4ComboTrainer
 {
     partial class MainForm
     {
@@ -20,7 +22,7 @@
 
             if (disposing)
             {
-                TimeLineItem.roadie.Dispose();                
+                TimeLineItem.DisposeRoadie();                
             }
 
             base.Dispose(disposing);

@@ -2,7 +2,7 @@
 
 using MemoryEditor;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
     /**
      * this class reads data from the memory of a running sf4 instance.
@@ -24,17 +24,17 @@ namespace SF4ComboTrainer
      * i haven't tested these other adresses they may or may not work
      * if they don't try removing the added steamVersionMemoryOffset
      */
-    class SF4Memory
+    public class SF4Memory
     {
         private int steamVersionMemoryOffset;
         private Memory memory = new Memory();
 
         public SF4Memory(bool steamVersion)
         {
-            setSteamVersion(steamVersion);
+            SetSteamVersion(steamVersion);
         }
 
-        public void setSteamVersion(bool steamVersion)
+        public void SetSteamVersion(bool steamVersion)
         {
             if (steamVersion)
             {
@@ -72,26 +72,19 @@ namespace SF4ComboTrainer
             }
         }
 
-        public int getFrameCount()
+        public int GetFrameCount()
         {
             return readIntFromGameMemory(0x80f0d0, new int[] { 0x1c4 });
         }
 
-
-
-        public float getP1PosX()
+        public float GetP1PosX()
         {
             return readFloatFromGameMemory(0x80f0cc, new int[] { 8, 0x60 });
         }
 
-
-
-        public float getP2PosX()
+        public float GetP2PosX()
         {
             return readFloatFromGameMemory(0x80f0cc, new int[] { 12, 0x60 });
-
         }
-
-
     }
 }

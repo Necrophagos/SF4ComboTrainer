@@ -9,50 +9,44 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using TPInputLibrary;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
-    class SF4Record : SF4Control
+    public class SF4Record : SF4Control
     {
   
+        private SF4InputHandler inputHandler;
+        private List<SF4InputState> inputsList;
 
-        private int frameStart;
-
-        SF4InputHandler inputHandler;
-
-        List<SF4InputState> inputsList;
-
-        public SF4Record(SF4Memory sf4memory): base( sf4memory)
+        public SF4Record(SF4Memory sf4memory): base(sf4memory)
         {
             inputHandler = new SF4InputHandler(1, SF4InputHandler.InputType.XBoxController);
             inputsList = new List<SF4InputState>();
         }
 
-        //Recording section
+        //Recording thread section
         private System.Threading.Thread recordThread = null;
-        private volatile bool _recordStop;
-        public void startRecording()
+        private volatile bool recordingActive;
+        public void StartRecording()
         {
 
             //prevent multiple threads
             if (null != recordThread) { return; }
-            _recordStop = false;
+            recordingActive = true;
             recordThread = new System.Threading.Thread(recordForFrames);
             recordThread.Start(100000);
         }
 
-        public void stopRecording()
+        public void StopRecording()
         {
-            _recordStop = true;
-
+            recordingActive = false;
         }
-
 
         public delegate void RecordedInputEvent(TimeLineItem timeLineItem);
         public event RecordedInputEvent OnRecordInput;
         private void recordForFrames(object maxFrames)
         {
 
-            int currentFrame = sf4memory.getFrameCount();
+            int currentFrame = sf4memory.GetFrameCount();
             int endFrame = currentFrame + (int)maxFrames;
 
             int waitGap = 0;
@@ -65,11 +59,11 @@ namespace SF4ComboTrainer
             frameTimer.Reset();
             frameTimer.Start();
 
-            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && !_recordStop)
+            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && recordingActive)
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
-                currentFrame = sf4memory.getFrameCount();
+                currentFrame = sf4memory.GetFrameCount();
 
                 if (currentFrame != lastFrame)
                 {
@@ -77,14 +71,7 @@ namespace SF4ComboTrainer
                     frameTimer.Stop();
 
                     //Time to check inputs
-
-                    //First frame to record - placeholder for apending moves in a string to an existing timelineitemlist
-                    //if (prevState == null)
-                    //{
-                        
-                    //}
-
-                    inputHandler.InputUpdate(); //Get controllers input this frame
+                    inputHandler.InputUpdate(); //Get controllers input state this frame
 
                     //If no input - increment the wait gap so we can get timings
                     if (inputHandler.CurrentState.NonePressed == false)
@@ -95,7 +82,6 @@ namespace SF4ComboTrainer
                         {
                             OnRecordInput(new WaitFrameItem(waitGap));
                             waitGap = 0;
-
                         }
                         else
                         {
@@ -115,10 +101,10 @@ namespace SF4ComboTrainer
 
                     // Since we currentFrame != lastFrame we are in a match.
                     // (frames on menu screen or pause menu are constant).
-                    inMatch = true;
+                    InMatch = true;
                 }
                 else
-                    inMatch = false;
+                    InMatch = false;
 
                 Thread.Sleep(1);
             }
@@ -127,11 +113,7 @@ namespace SF4ComboTrainer
         public void Record()
         {
             inputHandler.InputUpdate();
-
             SF4InputState state = inputHandler.CurrentState;
-
-
         }
-
     }
 }

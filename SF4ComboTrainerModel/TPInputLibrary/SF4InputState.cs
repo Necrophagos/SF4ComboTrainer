@@ -1,4 +1,4 @@
-﻿using SF4ComboTrainer;
+﻿using SF4ComboTrainerModel;
 using System;
 using System.Collections.Generic;
 using System.Text;

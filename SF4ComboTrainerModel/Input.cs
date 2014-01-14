@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
     public enum Input
     {
