@@ -3,21 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:con="clr-namespace:SF4ComboTrainerView" 
+        xmlns:UserControls="clr-namespace:SF4ComboTrainerView.UserControls" 
         x:Class="SF4ComboTrainerView.MainWindow"
-        Title="MainWindow" Height="470" Width="729.85" Icon="comboicon.ico">
+        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="comboicon.ico">
     <Window.Resources>
-        <Style TargetType="{x:Type Grid}">
-            <Setter Property="Background" Value="WhiteSmoke"  />
-            <Setter Property="Margin" Value="4" />
-            <Setter Property="ShowGridLines" Value="True" />
-        </Style>
-        <con:TimeLineItemCollectionViewModel x:Key="TimeLineItemCollection"/>
+        <!--
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="Background" Value="WhiteSmoke"  />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="ShowGridLines" Value="True" />
+            </Style>
+        -->
+        <con:TimeLineViewModel x:Key="TimeLine"/>
     </Window.Resources>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo>
             <TaskbarItemInfo.Description>A tool to help you get frame perfect timing in SF4</TaskbarItemInfo.Description>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
+    <Window.DataContext >
+        <Binding Source="{StaticResource TimeLine}"/>
+    </Window.DataContext>
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <!--Menu bar-->
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -44,6 +50,7 @@
             </MenuItem>
             <MenuItem Header="Help" >
                 <MenuItem Header="About"/>
+                <MenuItem Header="How to use SF4:CT" />
             </MenuItem>
         </Menu>
         <!--Content-->
@@ -53,30 +60,32 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <ListView x:Name="TimeLineListView" ItemsSource="{Binding TimeLineItems, Source={StaticResource TimeLineItemCollection}}" Grid.Column="1">
+            <DockPanel>
+                <ToolBar DockPanel.Dock="Top" >
+                    <Button Content="Play" />
+                    <CheckBox Content="Loop"/>
+                    <Separator />
+                    <Button Content="Record"/>
+                    <Button Content="Stop Record" />
+                </ToolBar>
+                <ListView x:Name="TimeLineListView" ItemsSource="{Binding TimeLineItems, Source={StaticResource TimeLine}}" Grid.Column="1">
                     <DataTemplate>
                         <Grid>
                             <TextBlock Text="{Binding Description}" />
                             <TextBlock Text="{Binding Index}" />
+
                         </Grid>
                     </DataTemplate>
                 </ListView>
-            </Grid>
+            </DockPanel>
             <Grid Grid.Column="1" HorizontalAlignment="Right" Margin="0,4,4,4" Width="349">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-
+                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="TimeLineItemDetails_Loaded"/>
+                <UserControls:ControllerInterface Grid.Row="1"/>
             </Grid>
         </Grid>
-
     </DockPanel>
 </Window>
