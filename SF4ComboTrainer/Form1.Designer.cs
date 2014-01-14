@@ -1,4 +1,6 @@
-﻿namespace SF4ComboTrainer
+﻿using SF4ComboTrainerModel;
+
+namespace SF4ComboTrainer
 {
     partial class MainForm
     {
@@ -20,7 +22,7 @@
 
             if (disposing)
             {
-                TimeLineItem.roadie.Dispose();                
+                TimeLineItem.DisposeRoadie();                
             }
 
             base.Dispose(disposing);
@@ -49,6 +51,7 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.chkSendInputs = new System.Windows.Forms.CheckBox();
+            this.btnRecord = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnAppend = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -79,6 +82,7 @@
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chkAutoSwitch = new System.Windows.Forms.CheckBox();
             this.chkSteamVersion = new System.Windows.Forms.CheckBox();
+            this.btnRecordStop = new System.Windows.Forms.Button();
             this.grpQuickInputs = new System.Windows.Forms.GroupBox();
             this.btnDHCF = new System.Windows.Forms.Button();
             this.btnPPP = new System.Windows.Forms.Button();
@@ -91,6 +95,7 @@
             this.btnDPF = new System.Windows.Forms.Button();
             this.btnQCF = new System.Windows.Forms.Button();
             this.btnDelta = new System.Windows.Forms.Button();
+
             this.grpItemDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numChgWaitFrames)).BeginInit();
             this.grpTimeLine.SuspendLayout();
@@ -225,6 +230,8 @@
             this.grpTimeLine.Controls.Add(this.btnLoad);
             this.grpTimeLine.Controls.Add(this.btnClear);
             this.grpTimeLine.Controls.Add(this.chkSendInputs);
+            this.grpTimeLine.Controls.Add(this.btnRecordStop);
+            this.grpTimeLine.Controls.Add(this.btnRecord);
             this.grpTimeLine.Controls.Add(this.btnStop);
             this.grpTimeLine.Controls.Add(this.btnAppend);
             this.grpTimeLine.Controls.Add(this.btnSave);
@@ -269,6 +276,16 @@
             this.chkSendInputs.TabIndex = 3;
             this.chkSendInputs.Text = "Send Inputs";
             this.chkSendInputs.UseVisualStyleBackColor = true;
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.Location = new System.Drawing.Point(7, 150);
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(82, 23);
+            this.btnRecord.TabIndex = 2;
+            this.btnRecord.Text = "Record";
+            this.btnRecord.UseVisualStyleBackColor = true;
+            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
             // btnStop
             // 
@@ -600,6 +617,16 @@
             this.chkSteamVersion.UseVisualStyleBackColor = true;
             this.chkSteamVersion.CheckedChanged += new System.EventHandler(this.chkSteamVersion_CheckedChanged);
             // 
+            // btnRecordStop
+            // 
+            this.btnRecordStop.Location = new System.Drawing.Point(7, 179);
+            this.btnRecordStop.Name = "btnRecordStop";
+            this.btnRecordStop.Size = new System.Drawing.Size(82, 23);
+            this.btnRecordStop.TabIndex = 2;
+            this.btnRecordStop.Text = "Stop";
+            this.btnRecordStop.UseVisualStyleBackColor = true;
+            this.btnRecordStop.Click += new System.EventHandler(this.btnRecordStop_Click);
+            //
             // grpQuickInputs
             // 
             this.grpQuickInputs.Controls.Add(this.btnDelta);
@@ -729,6 +756,7 @@
             this.btnDelta.TabIndex = 10;
             this.btnDelta.UseVisualStyleBackColor = true;
             this.btnDelta.Click += new System.EventHandler(this.btnDelta_Click);
+
             // 
             // MainForm
             // 
@@ -800,6 +828,10 @@
         private System.Windows.Forms.NumericUpDown numChgWaitFrames;
         private System.Windows.Forms.CheckBox chkSendInputs;
         private System.Windows.Forms.Button btnClear;
+
+        private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Button btnRecordStop;
+
         private System.Windows.Forms.GroupBox grpQuickInputs;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btn360;
@@ -818,6 +850,7 @@
         private System.Windows.Forms.Button btnKKK;
         private System.Windows.Forms.Button btnDHCF;
         private System.Windows.Forms.Button btnDelta;
+
 
     }
 }

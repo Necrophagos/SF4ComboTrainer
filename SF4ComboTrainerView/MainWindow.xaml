@@ -1,0 +1,91 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:con="clr-namespace:SF4ComboTrainerView" 
+        xmlns:UserControls="clr-namespace:SF4ComboTrainerView.UserControls" 
+        x:Class="SF4ComboTrainerView.MainWindow"
+        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="comboicon.ico">
+    <Window.Resources>
+        <!--
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="Background" Value="WhiteSmoke"  />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="ShowGridLines" Value="True" />
+            </Style>
+        -->
+        <con:TimeLineViewModel x:Key="TimeLine"/>
+    </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.Description>A tool to help you get frame perfect timing in SF4</TaskbarItemInfo.Description>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
+    <Window.DataContext >
+        <Binding Source="{StaticResource TimeLine}"/>
+    </Window.DataContext>
+    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <!--Menu bar-->
+        <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New"/>
+                <Separator/>
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Append"/>
+                <Separator/>
+                <MenuItem Header="Save"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Copy"/>
+                <MenuItem Header="Cut" />
+                <MenuItem Header="Clear All" />
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Game Overlay"/>
+            </MenuItem>
+            <MenuItem Header="Options" >
+                <MenuItem Header="Auto Switch to SF4" IsCheckable="True" IsChecked="True" />
+                <MenuItem Header="Steam version" IsCheckable="True" />
+                <MenuItem Header="Connect to XBox Controller"/>
+            </MenuItem>
+            <MenuItem Header="Help" >
+                <MenuItem Header="About"/>
+                <MenuItem Header="How to use SF4:CT" />
+            </MenuItem>
+        </Menu>
+        <!--Content-->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.346,0.472">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel>
+                <ToolBar DockPanel.Dock="Top" >
+                    <Button Content="Play" />
+                    <CheckBox Content="Loop"/>
+                    <Separator />
+                    <Button Content="Record"/>
+                    <Button Content="Stop Record" />
+                </ToolBar>
+                <ListView x:Name="TimeLineListView" ItemsSource="{Binding TimeLineItems, Source={StaticResource TimeLine}}" Grid.Column="1">
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding Description}" />
+                            <TextBlock Text="{Binding Index}" />
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView>
+            </DockPanel>
+            <Grid Grid.Column="1" HorizontalAlignment="Right" Margin="0,4,4,4" Width="349">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <UserControls:ControllerInterface Grid.Row="1"/>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>

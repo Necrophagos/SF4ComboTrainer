@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using SF4ComboTrainerModel;
 
 namespace SF4ComboTrainer
 {
@@ -17,12 +17,12 @@ namespace SF4ComboTrainer
         {
             InitializeComponent();
             sf4memory = new SF4Memory(chkSteamVersion.Checked);
-            sf4control = new SF4Control(sf4memory);
-
+            sf4control = new SF4Record(sf4memory);
+            sf4control.OnRecordInput += RecordedInputUpdate;
         }
 
         private SF4Memory sf4memory;
-        private SF4Control sf4control;
+        private SF4Record sf4control;
 
 
         //update item detail box when timeline item is clicked
@@ -51,15 +51,15 @@ namespace SF4ComboTrainer
             int currentFrame = 0;
             for (int i = 0; i < index; i++)
             {
-                currentFrame += ((TimeLineItem)TimeLine.Items[i]).getFrameDuration();
+                currentFrame += ((TimeLineItem)TimeLine.Items[i]).GetFrameDuration();
             }
             lblCurrentFrame.Text = "Current Frame: " + currentFrame;
-            chkPlaySound.Checked = curItem.playSound;
+            chkPlaySound.Checked = curItem.PlaySound;
 
             if (curItem.GetType() == typeof(WaitFrameItem))
             {
                 numChgWaitFrames.Enabled = true;
-                numChgWaitFrames.Value = ((WaitFrameItem)curItem).getFrameDuration();
+                numChgWaitFrames.Value = ((WaitFrameItem)curItem).GetFrameDuration();
             }
             else
             {
@@ -74,7 +74,7 @@ namespace SF4ComboTrainer
             TimeLineItem tlItem = ((TimeLineItem)TimeLine.SelectedItem);
             if (null != tlItem)
             {
-                tlItem.playSound = chkPlaySound.Checked;
+                tlItem.PlaySound = chkPlaySound.Checked;
             }
         }
 
@@ -178,7 +178,7 @@ namespace SF4ComboTrainer
         //sf4memory class must be notified
         private void chkSteamVersion_CheckedChanged(object sender, EventArgs e)
         {
-            sf4memory.setSteamVersion(chkSteamVersion.Checked);
+            sf4memory.SetSteamVersion(chkSteamVersion.Checked);
         }
 
         //changes the wait frames for a waitframe item
@@ -199,13 +199,13 @@ namespace SF4ComboTrainer
 
         private void playTimeline()
         {
-            sf4control.resetLockupTimer();
+            sf4control.ResetLockupTimer();
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
-                if (sf4control.inMatch)
+                if (sf4control.InMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
                 else
                 {
@@ -221,7 +221,9 @@ namespace SF4ComboTrainer
                         //also kill loop
                         btnStop_Click(null, null);
                     });
+
                     string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
+
                     MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
@@ -239,7 +241,7 @@ namespace SF4ComboTrainer
 
             }
 
-            sf4control.releaseALL();
+            sf4control.ReleaseALL();
         }
 
         public static void DoThreadSafe(Control control, MethodInvoker action)
@@ -258,8 +260,8 @@ namespace SF4ComboTrainer
         {
             if (chkAutoSwitch.Checked)
             {
-                if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(10);
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
             }
 
             freezeTimeline();            
@@ -278,8 +280,8 @@ namespace SF4ComboTrainer
 
             if (chkAutoSwitch.Checked)
             {
-                if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(10);
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
             }
 
             //prevent multiple threads
@@ -320,15 +322,37 @@ namespace SF4ComboTrainer
                 int sum = 0;
                 foreach (TimeLineItem item in TimeLine.Items)
                 {
-                    sum += item.getFrameDuration();
+                    sum += item.GetFrameDuration();
                 }
                 return sum;
             }
 
         }
 
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            if (chkAutoSwitch.Checked)
+            {
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
+            }
+            if (sf4control.InMatch)
+            {
+                sf4control.StartRecording();
+            }
+        }
+        private void btnRecordStop_Click(object sender, EventArgs e)
+        {
+     
+            sf4control.StopRecording();
+        }
 
-
+        private void RecordedInputUpdate(TimeLineItem timeLineItem)
+        {
+            if(TimeLine.InvokeRequired){
+                this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Add(timeLineItem);}));
+            }
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -343,7 +367,7 @@ namespace SF4ComboTrainer
                 {
                     foreach (TimeLineItem item in TimeLine.Items)
                     {
-                        file.WriteLine(item.serialize());
+                        file.WriteLine(item.Serialize());
                     }
                 }
             }
@@ -363,7 +387,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
                 }
             }
 
@@ -384,7 +408,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
                 }
             }
         }
@@ -511,6 +535,7 @@ namespace SF4ComboTrainer
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
         }
 
+
         private void btnKKK_Click(object sender, EventArgs e)
         {
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
@@ -531,6 +556,5 @@ namespace SF4ComboTrainer
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
             TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
         }
-
     }
 }
