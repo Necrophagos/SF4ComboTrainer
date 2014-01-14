@@ -2,7 +2,7 @@
 
 using MemoryEditor;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
     /**
      * this class reads data from the memory of a running sf4 instance.
@@ -24,7 +24,7 @@ namespace SF4ComboTrainer
      * i haven't tested these other adresses they may or may not work
      * if they don't try removing the added steamVersionMemoryOffset
      */
-    class SF4Memory
+    public class SF4Memory
     {
         private int steamVersionMemoryOffset;
         private Memory memory = new Memory();

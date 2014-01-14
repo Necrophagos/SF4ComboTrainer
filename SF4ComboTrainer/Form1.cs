@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using SF4ComboTrainerModel;
 
 namespace SF4ComboTrainer
 {
@@ -338,13 +338,13 @@ namespace SF4ComboTrainer
             }
             if (sf4control.InMatch)
             {
-                sf4control.startRecording();
+                sf4control.StartRecording();
             }
         }
         private void btnRecordStop_Click(object sender, EventArgs e)
         {
      
-            sf4control.stopRecording();
+            sf4control.StopRecording();
         }
 
         private void RecordedInputUpdate(TimeLineItem timeLineItem)

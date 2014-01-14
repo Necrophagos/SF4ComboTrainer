@@ -1,4 +1,6 @@
-﻿namespace SF4ComboTrainer
+﻿using SF4ComboTrainerModel;
+
+namespace SF4ComboTrainer
 {
     partial class MainForm
     {

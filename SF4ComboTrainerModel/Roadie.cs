@@ -10,7 +10,7 @@ using System.Text;
  * having to wait for the playsound method to return. second it provides a single thread from which mcisoundplayback is called
  * since the mcisendstring api demands to be called from only one thread.
  */
-class Roadie : IDisposable
+public class Roadie : IDisposable
 {
     private EventWaitHandle wh = new AutoResetEvent(false);
     private Thread worker;

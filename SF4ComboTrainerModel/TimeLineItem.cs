@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
     /**
      * the timeline classes are the core of this application.
@@ -21,7 +20,7 @@ namespace SF4ComboTrainer
      *                      |--- HoldItem
      *                      |--- ReleaseItem
      */
-    abstract class TimeLineItem
+    public abstract class TimeLineItem
     {
 
         //The static shared sound handler
@@ -128,7 +127,7 @@ namespace SF4ComboTrainer
         }
     }
 
-    class WaitFrameItem : TimeLineItem
+    public class WaitFrameItem : TimeLineItem
     {
         private int frames;
 
@@ -158,7 +157,7 @@ namespace SF4ComboTrainer
 
     }
 
-    abstract class InputItem : TimeLineItem
+    public abstract class InputItem : TimeLineItem
     {
 
         protected Input[] inputs;
@@ -176,7 +175,7 @@ namespace SF4ComboTrainer
 
     }
 
-    class PressItem : InputItem
+    public class PressItem : InputItem
     {
         public static String itemType = "Press";
 
@@ -231,7 +230,7 @@ namespace SF4ComboTrainer
 
     }
 
-    class HoldItem : InputItem
+    public class HoldItem : InputItem
     {
         public static String itemType = "Hold";
 
@@ -280,7 +279,7 @@ namespace SF4ComboTrainer
         }
     }
 
-    class ReleaseItem : InputItem
+    public class ReleaseItem : InputItem
     {
         public static String itemType = "Release";
 
@@ -327,5 +326,4 @@ namespace SF4ComboTrainer
             return obj;
         }
     }
-
 }

@@ -9,16 +9,15 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using TPInputLibrary;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
-    class SF4Record : SF4Control
+    public class SF4Record : SF4Control
     {
   
         private SF4InputHandler inputHandler;
-
         private List<SF4InputState> inputsList;
 
-        public SF4Record(SF4Memory sf4memory): base( sf4memory)
+        public SF4Record(SF4Memory sf4memory): base(sf4memory)
         {
             inputHandler = new SF4InputHandler(1, SF4InputHandler.InputType.XBoxController);
             inputsList = new List<SF4InputState>();
@@ -26,23 +25,21 @@ namespace SF4ComboTrainer
 
         //Recording thread section
         private System.Threading.Thread recordThread = null;
-        private volatile bool _recordingActive;
-        public void startRecording()
+        private volatile bool recordingActive;
+        public void StartRecording()
         {
 
             //prevent multiple threads
             if (null != recordThread) { return; }
-            _recordingActive = true;
+            recordingActive = true;
             recordThread = new System.Threading.Thread(recordForFrames);
             recordThread.Start(100000);
         }
 
-        public void stopRecording()
+        public void StopRecording()
         {
-            _recordingActive = false;
-
+            recordingActive = false;
         }
-
 
         public delegate void RecordedInputEvent(TimeLineItem timeLineItem);
         public event RecordedInputEvent OnRecordInput;
@@ -62,7 +59,7 @@ namespace SF4ComboTrainer
             frameTimer.Reset();
             frameTimer.Start();
 
-            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && _recordingActive)
+            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && recordingActive)
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
@@ -74,13 +71,6 @@ namespace SF4ComboTrainer
                     frameTimer.Stop();
 
                     //Time to check inputs
-
-                    //First frame to record - placeholder for apending moves in a string to an existing timelineitemlist
-                    //if (prevState == null)
-                    //{
-                        
-                    //}
-
                     inputHandler.InputUpdate(); //Get controllers input state this frame
 
                     //If no input - increment the wait gap so we can get timings
@@ -123,11 +113,7 @@ namespace SF4ComboTrainer
         public void Record()
         {
             inputHandler.InputUpdate();
-
             SF4InputState state = inputHandler.CurrentState;
-
-
         }
-
     }
 }

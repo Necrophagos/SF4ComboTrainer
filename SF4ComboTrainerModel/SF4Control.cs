@@ -8,13 +8,13 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace SF4ComboTrainer
+namespace SF4ComboTrainerModel
 {
     /**
      * this class is the is the interface to streetfighter. it used the sf4memory to read data from sf4 and it uses the 
      * inputsimulator to send keyboad strokes.
      */
-    class SF4Control
+    public class SF4Control
     {
         protected SF4Memory sf4memory;
 
@@ -158,7 +158,7 @@ namespace SF4ComboTrainer
      * the main reason for this class is the resolving of back and forward since the Directions change when a player crosses up.
      * it also reads the keyboard config file sf4keyboard.cfg
      */
-    class InputResolver
+    public class InputResolver
     {
         private SF4Memory sf4m;
 
