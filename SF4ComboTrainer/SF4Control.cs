@@ -155,7 +155,7 @@ namespace SF4ComboTrainer
 
     /**
      * this class translates our custom Input enum to actual keyboard codes that are used by the input simulator.
-     * the main reason for this class is the resolving of back and forward since the directions change when a player crosses up.
+     * the main reason for this class is the resolving of back and forward since the Directions change when a player crosses up.
      * it also reads the keyboard config file sf4keyboard.cfg
      */
     class InputResolver

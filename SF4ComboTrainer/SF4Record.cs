@@ -14,12 +14,9 @@ namespace SF4ComboTrainer
     class SF4Record : SF4Control
     {
   
+        private SF4InputHandler inputHandler;
 
-        private int frameStart;
-
-        SF4InputHandler inputHandler;
-
-        List<SF4InputState> inputsList;
+        private List<SF4InputState> inputsList;
 
         public SF4Record(SF4Memory sf4memory): base( sf4memory)
         {
@@ -27,22 +24,22 @@ namespace SF4ComboTrainer
             inputsList = new List<SF4InputState>();
         }
 
-        //Recording section
+        //Recording thread section
         private System.Threading.Thread recordThread = null;
-        private volatile bool _recordStop;
+        private volatile bool _recordingActive;
         public void startRecording()
         {
 
             //prevent multiple threads
             if (null != recordThread) { return; }
-            _recordStop = false;
+            _recordingActive = true;
             recordThread = new System.Threading.Thread(recordForFrames);
             recordThread.Start(100000);
         }
 
         public void stopRecording()
         {
-            _recordStop = true;
+            _recordingActive = false;
 
         }
 
@@ -65,7 +62,7 @@ namespace SF4ComboTrainer
             frameTimer.Reset();
             frameTimer.Start();
 
-            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && !_recordStop)
+            while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && _recordingActive)
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
@@ -84,7 +81,7 @@ namespace SF4ComboTrainer
                         
                     //}
 
-                    inputHandler.InputUpdate(); //Get controllers input this frame
+                    inputHandler.InputUpdate(); //Get controllers input state this frame
 
                     //If no input - increment the wait gap so we can get timings
                     if (inputHandler.CurrentState.NonePressed == false)
@@ -95,7 +92,6 @@ namespace SF4ComboTrainer
                         {
                             OnRecordInput(new WaitFrameItem(waitGap));
                             waitGap = 0;
-
                         }
                         else
                         {

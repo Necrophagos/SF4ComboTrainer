@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ namespace SF4ComboTrainer
         private long lastTime;
         private int lastFrameCount;
         private float fps;
-        private System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-        public float getFPS(int frameCount, int frameCheckInterval)
+        private Stopwatch stopwatch = new Stopwatch();
+
+        public float GetFPS(int frameCount, int frameCheckInterval)
         {
             if (!stopwatch.IsRunning)
             {
@@ -31,15 +33,13 @@ namespace SF4ComboTrainer
                 fps = (float)(1000 * elapsedFrames) / (float)elapsedTimeMs;
                 lastTime = stopwatch.ElapsedMilliseconds;
                 lastFrameCount = frameCount;
+
                 return fps;
-
-
             }
             else
             {
                 return fps;
             }
-
         }
     }
 }

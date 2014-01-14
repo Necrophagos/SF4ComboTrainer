@@ -51,15 +51,15 @@ namespace SF4ComboTrainer
             int currentFrame = 0;
             for (int i = 0; i < index; i++)
             {
-                currentFrame += ((TimeLineItem)TimeLine.Items[i]).getFrameDuration();
+                currentFrame += ((TimeLineItem)TimeLine.Items[i]).GetFrameDuration();
             }
             lblCurrentFrame.Text = "Current Frame: " + currentFrame;
-            chkPlaySound.Checked = curItem.playSound;
+            chkPlaySound.Checked = curItem.PlaySound;
 
             if (curItem.GetType() == typeof(WaitFrameItem))
             {
                 numChgWaitFrames.Enabled = true;
-                numChgWaitFrames.Value = ((WaitFrameItem)curItem).getFrameDuration();
+                numChgWaitFrames.Value = ((WaitFrameItem)curItem).GetFrameDuration();
             }
             else
             {
@@ -74,7 +74,7 @@ namespace SF4ComboTrainer
             TimeLineItem tlItem = ((TimeLineItem)TimeLine.SelectedItem);
             if (null != tlItem)
             {
-                tlItem.playSound = chkPlaySound.Checked;
+                tlItem.PlaySound = chkPlaySound.Checked;
             }
         }
 
@@ -322,7 +322,7 @@ namespace SF4ComboTrainer
                 int sum = 0;
                 foreach (TimeLineItem item in TimeLine.Items)
                 {
-                    sum += item.getFrameDuration();
+                    sum += item.GetFrameDuration();
                 }
                 return sum;
             }
@@ -367,7 +367,7 @@ namespace SF4ComboTrainer
                 {
                     foreach (TimeLineItem item in TimeLine.Items)
                     {
-                        file.WriteLine(item.serialize());
+                        file.WriteLine(item.Serialize());
                     }
                 }
             }
@@ -387,7 +387,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
                 }
             }
 
@@ -408,7 +408,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.deserialize(line));
+                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
                 }
             }
         }
