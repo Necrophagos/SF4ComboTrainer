@@ -82,5 +82,10 @@ namespace SF4ComboTrainerView
         {
             throw new NotImplementedException();
         }
+
+        public void SetSteamVersion()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
