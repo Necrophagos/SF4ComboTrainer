@@ -83,7 +83,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="TimeLineItemDetails_Loaded"/>
+                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                 <UserControls:ControllerInterface Grid.Row="1"/>
             </Grid>
         </Grid>
