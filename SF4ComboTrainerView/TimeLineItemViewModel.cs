@@ -9,8 +9,19 @@ namespace SF4ComboTrainerView
 {
     public class TimeLineItemViewModel : ObservableObject
     {
-
         private TimeLineItem timeLineItem;
+        public TimeLineItem TimeLineItem
+        {
+            get { return timeLineItem; }
+            set
+            {
+                if (value != timeLineItem)
+                {
+                    timeLineItem = value;
+                    OnPropertyChanged("TimeLineItem");
+                }
+            }
+        }
 
         private int index;
         public int Index
