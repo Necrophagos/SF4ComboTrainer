@@ -89,13 +89,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\ControllerInterface.xaml.cs">
+      <DependentUpon>ControllerInterface.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TimeLineItemDetails.xaml.cs">
       <DependentUpon>TimeLineItemDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interface Objects\ObservableObject.cs" />
-    <Compile Include="Interface Objects\RelayCommand.cs" />
+    <Compile Include="PropertyObjects\ObservableObject.cs" />
+    <Compile Include="PropertyObjects\RelayCommand.cs" />
     <Compile Include="TimeLineViewModel.cs" />
     <Compile Include="TimeLineItemViewModel.cs" />
+    <Page Include="UserControls\ControllerInterface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TimeLineItemDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +177,39 @@
       <Project>{846d0e91-da5b-45af-b218-9d65ee56e187}</Project>
       <Name>SF4ComboTrainerModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Arcade-Button-Joystick.png" />
+    <Resource Include="images\Arcade-Button-MPunch.png" />
+    <Resource Include="images\Arcade-Stick-DL.png" />
+    <Resource Include="images\Arcade-Stick-Down.png" />
+    <Resource Include="images\Arcade-Stick-UL.png" />
+    <Resource Include="images\Arcade-Stick-Up.png" />
+    <Resource Include="images\Arcade-Stick-UR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Arcade-Stick-DR.png" />
+    <Resource Include="images\Arcade-Stick-HCB.png" />
+    <Resource Include="images\Arcade-Stick-HCF.png" />
+    <Resource Include="images\Arcade-Stick-Left.png" />
+    <Resource Include="images\Arcade-Stick-LR.png" />
+    <Resource Include="images\Arcade-Stick-QCB.png" />
+    <Resource Include="images\Arcade-Stick-QCF.png" />
+    <Resource Include="images\Arcade-Stick-Right.png" />
+    <Resource Include="images\Arcade-Stick-RS.png" />
+    <Resource Include="images\Arcade-Stick-S.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Arcade-Stick-360.png" />
+    <Resource Include="images\Arcade-Stick-CB.png" />
+    <Resource Include="images\Arcade-Stick-CDB.png" />
+    <Resource Include="images\Arcade-Stick-CDU.png" />
+    <Resource Include="images\Arcade-Stick-Delta.png" />
+    <Resource Include="images\Arcade-Stick-DHCF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Arcade-Button-3xKick.png" />
+    <Resource Include="images\Arcade-Button-3xPunch.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
