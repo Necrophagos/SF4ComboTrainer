@@ -31,10 +31,10 @@ namespace SF4ComboTrainer
 
         public SF4Memory(bool steamVersion)
         {
-            setSteamVersion(steamVersion);
+            SetSteamVersion(steamVersion);
         }
 
-        public void setSteamVersion(bool steamVersion)
+        public void SetSteamVersion(bool steamVersion)
         {
             if (steamVersion)
             {
@@ -72,26 +72,19 @@ namespace SF4ComboTrainer
             }
         }
 
-        public int getFrameCount()
+        public int GetFrameCount()
         {
             return readIntFromGameMemory(0x80f0d0, new int[] { 0x1c4 });
         }
 
-
-
-        public float getP1PosX()
+        public float GetP1PosX()
         {
             return readFloatFromGameMemory(0x80f0cc, new int[] { 8, 0x60 });
         }
 
-
-
-        public float getP2PosX()
+        public float GetP2PosX()
         {
             return readFloatFromGameMemory(0x80f0cc, new int[] { 12, 0x60 });
-
         }
-
-
     }
 }

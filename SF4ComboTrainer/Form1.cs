@@ -178,7 +178,7 @@ namespace SF4ComboTrainer
         //sf4memory class must be notified
         private void chkSteamVersion_CheckedChanged(object sender, EventArgs e)
         {
-            sf4memory.setSteamVersion(chkSteamVersion.Checked);
+            sf4memory.SetSteamVersion(chkSteamVersion.Checked);
         }
 
         //changes the wait frames for a waitframe item
@@ -199,13 +199,13 @@ namespace SF4ComboTrainer
 
         private void playTimeline()
         {
-            sf4control.resetLockupTimer();
+            sf4control.ResetLockupTimer();
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
-                if (sf4control.inMatch)
+                if (sf4control.InMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
                 else
                 {
@@ -241,7 +241,7 @@ namespace SF4ComboTrainer
 
             }
 
-            sf4control.releaseALL();
+            sf4control.ReleaseALL();
         }
 
         public static void DoThreadSafe(Control control, MethodInvoker action)
@@ -260,8 +260,8 @@ namespace SF4ComboTrainer
         {
             if (chkAutoSwitch.Checked)
             {
-                if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(10);
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
             }
 
             freezeTimeline();            
@@ -280,8 +280,8 @@ namespace SF4ComboTrainer
 
             if (chkAutoSwitch.Checked)
             {
-                if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(10);
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
             }
 
             //prevent multiple threads
@@ -333,10 +333,10 @@ namespace SF4ComboTrainer
         {
             if (chkAutoSwitch.Checked)
             {
-                if (!sf4control.switchToSF4()) { return; }
-                sf4control.waitFrames(10);
+                if (!sf4control.SwitchToSF4()) { return; }
+                sf4control.WaitFrames(10);
             }
-            if (sf4control.inMatch)
+            if (sf4control.InMatch)
             {
                 sf4control.startRecording();
             }

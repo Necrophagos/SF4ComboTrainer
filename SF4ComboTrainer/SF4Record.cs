@@ -52,7 +52,7 @@ namespace SF4ComboTrainer
         private void recordForFrames(object maxFrames)
         {
 
-            int currentFrame = sf4memory.getFrameCount();
+            int currentFrame = sf4memory.GetFrameCount();
             int endFrame = currentFrame + (int)maxFrames;
 
             int waitGap = 0;
@@ -69,7 +69,7 @@ namespace SF4ComboTrainer
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
-                currentFrame = sf4memory.getFrameCount();
+                currentFrame = sf4memory.GetFrameCount();
 
                 if (currentFrame != lastFrame)
                 {
@@ -115,10 +115,10 @@ namespace SF4ComboTrainer
 
                     // Since we currentFrame != lastFrame we are in a match.
                     // (frames on menu screen or pause menu are constant).
-                    inMatch = true;
+                    InMatch = true;
                 }
                 else
-                    inMatch = false;
+                    InMatch = false;
 
                 Thread.Sleep(1);
             }

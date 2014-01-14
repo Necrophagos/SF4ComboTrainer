@@ -144,7 +144,7 @@ namespace SF4ComboTrainer
 
         public override void Action(SF4Control sf4control, bool sendInputs)
         {
-            sf4control.waitFrames(frames);
+            sf4control.WaitFrames(frames);
             if (playSound) { roadie.playSound(Roadie.WAIT_SOUND); }
         }
 
@@ -199,12 +199,12 @@ namespace SF4ComboTrainer
         {
             if (sendInputs)
             {
-                sf4control.press(inputs);
+                sf4control.Press(inputs);
             }
             else
             {
                 //press event waits 1 frame, if send inputs is disabled wait frame is maintained
-                sf4control.waitFrames(1);
+                sf4control.WaitFrames(1);
             }
 
             if (playSound)
@@ -243,7 +243,7 @@ namespace SF4ComboTrainer
         {
             if (sendInputs)
             {
-                sf4control.hold(inputs);
+                sf4control.Hold(inputs);
             }
 
             if (playSound)
@@ -286,7 +286,7 @@ namespace SF4ComboTrainer
         {
             if (sendInputs)
             {
-                sf4control.release(inputs);
+                sf4control.Release(inputs);
             }
 
             if (playSound)

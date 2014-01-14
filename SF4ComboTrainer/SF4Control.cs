@@ -40,9 +40,9 @@ namespace SF4ComboTrainer
         public static extern IntPtr GetForegroundWindow();
 
         // to see if in a match.
-        public volatile bool inMatch;
+        public volatile bool InMatch;
         
-        public bool switchToSF4()
+        public bool SwitchToSF4()
         {
             Process[] processes = Process.GetProcessesByName("SSFIV");            
             if (processes.Count() > 0)
@@ -70,9 +70,9 @@ namespace SF4ComboTrainer
             this.inputResolver = new InputResolver(sf4memory);
         }
 
-        public void waitFrames(int frames)
+        public void WaitFrames(int frames)
         {
-            int currentFrame = sf4memory.getFrameCount();
+            int currentFrame = sf4memory.GetFrameCount();
             int endFrame = currentFrame + frames;
             long lastFrameTime = frameTimer.ElapsedMilliseconds;
 
@@ -80,7 +80,7 @@ namespace SF4ComboTrainer
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
-                currentFrame = sf4memory.getFrameCount();
+                currentFrame = sf4memory.GetFrameCount();
 
                 if (currentFrame != lastFrame)
                 {
@@ -88,16 +88,16 @@ namespace SF4ComboTrainer
 
                     // Since we currentFrame != lastFrame we are in a match.
                     // (frames on menu screen or pause menu are constant).
-                    inMatch = true;
+                    InMatch = true;
                 }
                 else
-                    inMatch = false;
+                    InMatch = false;
                     
                 Thread.Sleep(1);
             }
         }
 
-        public void resetLockupTimer()
+        public void ResetLockupTimer()
         {
             if (frameTimer.IsRunning)
             {
@@ -108,44 +108,44 @@ namespace SF4ComboTrainer
         }
 
         
-        public void press(params Input[] inputs)
+        public void Press(params Input[] inputs)
         {
             if (!SF4isForegroundWindow()) { return; }
 
             foreach (Input input in inputs)
             {
-                InputSimulator.SimulateKeyDown(inputResolver.get(input));
+                InputSimulator.SimulateKeyDown(inputResolver.Get(input));
             }
-            waitFrames(1);
+            WaitFrames(1);
             foreach (Input input in inputs)
             {
-                InputSimulator.SimulateKeyUp(inputResolver.get(input));
+                InputSimulator.SimulateKeyUp(inputResolver.Get(input));
             }
         }
 
-        public void hold(params Input[] inputs)
+        public void Hold(params Input[] inputs)
         {
             if (!SF4isForegroundWindow()) { return; }
 
             foreach (Input input in inputs)
             {
-                InputSimulator.SimulateKeyDown(inputResolver.get(input));
+                InputSimulator.SimulateKeyDown(inputResolver.Get(input));
             }
         }
 
-        public void release(params Input[] inputs)
+        public void Release(params Input[] inputs)
         {
             if (!SF4isForegroundWindow()) { return; }
 
             foreach (Input input in inputs)
             {
-                InputSimulator.SimulateKeyUp(inputResolver.get(input));
+                InputSimulator.SimulateKeyUp(inputResolver.Get(input));
             }
         }
 
-        public void releaseALL()
+        public void ReleaseALL()
         {
-            foreach (VirtualKeyCode key in inputResolver.inputMap.Values)
+            foreach (VirtualKeyCode key in inputResolver.InputMap.Values)
             {
                 InputSimulator.SimulateKeyUp(key);
             }
@@ -162,7 +162,7 @@ namespace SF4ComboTrainer
     {
         private SF4Memory sf4m;
 
-        public Dictionary<Input, WindowsInput.VirtualKeyCode> inputMap = new Dictionary<Input, VirtualKeyCode>();
+        public Dictionary<Input, WindowsInput.VirtualKeyCode> InputMap = new Dictionary<Input, VirtualKeyCode>();
 
         public InputResolver(SF4Memory sf4memory)
         {
@@ -183,12 +183,12 @@ namespace SF4ComboTrainer
                    string[] tokens = line.Split('=');
                    Input input = (Input)Enum.Parse(typeof(Input), tokens[0]);
                    VirtualKeyCode key = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), tokens[1]);
-                   inputMap.Add(input, key);
+                   InputMap.Add(input, key);
                }
             }
         }
 
-        public VirtualKeyCode get(Input input)
+        public VirtualKeyCode Get(Input input)
         {
             if (input == Input.P1_BK)
             {
@@ -198,9 +198,9 @@ namespace SF4ComboTrainer
             {
                 return getP1_FW();
             }
-            else if (inputMap.ContainsKey(input))
+            else if (InputMap.ContainsKey(input))
             {
-                return inputMap[input];
+                return InputMap[input];
             }
             else
             {
@@ -210,13 +210,13 @@ namespace SF4ComboTrainer
 
         private VirtualKeyCode getP1_BK()
         {
-            return (sf4m.getP1PosX() < sf4m.getP2PosX()) ? get(Input.P1_LE) : get(Input.P1_RI);
+            return (sf4m.GetP1PosX() < sf4m.GetP2PosX()) ? Get(Input.P1_LE) : Get(Input.P1_RI);
 
         }
 
         private VirtualKeyCode getP1_FW()
         {
-            return (sf4m.getP1PosX() > sf4m.getP2PosX()) ? get(Input.P1_LE) : get(Input.P1_RI);
+            return (sf4m.GetP1PosX() > sf4m.GetP2PosX()) ? Get(Input.P1_LE) : Get(Input.P1_RI);
         }
     }
 }
