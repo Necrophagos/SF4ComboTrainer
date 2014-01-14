@@ -4,20 +4,23 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:con="clr-namespace:SF4ComboTrainerView" 
         x:Class="SF4ComboTrainerView.MainWindow"
-        Title="MainWindow" Height="470" Width="729.85" Icon="comboicon.ico">
+        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="comboicon.ico">
     <Window.Resources>
         <Style TargetType="{x:Type Grid}">
             <Setter Property="Background" Value="WhiteSmoke"  />
             <Setter Property="Margin" Value="4" />
             <Setter Property="ShowGridLines" Value="True" />
         </Style>
-        <con:TimeLineItemCollectionViewModel x:Key="TimeLineItemCollection"/>
+        <con:TimeLineViewModel x:Key="TimeLine"/>
     </Window.Resources>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo>
             <TaskbarItemInfo.Description>A tool to help you get frame perfect timing in SF4</TaskbarItemInfo.Description>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>
+    <Window.DataContext >
+        <Binding Source="{StaticResource TimeLine}"/>
+    </Window.DataContext>
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <!--Menu bar-->
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -69,14 +72,11 @@
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Right" Margin="0,4,4,4" Width="349">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
-                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-
+                <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="TimeLineItemDetails_Loaded"/>
             </Grid>
         </Grid>
-
     </DockPanel>
 </Window>
