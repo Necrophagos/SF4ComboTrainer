@@ -94,7 +94,7 @@
     </Compile>
     <Compile Include="Interface Objects\ObservableObject.cs" />
     <Compile Include="Interface Objects\RelayCommand.cs" />
-    <Compile Include="TimeLineItemCollectionViewModel.cs" />
+    <Compile Include="TimeLineViewModel.cs" />
     <Compile Include="TimeLineItemViewModel.cs" />
     <Page Include="UserControls\TimeLineItemDetails.xaml">
       <SubType>Designer</SubType>
