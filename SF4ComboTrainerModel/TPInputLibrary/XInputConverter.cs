@@ -46,6 +46,10 @@ namespace TPInputLibrary
 
             gamePadState = GamePad.GetState(playerIndex);
 
+            //Options
+            outputState.Options.Back = gamePadState.Buttons.Back == ButtonState.Pressed;
+            outputState.Options.Start = gamePadState.Buttons.Start == ButtonState.Pressed;
+
             //Punches 
             outputState.Punches.Light = gamePadState.Buttons.X == ButtonState.Pressed;
             outputState.Punches.Medium = gamePadState.Buttons.Y == ButtonState.Pressed;
