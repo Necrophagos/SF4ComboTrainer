@@ -61,6 +61,7 @@
     <Compile Include="TPInputLibrary\XInputConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lib\InputSimulator.dll" />
     <Content Include="lib\XInputDotNetPure.dll" />
     <Content Include="XInputInterface.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
