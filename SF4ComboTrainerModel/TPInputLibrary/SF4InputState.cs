@@ -7,6 +7,13 @@ namespace TPInputLibrary
 {
     public class SF4InputState
     {
+        public struct Option
+        {
+            public bool Back;
+            public bool Start;
+
+        }
+
         public struct Direction
         {
             public bool Up;
@@ -39,6 +46,7 @@ namespace TPInputLibrary
             public bool NonePressed { get { return !Light && !Medium && !Hard; } }
         }
 
+        public Option Options;
         public Direction Directions;
         public Punch Punches;
         public Kick Kicks;
@@ -64,6 +72,66 @@ namespace TPInputLibrary
 
             return tmp.ToArray();
         }
-        
+
+        public bool Equals(SF4InputState other)
+        {
+            if (object.ReferenceEquals(other, null)) return false;
+
+            bool result = true;
+            result &= Options.Back == other.Options.Back;
+            result &= Options.Start == other.Options.Start;
+            result &= Directions.Up == other.Directions.Up;
+            result &= Directions.Down == other.Directions.Down;
+            result &= Directions.Left == other.Directions.Left;
+            result &= Directions.Right == other.Directions.Right;
+            result &= Directions.Forward == other.Directions.Forward;
+            result &= Directions.Backward == other.Directions.Backward;
+            result &= Punches.Light == other.Punches.Light;
+            result &= Punches.Medium == other.Punches.Medium;
+            result &= Punches.Hard == other.Punches.Hard;
+            result &= Kicks.Light == other.Kicks.Light;
+            result &= Kicks.Medium == other.Kicks.Medium;
+            result &= Kicks.Hard == other.Kicks.Hard;
+
+            return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as SF4InputState);
+        }
+
+        public static bool operator ==(SF4InputState lhs, SF4InputState rhs)
+        {
+            return
+                object.ReferenceEquals(lhs, rhs) ||
+                !object.ReferenceEquals(lhs, null) && lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(SF4InputState lhs, SF4InputState rhs)
+        {
+            return !(lhs == rhs);
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 13;
+            hash = (hash * 7) + Options.Back.GetHashCode();
+            hash = (hash * 7) + Options.Start.GetHashCode();
+            hash = (hash * 7) + Directions.Up.GetHashCode();
+            hash = (hash * 7) + Directions.Down.GetHashCode();
+            hash = (hash * 7) + Directions.Left.GetHashCode();
+            hash = (hash * 7) + Directions.Right.GetHashCode();
+            hash = (hash * 7) + Directions.Forward.GetHashCode();
+            hash = (hash * 7) + Directions.Backward.GetHashCode();
+            hash = (hash * 7) + Punches.Light.GetHashCode();
+            hash = (hash * 7) + Punches.Medium.GetHashCode();
+            hash = (hash * 7) + Punches.Hard.GetHashCode();
+            hash = (hash * 7) + Kicks.Light.GetHashCode();
+            hash = (hash * 7) + Kicks.Medium.GetHashCode();
+            hash = (hash * 7) + Kicks.Hard.GetHashCode();
+            return hash;
+        }
+
     }
 }

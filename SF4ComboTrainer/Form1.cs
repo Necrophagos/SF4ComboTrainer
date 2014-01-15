@@ -19,11 +19,11 @@ namespace SF4ComboTrainer
             sf4memory = new SF4Memory(chkSteamVersion.Checked);
             sf4control = new SF4Record(sf4memory);
             sf4control.OnRecordInput += RecordedInputUpdate;
+            sf4control.OnResetInput += ResetInput;
         }
 
         private SF4Memory sf4memory;
         private SF4Record sf4control;
-
 
         //update item detail box when timeline item is clicked
         private int selectedTimeLineIndex;
@@ -352,6 +352,15 @@ namespace SF4ComboTrainer
             if(TimeLine.InvokeRequired){
                 this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Add(timeLineItem);}));
             }
+        }
+
+        private void ResetInput()
+        {
+            if (TimeLine.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Clear(); }));
+            }
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
