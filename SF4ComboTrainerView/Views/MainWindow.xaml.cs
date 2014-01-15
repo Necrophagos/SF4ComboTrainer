@@ -24,5 +24,7 @@ namespace SF4ComboTrainerView
         {
             InitializeComponent();
         }
+
+  
     }
 }

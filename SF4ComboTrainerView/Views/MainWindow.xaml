@@ -5,7 +5,7 @@
         xmlns:con="clr-namespace:SF4ComboTrainerView" 
         xmlns:UserControls="clr-namespace:SF4ComboTrainerView.UserControls" 
         x:Class="SF4ComboTrainerView.MainWindow"
-        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="comboicon.ico">
+        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="/comboicon.ico">
     <Window.Resources>
         <!--
             <Style TargetType="{x:Type Grid}">
@@ -84,7 +84,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <con:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <UserControls:ControllerInterface Grid.Row="1"/>
+                <UserControls:ControllerInterface Grid.Row="1" Loaded="ControllerInterface_Loaded"/>
             </Grid>
         </Grid>
     </DockPanel>
