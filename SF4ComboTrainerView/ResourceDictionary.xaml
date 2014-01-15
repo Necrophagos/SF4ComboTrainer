@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--LIGHT PUNCH/KICK-->
+    <BitmapImage x:Key="LightPunchImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 982 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="LightKickImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 937 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+
+    <!--MEDIUM PUNCH/KICK-->
+    <BitmapImage x:Key="MediumPunchImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 1113 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="MediumKickImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 1067 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+
+    <!--HARD PUNCH/KICK-->
+    <BitmapImage x:Key="HardPunchImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 807 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="HardKickImage"
+                 DecodePixelWidth="52" 
+                 DecodePixelHeight="52"
+                   SourceRect="0 762 26 26"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+</ResourceDictionary>

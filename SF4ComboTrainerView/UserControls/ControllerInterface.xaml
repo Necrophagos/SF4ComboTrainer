@@ -1,102 +1,119 @@
-﻿<UserControl x:Class="SF4ComboTrainerView.UserControls.ControllerInterface"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Class="SF4ComboTrainerView.UserControls.ControllerInterface" 
              mc:Ignorable="d" 
              Width="Auto">
     <UserControl.Resources>
-        <Style TargetType="Button" >
+        <RadialGradientBrush x:Key="ButtonBackgroundBrush"  >
+            <GradientStop Color="White" Offset="0.75"/>
+            <GradientStop Color="LightGray" Offset="1"/>
+        </RadialGradientBrush>
+        <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" >
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+        </Style>
+        <Style TargetType="{x:Type UniformGrid}" >
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="30" />
-            <Setter Property="Height" Value="30" />
+        </Style>
+        <Style TargetType="{x:Type ToggleButton}">
 
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+       
         </Style>
-        <Style TargetType="UniformGrid" >
-            <Setter Property="Margin" Value="5" />
-        </Style>
+
     </UserControl.Resources>
-    <Grid>
+    <Grid Height="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
         <UniformGrid  Rows="3" Columns="3" 
-                     HorizontalAlignment="Left"
-                      VerticalAlignment="Top">
-            <Button>
-                   <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UL.png" />
-            </Button>
-            <Button>
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center">
+            <RadioButton Width="40" Height="40" GroupName="grpDirection">
+                <Image  Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UL.png"/>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Up.png" />
-            </Button>
-            <Button>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UR.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade_Stick_Left.png" />
-            </Button>
-            <Button>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
+                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Left.png" />
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Button-Joystick.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade_Stick_Right.png" />
-            </Button>
-            <Button>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
+                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Right.png" />
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-DL.png" />
-            </Button>
-            <Button>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Down.png" />
-            </Button>
-            <Button>
+            </RadioButton>
+            <RadioButton GroupName="grpDirection" >
                 <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-DR.png" />
-            </Button>
+            </RadioButton>
         </UniformGrid>
         <UniformGrid Grid.Column="1" Rows="2" Columns="3"
-                       
-                     HorizontalAlignment="Left"
-                      VerticalAlignment="Top">
-            <Button>
-                
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Up.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UR.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade_Stick_Left.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Button-Joystick.png" />
-            </Button>
-            <Button>
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade_Stick_Right.png" />
-            </Button>
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center">
+            <ToggleButton>
+                <Image Source="{StaticResource LightPunchImage}"/>
+            </ToggleButton>
+            <ToggleButton>
+                <Image Source="{StaticResource MediumPunchImage}"/>
+            </ToggleButton>
+            <ToggleButton>
+                <Image Source="{StaticResource HardPunchImage}"/>
+            </ToggleButton>
+            <ToggleButton>
+                <Image Source="{StaticResource LightKickImage}" />
+            </ToggleButton>
+            <ToggleButton>
+                <Image Source="{StaticResource MediumKickImage}" />
+            </ToggleButton>
+            <ToggleButton>
+                <Image Source="{StaticResource HardKickImage}" />
+            </ToggleButton>
         </UniformGrid>
-        <Rectangle Grid.Column="3" Height="150" Width="150" >
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="/SF4ComboTrainerView;component/images/ImageMap.png" Stretch="None" ViewboxUnits="Absolute" Viewbox="0,0,30,30"  >
-                    <ImageBrush.Transform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ImageBrush.Transform>
-                    <ImageBrush.RelativeTransform>
-                        <TransformGroup>
-                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                            <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                            <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        <!--
+            <Rectangle Grid.Column="3" Height="150" Width="150" >
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/SF4ComboTrainerView;component/images/ImageMap.png" Stretch="None" ViewboxUnits="Absolute" Viewbox="0,0,30,30"  >
+                        <ImageBrush.Transform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.Transform>
+                        <ImageBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ImageBrush.RelativeTransform>
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        -->
     </Grid>
 </UserControl>

@@ -89,7 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="InputViewModel.cs" />
+    <Compile Include="ViewModels\InputViewModel.cs" />
     <Compile Include="UserControls\ControllerInterface.xaml.cs">
       <DependentUpon>ControllerInterface.xaml</DependentUpon>
     </Compile>
@@ -98,8 +98,8 @@
     </Compile>
     <Compile Include="PropertyObjects\ObservableObject.cs" />
     <Compile Include="PropertyObjects\RelayCommand.cs" />
-    <Compile Include="TimeLineViewModel.cs" />
-    <Compile Include="TimeLineItemViewModel.cs" />
+    <Compile Include="ViewModels\TimeLineViewModel.cs" />
+    <Compile Include="ViewModels\TimeLineItemViewModel.cs" />
     <Page Include="UserControls\ControllerInterface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,7 +108,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -116,11 +116,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Templates.xaml">
+    <Page Include="ResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,7 +143,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -214,6 +213,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\ImageMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\Xceed.Wpf.AvalonDock.dll" />
+    <Content Include="lib\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+    <Content Include="lib\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+    <Content Include="lib\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <Content Include="lib\Xceed.Wpf.DataGrid.dll" />
+    <Content Include="lib\Xceed.Wpf.Toolkit.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
