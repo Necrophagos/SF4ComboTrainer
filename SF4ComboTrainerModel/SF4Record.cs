@@ -43,6 +43,8 @@ namespace SF4ComboTrainerModel
 
         public delegate void RecordedInputEvent(TimeLineItem timeLineItem);
         public event RecordedInputEvent OnRecordInput;
+        public delegate void ResetInputEvent();
+        public event ResetInputEvent OnResetInput;
         private void recordForFrames(object maxFrames)
         {
 
@@ -72,18 +74,23 @@ namespace SF4ComboTrainerModel
 
                     //Time to check inputs
                     inputHandler.InputUpdate(); //Get controllers input state this frame
+                    
+                    //Use the back button on the controller to reset the timeline
+                    if (inputHandler.CurrentState.Options.Back)
+                        OnResetInput();                   
+
 
                     //If no input - increment the wait gap so we can get timings
                     if (inputHandler.CurrentState.NonePressed == false)
                     {
                         //If nothing pressed in last frame but something pressed now -
                         // add the wait time to the list and 
-                        if (prevState.NonePressed)
+                        if (prevState.NonePressed )
                         {
                             OnRecordInput(new WaitFrameItem(waitGap));
                             waitGap = 0;
                         }
-                        else
+                        else if(inputHandler.CurrentState != prevState)
                         {
                             OnRecordInput(new PressItem(inputHandler.CurrentState.ToInputsArray()));
                             Debug.WriteLine("RECORDED INPUT");
