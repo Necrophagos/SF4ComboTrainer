@@ -204,6 +204,13 @@ namespace SF4ComboTrainer
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
+                //highlighting of current item
+                DoThreadSafe(TimeLine, () =>
+                {
+                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                    TimeLine.SelectedItem = item;
+                });
+
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
                 if (sf4control.InMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
@@ -226,18 +233,8 @@ namespace SF4ComboTrainer
 
                     MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-
-
                     break;
                 }
-
-
-                //highlighting of current item
-                DoThreadSafe(TimeLine, () =>
-                {
-                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
-                    TimeLine.SelectedItem = item;
-                });
 
             }
 
