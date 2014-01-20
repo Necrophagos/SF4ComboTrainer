@@ -36,7 +36,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
-            <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
         <UniformGrid  Rows="3" Columns="3" 
 			HorizontalAlignment="Center"
@@ -91,29 +90,5 @@
                 <Image Source="{StaticResource HardKickImage}" />
             </ToggleButton>
         </UniformGrid>
-        <!--
-            <Rectangle Grid.Column="3" Height="150" Width="150" >
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/SF4ComboTrainerView;component/images/ImageMap.png" Stretch="None" ViewboxUnits="Absolute" Viewbox="0,0,30,30"  >
-                        <ImageBrush.Transform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ImageBrush.Transform>
-                        <ImageBrush.RelativeTransform>
-                            <TransformGroup>
-                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
-                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
-                                <RotateTransform CenterY="0.5" CenterX="0.5"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ImageBrush.RelativeTransform>
-                    </ImageBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        -->
     </Grid>
 </UserControl>
