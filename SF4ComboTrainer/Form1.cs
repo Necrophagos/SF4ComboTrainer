@@ -204,6 +204,13 @@ namespace SF4ComboTrainer
             {
                 TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
 
+                //highlighting of current item
+                DoThreadSafe(TimeLine, () =>
+                {
+                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+                    TimeLine.SelectedItem = item;
+                });
+
                 // if we aren't in a match (defined by being on a menu or pause is selected) the play timeline stops.
                 if (sf4control.InMatch)
                     item.Action(sf4control, chkSendInputs.Checked);
@@ -219,25 +226,15 @@ namespace SF4ComboTrainer
                         TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
                         TimeLine.SelectedItem = item;
                         //also kill loop
-                        btnStop_Click(null, null);
+                        stopLoop();
                     });
 
                     string message = "The combo trainer has detected that SF4 didn't produce any new frames in the last 3 seconds. Make sure that\n\na) Street Fighter 4 is running and inside a match or training mode\nb) Street Fighter is not paused\nc) You are running the latest version of Street Fighter 4 AEv2012\nd) Stage Quality in your SF4 graphic settings is set to HIGH";
 
                     MessageBox.Show(message, "SF4 not advancing frames", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-
-
                     break;
                 }
-
-
-                //highlighting of current item
-                DoThreadSafe(TimeLine, () =>
-                {
-                    TimeLine.TopIndex = i - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
-                    TimeLine.SelectedItem = item;
-                });
 
             }
 
@@ -294,6 +291,25 @@ namespace SF4ComboTrainer
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            stopLoop();
+        }
+
+        ///LOOP THREAD METHOD       
+        private void playLoop()
+        {
+            _shouldStop = false;
+
+            int maxLoops = 30;
+
+            while (!_shouldStop && maxLoops > 0)
+            {
+                maxLoops--;
+                playTimeline();
+            }
+        }
+
+        private void stopLoop()
+        {
             _shouldStop = true;
             if (loopThread != null)
             {
@@ -301,18 +317,6 @@ namespace SF4ComboTrainer
                 loopThread = null;
             }
             unfreezeTimeline();
-        }
-
-        ///LOOP THREAD METHOD       
-        public void playLoop()
-        {
-            _shouldStop = false;
-
-
-            while (!_shouldStop)
-            {
-                playTimeline();
-            }
         }
 
         private int FramesInTimeline
