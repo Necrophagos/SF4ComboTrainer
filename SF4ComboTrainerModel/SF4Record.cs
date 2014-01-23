@@ -17,9 +17,9 @@ namespace SF4ComboTrainerModel
         private SF4InputHandler inputHandler;
         private List<SF4InputState> inputsList;
 
-        public SF4Record(SF4Memory sf4memory): base(sf4memory)
+        public SF4Record(SF4Memory sf4memory, TPInputLibrary.SF4InputHandler.InputType inputType): base(sf4memory)
         {
-            inputHandler = new SF4InputHandler(1, SF4InputHandler.InputType.XBoxController);
+            inputHandler = new SF4InputHandler(1, inputType);
             inputsList = new List<SF4InputState>();
         }
 
