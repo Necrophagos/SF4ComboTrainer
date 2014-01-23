@@ -17,7 +17,7 @@ namespace SF4ComboTrainer
         {
             InitializeComponent();
             sf4memory = new SF4Memory(chkSteamVersion.Checked);
-            sf4control = new SF4Record(sf4memory);
+            sf4control = new SF4Record(sf4memory, TPInputLibrary.SF4InputHandler.InputType.XBoxController);
             sf4control.OnRecordInput += RecordedInputUpdate;
             sf4control.OnResetInput += ResetInput;
         }
@@ -238,7 +238,18 @@ namespace SF4ComboTrainer
 
             }
 
-            sf4control.ReleaseALL();
+
+            //// Get the last item in the list
+            //TimeLineItem lastItem = (TimeLineItem)TimeLine.Items[TimeLine.Items.Count - 1];
+
+            ////highlighting the last item.
+            //DoThreadSafe(TimeLine, () =>
+            //{
+            //    TimeLine.TopIndex = TimeLine.Items.Count - 1 - (TimeLine.ClientSize.Height / TimeLine.ItemHeight) / 2;
+            //    TimeLine.SelectedItem = lastItem;
+            //    //also kill loop
+            //    stopLoop();
+            //});
         }
 
         public static void DoThreadSafe(Control control, MethodInvoker action)
