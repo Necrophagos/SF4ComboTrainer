@@ -47,27 +47,27 @@ namespace TPInputLibrary
             gamePadState = GamePad.GetState(playerIndex);
 
             //Options
-            outputState.Options.Back = gamePadState.Buttons.Back == ButtonState.Pressed;
-            outputState.Options.Start = gamePadState.Buttons.Start == ButtonState.Pressed;
+            outputState.Back = gamePadState.Buttons.Back == ButtonState.Pressed;
+            outputState.Start = gamePadState.Buttons.Start == ButtonState.Pressed;
 
             //Punches 
-            outputState.Punches.Light = gamePadState.Buttons.X == ButtonState.Pressed;
-            outputState.Punches.Medium = gamePadState.Buttons.Y == ButtonState.Pressed;
-            outputState.Punches.Hard = gamePadState.Buttons.RightShoulder == ButtonState.Pressed;
+            outputState.LightPunch = gamePadState.Buttons.X == ButtonState.Pressed;
+            outputState.MediumPunch = gamePadState.Buttons.Y == ButtonState.Pressed;
+            outputState.HardPunch = gamePadState.Buttons.RightShoulder == ButtonState.Pressed;
 
             //Kicks
-            outputState.Kicks.Light = gamePadState.Buttons.A == ButtonState.Pressed;
-            outputState.Kicks.Medium = gamePadState.Buttons.B == ButtonState.Pressed;
-            outputState.Kicks.Hard = gamePadState.Triggers.Right > 0.25f;
+            outputState.LightKick = gamePadState.Buttons.A == ButtonState.Pressed;
+            outputState.MediumKick = gamePadState.Buttons.B == ButtonState.Pressed;
+            outputState.HardKick = gamePadState.Triggers.Right > 0.25f;
 
             //Determine if Dpad has any input
-            outputState.Directions.Right = (gamePadState.DPad.Right == ButtonState.Pressed || gamePadState.ThumbSticks.Left.X > 0.25f);
+            outputState.Right = (gamePadState.DPad.Right == ButtonState.Pressed || gamePadState.ThumbSticks.Left.X > 0.25f);
 
-            outputState.Directions.Left = (gamePadState.DPad.Left == ButtonState.Pressed || -gamePadState.ThumbSticks.Left.X > 0.25f);
+            outputState.Left = (gamePadState.DPad.Left == ButtonState.Pressed || -gamePadState.ThumbSticks.Left.X > 0.25f);
 
-            outputState.Directions.Up = (gamePadState.DPad.Up == ButtonState.Pressed || gamePadState.ThumbSticks.Left.Y > 0.25f);
+            outputState.Up = (gamePadState.DPad.Up == ButtonState.Pressed || gamePadState.ThumbSticks.Left.Y > 0.25f);
 
-            outputState.Directions.Down = (gamePadState.DPad.Down == ButtonState.Pressed || -gamePadState.ThumbSticks.Left.Y > 0.25f);
+            outputState.Down = (gamePadState.DPad.Down == ButtonState.Pressed || -gamePadState.ThumbSticks.Left.Y > 0.25f);
 
             return outputState;
         }

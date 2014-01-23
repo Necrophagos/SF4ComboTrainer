@@ -76,7 +76,7 @@ namespace SF4ComboTrainerModel
                     inputHandler.InputUpdate(); //Get controllers input state this frame
                     
                     //Use the back button on the controller to reset the timeline
-                    if (inputHandler.CurrentState.Options.Back)
+                    if (inputHandler.CurrentState.Back)
                         OnResetInput();                   
 
 
