@@ -51,6 +51,20 @@ namespace SF4ComboTrainerView
             }
         }
 
+        private bool sendInputs;
+        public bool SendInputs
+        {
+            get { return sendInputs;}
+            set { 
+                    if(value != sendInputs)
+                    {
+                        sendInputs = value;
+                        OnPropertyChanged("SendInputs");
+                    }
+                }
+        }
+    
+
         public bool PlaySound
         {
             get { return timeLineItem.PlaySound; }
@@ -76,6 +90,33 @@ namespace SF4ComboTrainerView
                     OnPropertyChanged("WaitFrames");
                 }
             }
+        }
+
+        public void Action(SF4Record recorder)
+        {
+            this.timeLineItem.Action(recorder, this.sendInputs);
+        }
+
+        internal string Serialize()
+        {
+            return this.timeLineItem.Serialize();
+        }
+
+        static internal TimeLineItemViewModel Deserialize(string stringValue)
+        {
+            //Deserialize actual timeline item
+            TimeLineItem tmpTimeLineItem =  TimeLineItem.Deserialize(stringValue);
+
+            //Setup TimeLineItemViewModel
+            TimeLineItemViewModel result = new TimeLineItemViewModel();
+            result.TimeLineItem = tmpTimeLineItem;
+            result.WaitFrames = tmpTimeLineItem.GetFrameDuration();
+            result.Description = tmpTimeLineItem.Description;
+            result.Index = -1;
+            result.PlaySound = tmpTimeLineItem.PlaySound;
+
+            return result;
+
         }
     }
 }
