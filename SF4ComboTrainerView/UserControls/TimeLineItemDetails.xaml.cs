@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
 
-namespace SF4ComboTrainerView
+namespace SF4ComboTrainerView.UserControls
 {
     /// <summary>
     /// Interaction logic for TimeLineItemDetails.xaml

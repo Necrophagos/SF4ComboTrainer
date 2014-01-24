@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SF4ComboTrainerModel;
 using Microsoft.Win32;
+using SF4ComboTrainerView;
 
-namespace SF4ComboTrainerView
+namespace SF4ComboTrainerViewModel
 {
     class TimeLineViewModel : ObservableObject
     {

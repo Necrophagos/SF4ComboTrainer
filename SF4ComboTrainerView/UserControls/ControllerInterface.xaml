@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SF4ComboTrainerViewModel"
              x:Class="SF4ComboTrainerView.UserControls.ControllerInterface" 
              mc:Ignorable="d" 
-             Width="Auto">
+             Width="300" Height="150">
     <UserControl.Resources>
         <RadialGradientBrush x:Key="ButtonBackgroundBrush"  >
             <GradientStop Color="White" Offset="0.75"/>
@@ -20,15 +21,16 @@
         <Style TargetType="{x:Type UniformGrid}" >
             <Setter Property="Margin" Value="5" />
         </Style>
-        <Style TargetType="{x:Type ToggleButton}">
-
+        <Style TargetType="{x:Type ToggleButton}"> 
             <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="2" />
             <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
-       
         </Style>
-
+        <vm:InputViewModel x:Key="InputStateKey" />
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource InputStateKey}" />
+    </UserControl.DataContext>
     <Grid Height="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -71,8 +73,8 @@
         <UniformGrid Grid.Column="1" Rows="2" Columns="3"
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center">
-            <ToggleButton>
-                <Image Source="{StaticResource LightPunchImage}"/>
+            <ToggleButton IsChecked="{Binding Mode=OneWay}">
+                <Image Source="{StaticResource LightPunchImage}" />
             </ToggleButton>
             <ToggleButton>
                 <Image Source="{StaticResource MediumPunchImage}"/>

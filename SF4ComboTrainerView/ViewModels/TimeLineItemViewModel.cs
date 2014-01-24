@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SF4ComboTrainerModel;
+using SF4ComboTrainerView;
 
-namespace SF4ComboTrainerView
+namespace SF4ComboTrainerViewModel
 {
     public class TimeLineItemViewModel : ObservableObject
     {
@@ -54,16 +55,17 @@ namespace SF4ComboTrainerView
         private bool sendInputs;
         public bool SendInputs
         {
-            get { return sendInputs;}
-            set { 
-                    if(value != sendInputs)
-                    {
-                        sendInputs = value;
-                        OnPropertyChanged("SendInputs");
-                    }
+            get { return sendInputs; }
+            set
+            {
+                if (value != sendInputs)
+                {
+                    sendInputs = value;
+                    OnPropertyChanged("SendInputs");
                 }
+            }
         }
-    
+
 
         public bool PlaySound
         {
@@ -105,7 +107,7 @@ namespace SF4ComboTrainerView
         static internal TimeLineItemViewModel Deserialize(string stringValue)
         {
             //Deserialize actual timeline item
-            TimeLineItem tmpTimeLineItem =  TimeLineItem.Deserialize(stringValue);
+            TimeLineItem tmpTimeLineItem = TimeLineItem.Deserialize(stringValue);
 
             //Setup TimeLineItemViewModel
             TimeLineItemViewModel result = new TimeLineItemViewModel();
