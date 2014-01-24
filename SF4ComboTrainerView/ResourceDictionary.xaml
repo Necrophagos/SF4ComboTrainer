@@ -17,7 +17,7 @@
     <BitmapImage x:Key="MediumPunchImage"
                  DecodePixelWidth="52" 
                  DecodePixelHeight="52"
-                   SourceRect="0 1113 26 26"
+                   SourceRect="0 1112 26 26"
                    UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
     <BitmapImage x:Key="MediumKickImage"
                  DecodePixelWidth="52" 
