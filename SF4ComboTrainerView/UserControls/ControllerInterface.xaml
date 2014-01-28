@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:SF4ComboTrainerViewModel"
              x:Class="SF4ComboTrainerView.UserControls.ControllerInterface" 
              mc:Ignorable="d" 
-             Width="300" Height="150">
+              >
     <UserControl.Resources>
         <RadialGradientBrush x:Key="ButtonBackgroundBrush"  >
             <GradientStop Color="White" Offset="0.75"/>
@@ -21,9 +21,11 @@
         <Style TargetType="{x:Type UniformGrid}" >
             <Setter Property="Margin" Value="5" />
         </Style>
-        <Style TargetType="{x:Type ToggleButton}"> 
+        <Style TargetType="{x:Type ToggleButton}">
             <Setter Property="Margin" Value="1" />
             <Setter Property="Padding" Value="2" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
         </Style>
         <vm:InputViewModel x:Key="InputStateKey" />
@@ -33,41 +35,41 @@
     </UserControl.DataContext>
     <Grid Height="Auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <UniformGrid  Rows="3" Columns="3" 
 			HorizontalAlignment="Center"
-			VerticalAlignment="Center">
-            <RadioButton Width="40" Height="40" GroupName="grpDirection">
-                <Image  Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UL.png"/>
+			VerticalAlignment="Center" >
+            <RadioButton GroupName="grpDirection">
+                <Image  Source="{StaticResource UpBackwardDirectionImage}"/>
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Up.png" />
+                <Image Source="{StaticResource UpDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-UR.png" />
+                <Image Source="{StaticResource UpForwardDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Left.png" />
+                <Image Source="{StaticResource BackwardDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Button-Joystick.png" />
+                <Image Source="{StaticResource NeutralDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Right.png" />
+                <Image Source="{StaticResource ForwardDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-DL.png" />
+                <Image Source="{StaticResource DownBackwardDirectionImage}"/>
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-Down.png" />
+                <Image Source="{StaticResource DownDirectionImage}" />
             </RadioButton>
             <RadioButton GroupName="grpDirection" >
-                <Image Source="/SF4ComboTrainerView;component/images/Arcade-Stick-DR.png" />
+                <Image Source="{StaticResource DownForwardDirectionImage}" />
             </RadioButton>
         </UniformGrid>
         <UniformGrid Grid.Column="1" Rows="2" Columns="3"

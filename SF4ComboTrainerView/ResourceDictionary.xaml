@@ -36,4 +36,36 @@
                  DecodePixelHeight="52"
                    SourceRect="0 762 26 26"
                    UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    
+    <!--DIRECTIONS-->
+    <!--TOP ROW-->
+    <BitmapImage x:Key="UpBackwardDirectionImage"
+                   SourceRect="0 1528 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="UpDirectionImage"
+                   SourceRect="0 1471 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="UpForwardDirectionImage"
+                   SourceRect="0 1585 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <!--MID ROW-->
+    <BitmapImage x:Key="BackwardDirectionImage"
+                   SourceRect="0 267 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="NeutralDirectionImage"
+                   SourceRect="0 1158 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="ForwardDirectionImage"
+                   SourceRect="0 552 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <!--BOTTOM ROW-->
+    <BitmapImage x:Key="DownBackwardDirectionImage"
+                   SourceRect="0 381 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="DownDirectionImage"
+                   SourceRect="0 324 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
+    <BitmapImage x:Key="DownForwardDirectionImage"
+                   SourceRect="0 438 37 37"
+                   UriSource="/SF4ComboTrainerView;component/images/ImageMap.png"/>
 </ResourceDictionary>
