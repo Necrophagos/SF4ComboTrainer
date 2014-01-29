@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SF4ComboTrainerView.TimeLineItemDetails"
+﻿<UserControl x:Class="SF4ComboTrainerView.UserControls.TimeLineItemDetails"
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

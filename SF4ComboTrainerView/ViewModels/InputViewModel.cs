@@ -4,12 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SF4ComboTrainerModel;
+using TPInputLibrary;
+using SF4ComboTrainerView;
 
-namespace SF4ComboTrainerView
+namespace SF4ComboTrainerViewModel
 {
-    class InputViewModel
+    public class InputViewModel : ObservableObject
     {
-        Input[] inputs;
+        private SF4InputState inputState;
+        public SF4InputState InputState
+        {
+            get { return inputState; }
+            set
+            {
+                if (value != inputState)
+                {
+                    inputState = value;
+                    OnPropertyChanged("InputState");
+                }
+            }
+        }
+
 
     }
 }

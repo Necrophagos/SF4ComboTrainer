@@ -7,68 +7,71 @@ namespace TPInputLibrary
 {
     public class SF4InputState
     {
-        public struct Option
+        //Options
+        public bool Back;
+        public bool Start;
+
+        //Direction
+        public bool Up;
+        public bool Down;
+        public bool Left;
+        public bool Right;
+
+        public bool Forward;
+        public bool Backward;
+
+        //Punch
+        public bool LightPunch;
+        public bool MediumPunch;
+        public bool HardPunch;
+
+        //Kick
+        public bool LightKick;
+        public bool MediumKick;
+        public bool HardKick;
+
+
+
+        public bool NonePressed
         {
-            public bool Back;
-            public bool Start;
+            get
+            {
+                return
 
+                    Back
+                    && Start
+                    && Up
+                    && Down
+                    && Left
+                    && Right
+                    && Forward
+                    && Backward
+                    && LightPunch
+                    && MediumPunch
+                    && HardPunch
+                    && LightKick
+                    && MediumKick
+                    && HardKick
+                    ;
+            }
         }
-
-        public struct Direction
-        {
-            public bool Up;
-            public bool Down;
-            public bool Left;
-            public bool Right;
-
-            public bool Forward;
-            public bool Backward;
-
-
-            public bool NonePressed { get { return !Up && !Down && !Left && !Right; } }
-        }
-
-        public struct Punch
-        {
-            public bool Light;
-            public bool Medium;
-            public bool Hard;
-
-            public bool NonePressed { get { return !Light && !Medium && !Hard; } }
-        }
-
-        public struct Kick
-        {
-            public bool Light;
-            public bool Medium;
-            public bool Hard;
-
-            public bool NonePressed { get { return !Light && !Medium && !Hard; } }
-        }
-
-        public Option Options;
-        public Direction Directions;
-        public Punch Punches;
-        public Kick Kicks;
-
-        public bool NonePressed { get { return Directions.NonePressed && Punches.NonePressed && Kicks.NonePressed; } }
 
         public Input[] ToInputsArray()
         {
             List<Input> tmp = new List<Input>();
 
-            if (Directions.Up) tmp.Add(Input.P1_UP);
-            if (Directions.Down) tmp.Add(Input.P1_DN);
-            if (Directions.Left) tmp.Add(Input.P1_LE);
-            if (Directions.Right) tmp.Add(Input.P1_RI);
-            if (Directions.Forward) tmp.Add(Input.P1_FW);
-            if (Directions.Backward) tmp.Add(Input.P1_BK);
-            if (Punches.Light) tmp.Add(Input.P1_LP);
-            if (Punches.Medium) tmp.Add(Input.P1_MP);
-            if (Punches.Hard) tmp.Add(Input.P1_HP);
-            if (Kicks.Light) tmp.Add(Input.P1_LK);
-            if (Kicks.Medium) tmp.Add(Input.P1_MK);
-            if (Kicks.Hard) tmp.Add(Input.P1_HK);
+            if (Up) tmp.Add(Input.P1_UP);
+            if (Down) tmp.Add(Input.P1_DN);
+            if (Left) tmp.Add(Input.P1_LE);
+            if (Right) tmp.Add(Input.P1_RI);
+            if (Forward) tmp.Add(Input.P1_FW);
+            if (Backward) tmp.Add(Input.P1_BK);
+            if (LightPunch) tmp.Add(Input.P1_LP);
+            if (MediumPunch) tmp.Add(Input.P1_MP);
+            if (HardPunch) tmp.Add(Input.P1_HP);
+            if (LightKick) tmp.Add(Input.P1_LK);
+            if (MediumKick) tmp.Add(Input.P1_MK);
+            if (HardKick) tmp.Add(Input.P1_HK);
 
             return tmp.ToArray();
         }
@@ -78,20 +81,20 @@ namespace TPInputLibrary
             if (object.ReferenceEquals(other, null)) return false;
 
             bool result = true;
-            result &= Options.Back == other.Options.Back;
-            result &= Options.Start == other.Options.Start;
-            result &= Directions.Up == other.Directions.Up;
-            result &= Directions.Down == other.Directions.Down;
-            result &= Directions.Left == other.Directions.Left;
-            result &= Directions.Right == other.Directions.Right;
-            result &= Directions.Forward == other.Directions.Forward;
-            result &= Directions.Backward == other.Directions.Backward;
-            result &= Punches.Light == other.Punches.Light;
-            result &= Punches.Medium == other.Punches.Medium;
-            result &= Punches.Hard == other.Punches.Hard;
-            result &= Kicks.Light == other.Kicks.Light;
-            result &= Kicks.Medium == other.Kicks.Medium;
-            result &= Kicks.Hard == other.Kicks.Hard;
+            result &= Back == other.Back;
+            result &= Start == other.Start;
+            result &= Up == other.Up;
+            result &= Down == other.Down;
+            result &= Left == other.Left;
+            result &= Right == other.Right;
+            result &= Forward == other.Forward;
+            result &= Backward == other.Backward;
+            result &= LightPunch == other.LightPunch;
+            result &= MediumPunch == other.MediumPunch;
+            result &= HardPunch == other.HardPunch;
+            result &= LightKick == other.LightKick;
+            result &= MediumKick == other.MediumKick;
+            result &= HardKick == other.HardKick;
 
             return result;
         }
@@ -116,20 +119,20 @@ namespace TPInputLibrary
         public override int GetHashCode()
         {
             int hash = 13;
-            hash = (hash * 7) + Options.Back.GetHashCode();
-            hash = (hash * 7) + Options.Start.GetHashCode();
-            hash = (hash * 7) + Directions.Up.GetHashCode();
-            hash = (hash * 7) + Directions.Down.GetHashCode();
-            hash = (hash * 7) + Directions.Left.GetHashCode();
-            hash = (hash * 7) + Directions.Right.GetHashCode();
-            hash = (hash * 7) + Directions.Forward.GetHashCode();
-            hash = (hash * 7) + Directions.Backward.GetHashCode();
-            hash = (hash * 7) + Punches.Light.GetHashCode();
-            hash = (hash * 7) + Punches.Medium.GetHashCode();
-            hash = (hash * 7) + Punches.Hard.GetHashCode();
-            hash = (hash * 7) + Kicks.Light.GetHashCode();
-            hash = (hash * 7) + Kicks.Medium.GetHashCode();
-            hash = (hash * 7) + Kicks.Hard.GetHashCode();
+            hash = (hash * 7) + Back.GetHashCode();
+            hash = (hash * 7) + Start.GetHashCode();
+            hash = (hash * 7) + Up.GetHashCode();
+            hash = (hash * 7) + Down.GetHashCode();
+            hash = (hash * 7) + Left.GetHashCode();
+            hash = (hash * 7) + Right.GetHashCode();
+            hash = (hash * 7) + Forward.GetHashCode();
+            hash = (hash * 7) + Backward.GetHashCode();
+            hash = (hash * 7) + LightPunch.GetHashCode();
+            hash = (hash * 7) + MediumPunch.GetHashCode();
+            hash = (hash * 7) + HardPunch.GetHashCode();
+            hash = (hash * 7) + LightKick.GetHashCode();
+            hash = (hash * 7) + MediumKick.GetHashCode();
+            hash = (hash * 7) + HardKick.GetHashCode();
             return hash;
         }
 
