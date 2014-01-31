@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="FPS.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="InputResolver.cs" />
     <Compile Include="MemoryEditor\MAPI.cs" />
     <Compile Include="MemoryEditor\Memory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
