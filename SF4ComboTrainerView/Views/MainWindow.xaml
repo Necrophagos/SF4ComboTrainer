@@ -5,7 +5,7 @@
         xmlns:vm="clr-namespace:SF4ComboTrainerViewModel" 
         xmlns:UserControls="clr-namespace:SF4ComboTrainerView.UserControls" 
         x:Class="SF4ComboTrainerView.MainWindow"
-        Title="SF4 Combo Trainer" Height="470" Width="729.85" Icon="/comboicon.ico">
+        Title="SF4 Combo Trainer" Height="700" Width="320" Icon="/comboicon.ico">
     <Window.Resources>
         <!--
             <Style TargetType="{x:Type Grid}">
@@ -55,36 +55,47 @@
         </Menu>
         <!--Content-->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.346,0.472">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition  Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition  Height="Auto"/>
+            </Grid.RowDefinitions>
 
             <DockPanel>
-                <ToolBar DockPanel.Dock="Top" >
+                <!--Playback functions-->
+                <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
                     <Button Content="Play" />
                     <CheckBox Content="Loop"/>
                     <Separator />
                     <Button Content="Record"/>
                     <Button Content="Stop Record" />
                 </ToolBar>
-                <ListView x:Name="TimeLineListView" ItemsSource="{Binding TimeLineItems, Source={StaticResource TimeLine}}" Grid.Column="1">
-                    <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding Description}" />
-                            <TextBlock Text="{Binding Index}" />
-
-                        </Grid>
-                    </DataTemplate>
+                <!--Insert commands-->
+                <ToolBar DockPanel.Dock="Bottom" ToolBarTray.IsLocked="True" >
+                    <Button x:Name="btn_PressInput" Content="Press Input" Click="btn_PressInput_Click"  />
+                    <Button x:Name="btn_HoldInput" Content="Hold Input"/>
+                    <Button x:Name="btn_ReleaseInput" Content="Release Input" />
+                    <Separator />
+                    <Button x:Name="btn_RemoveInput" Content="Remove"/>
+                </ToolBar>
+                
+                <!--Input Item List-->
+                <ListView x:Name="TimeLineListView" SelectedItem="{Binding SelectedItem }" ItemsSource="{Binding TimeLineItems, Source={StaticResource TimeLine}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Description}" />
+                                <TextBlock Text="{Binding Index}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </DockPanel>
-            <Grid Grid.Column="1" HorizontalAlignment="Right" Margin="0,4,4,4" Width="300">
+            <Grid Grid.Row="1" Width="300">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <UserControls:TimeLineItemDetails DataContext="{Binding SelectedItem, ElementName=TimeLineListView}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                <UserControls:ControllerInterface Grid.Row="1"/>
+                <UserControls:ControllerInterface Grid.Row="1" DataContext="{Binding SelectedItem}"/>
             </Grid>
         </Grid>
     </DockPanel>

@@ -62,6 +62,11 @@ namespace SF4ComboTrainerModel
             }
         }
 
+        public bool IsPlayerOnLeft()
+        {
+            return (sf4m.GetP1PosX() < sf4m.GetP2PosX());
+        }
+
         private VirtualKeyCode getP1_BK()
         {
             return (sf4m.GetP1PosX() < sf4m.GetP2PosX()) ? Get(Input.P1_LE) : Get(Input.P1_RI);

@@ -16,9 +16,22 @@ namespace SF4ComboTrainerModel
      */
     public class SF4Control
     {
+
+        #region API calls
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow(); 
+        #endregion
+
+        #region Fields
         protected SF4Memory sf4memory;
 
-        protected InputResolver inputResolver;
+        public InputResolver inputResolver;
 
         // To keep the last frame.
         protected int lastFrame;
@@ -30,17 +43,9 @@ namespace SF4ComboTrainerModel
         //switch to fullscreen sf4 actually takes very long.
         protected int MIN_TIME_BETWEEN_FRAMES = 3000;
 
-        [DllImport("user32.dll")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetForegroundWindow();
-
         // to see if in a match.
-        public volatile bool InMatch;
+        public volatile bool InMatch; 
+        #endregion
         
         public bool SwitchToSF4()
         {

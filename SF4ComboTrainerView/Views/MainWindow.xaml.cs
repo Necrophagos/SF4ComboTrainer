@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SF4ComboTrainerViewModel;
 
 namespace SF4ComboTrainerView
 {
@@ -22,9 +23,22 @@ namespace SF4ComboTrainerView
     {
         public MainWindow()
         {
+            
             InitializeComponent();
+
+
+            TimeLineItemViewModel prs = new TimeLineItemViewModel( );
+            prs.Direction_Down = true;
+            prs.Light_Kick = true;
+
+            TimeLineListView.Items.Add(prs);
         }
 
-  
+        private void btn_PressInput_Click(object sender, RoutedEventArgs e)
+        {
+            TimeLineItemViewModel prs = new TimeLineItemViewModel();
+            TimeLineListView.Items.Add(prs);
+        }
+ 
     }
 }

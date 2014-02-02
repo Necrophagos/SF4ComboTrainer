@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TPInputLibrary;
 
 namespace SF4ComboTrainerModel
 {
@@ -12,21 +13,50 @@ namespace SF4ComboTrainerModel
      * press input, hold input, release input and wait frame.
      * these differences are represented by the following class hierarchy
      * 
-     * TimeLineItem --- WaitFrameItem
+     * TimeLineItemModel --- WaitFrameItemModel
      *          |
-     *          |------ InputItem
+     *          |------ InputItemModel
      *                      |
-     *                      |--- PressItem
-     *                      |--- HoldItem
-     *                      |--- ReleaseItem
+     *                      |--- PressItemModel
+     *                      |--- HoldItemModel
+     *                      |--- ReleaseItemModel
      */
-    public abstract class TimeLineItem
-    {
 
+    /**
+     * The new layout will incorporate the InputItemModel as the base for Press, Hold and Release.
+     * However we will be removing WaitFrameItemModel and incorporating it into InputItemModel.
+     * There is no reason to have the WaitFrameItem as we can make the PressItemModel act upon
+     * its behalf by inputing a neutral input. This creates a waitframe without any inputs.
+     *      
+     *          InputItemModel
+     *               |
+     *               |--- PressItemModel
+     *               |--- HoldItemModel
+     *               |--- ReleaseItemModel
+     */
+
+
+    public abstract class InputItemModel
+    {
         //The static shared sound handler
         protected static Roadie roadie = new Roadie();
 
-        public String Description;
+        private string description;
+        public abstract string Description
+        {
+            get;
+        }
+
+        protected int frames;
+        public int Frames
+        {
+            get { return frames; }
+            set
+            {
+                frames = value;
+            }
+        }
+        public static String itemType = "Wait";
 
         //arrays that distinguish directional from button inputs (to help find sound)
         public static Input[] Directions = new Input[] { Input.P1_UP, Input.P1_DN, Input.P1_LE, Input.P1_RI, Input.P1_BK, Input.P1_FW };
@@ -34,27 +64,43 @@ namespace SF4ComboTrainerModel
 
         public bool PlaySound = false;
 
+        protected Input[] inputs = new Input[0];
+        public Input[] Inputs
+        {
+            get { return inputs; }
+            set
+            {
+                inputs = value;
+            }
+        }
+
+        protected SF4InputState inputState = new SF4InputState();
+        public SF4InputState InputState
+        {
+            get { return inputState; }
+            set { inputState = value; }
+        }
         //creates a string representation of the object
         public abstract String Serialize();
 
-        /**creates a timeline object from a string serialization and assumes the following
-         * formats (specified by the respective Serialize methods)
-         * 
-         * WaitFrameItem: ITEMTYPE#PLAYSOUND#NUMFRAMES
-         * InputItem:     ITEMTYPE#PLAYSOUND#NUMIMPUTS#INPUT1#INPUT2...
-         */
-        public static TimeLineItem Deserialize(String obj)
+        public static InputItemModel Deserialize(String obj)
         {
-
+            /**
+             * Creates a timeline object from a string serialization and assumes the following
+             * formats (specified by the respective Serialize methods)
+             * 
+             * InputItemModel:     ITEMTYPE#PLAYSOUND#NUMFRAMES#NUMIMPUTS[#INPUT1,#INPUT2...]
+             */
             String[] tokens = obj.Split('#');
 
-            if (tokens[0].Equals(WaitFrameItem.itemType))
+            // Big change: this is the new default to help transform old file type.
+            if (tokens[0].Equals(InputItemModel.itemType))
             {
-                WaitFrameItem item = new WaitFrameItem(int.Parse(tokens[2]));
+                PressItemModel item = new PressItemModel(int.Parse(tokens[2]));
                 item.PlaySound = Boolean.Parse(tokens[1]);
                 return item;
             }
-            else if (tokens[0].Equals(PressItem.itemType))
+            else if (tokens[0].Equals(PressItemModel.itemType))
             {
                 int numInputs = int.Parse(tokens[2]);
                 Input[] inputs = new Input[numInputs];
@@ -62,11 +108,11 @@ namespace SF4ComboTrainerModel
                 {
                     inputs[i] = ParseInput(tokens[3 + i]);
                 }
-                PressItem item= new PressItem(inputs);
+                PressItemModel item = new PressItemModel(inputs);
                 item.PlaySound = Boolean.Parse(tokens[1]);
                 return item;
             }
-            else if (tokens[0].Equals(HoldItem.itemType))
+            else if (tokens[0].Equals(HoldItemModel.itemType))
             {
                 int numInputs = int.Parse(tokens[2]);
                 Input[] inputs = new Input[numInputs];
@@ -74,11 +120,11 @@ namespace SF4ComboTrainerModel
                 {
                     inputs[i] = ParseInput(tokens[3 + i]);
                 }
-                HoldItem item = new HoldItem(inputs);
+                HoldItemModel item = new HoldItemModel(inputs);
                 item.PlaySound = Boolean.Parse(tokens[1]);
                 return item;
             }
-            else if (tokens[0].Equals(ReleaseItem.itemType))
+            else if (tokens[0].Equals(ReleaseItemModel.itemType))
             {
                 int numInputs = int.Parse(tokens[2]);
                 Input[] inputs = new Input[numInputs];
@@ -86,7 +132,7 @@ namespace SF4ComboTrainerModel
                 {
                     inputs[i] = ParseInput(tokens[3 + i]);
                 }
-                ReleaseItem item = new ReleaseItem(inputs);
+                ReleaseItemModel item = new ReleaseItemModel(inputs);
                 item.PlaySound = Boolean.Parse(tokens[1]);
                 return item;
             }
@@ -120,48 +166,15 @@ namespace SF4ComboTrainerModel
         //gets amount of frames the item needs to play its action
         public abstract int GetFrameDuration();
 
-
         public override string ToString()
         {
             return Description;
         }
-    }
 
-    public class WaitFrameItem : TimeLineItem
-    {
-        private int frames;
-
-        public static String itemType = "Wait";
-
-        public WaitFrameItem(int frames)
+        protected string getInputString()
         {
-            this.frames = frames;
-            this.Description = "Wait " + frames + " frames";
+            return getInputString(inputState.ToInputsArray());
         }
-
-        public override int GetFrameDuration()
-        {
-            return frames;
-        }
-
-        public override string Serialize()
-        {
-            return itemType + "#" + PlaySound + "#" + frames;
-        }
-
-        public override void Action(SF4Control sf4control, bool sendInputs)
-        {
-            sf4control.WaitFrames(frames);
-            if (PlaySound) { roadie.PlaySound(Roadie.WAIT_SOUND); }
-        }
-
-    }
-
-    public abstract class InputItem : TimeLineItem
-    {
-
-        protected Input[] inputs;
-
 
         protected String getInputString(params Input[] inputs)
         {
@@ -175,30 +188,59 @@ namespace SF4ComboTrainerModel
 
     }
 
-    public class PressItem : InputItem
+    public class PressItemModel : InputItemModel
     {
-        public static String itemType = "Press";
+        public new static String itemType = "Press";
 
-        public PressItem(params Input[] inputs)
+        public override string Description
         {
+            get
+            {
+                if (inputs.Count() > 0 && frames < 2)
+                {
+                    return itemType + " " + getInputString(inputs);
+                }
+                else if (inputs.Count() > 0 && frames > 1)
+                {
+                    return itemType + " " + getInputString(inputs) + " and wait " + frames + " frames";
+                }
+                else
+                {
+                    return "Wait " + frames + " frames";
+                }
+            }
+        }
 
+        public PressItemModel()
+        {
+            new PressItemModel(1);
+        }
+
+        public PressItemModel(int frames)
+        {
+            this.frames = frames;
+
+        }
+
+        public PressItemModel(params Input[] inputs)
+        {
             this.inputs = inputs;
-            this.Description = itemType + " " + getInputString(inputs);
-
+            this.frames = 1;
         }
-
-        public override int GetFrameDuration()
+        public PressItemModel(int frames, params Input[] inputs)
         {
-            return 1;
+            this.inputs = inputs;
+            this.frames = frames;
         }
-
         public override string Serialize()
         {
-            String obj = itemType + "#" + PlaySound + "#" + inputs.Count();
+
+            String obj = itemType + "#" + PlaySound + "#" + frames + "#" + inputs.Count();
             foreach (Input input in inputs)
             {
                 obj += "#" + input;
             }
+
             return obj;
         }
 
@@ -216,35 +258,46 @@ namespace SF4ComboTrainerModel
 
             if (PlaySound)
             {
-                if (inputs.Intersect(Directions).Count() > 0)
+                if (inputs.Intersect(Directions).Count() > 0 && inputs.Intersect(Buttons).Count() > 0)
                 {
-                    roadie.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
+                    roadie.PlaySound(Roadie.WAIT_SOUND);
                 }
-                if (inputs.Intersect(Buttons).Count() > 0)
+                else
                 {
-                    roadie.PlaySound(Roadie.PRESS_BUTTON_SOUND);
+                    if (inputs.Intersect(Directions).Count() > 0)
+                        roadie.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
+                    if (inputs.Intersect(Buttons).Count() > 0)
+                        roadie.PlaySound(Roadie.PRESS_BUTTON_SOUND);
                 }
             }
-        }
 
-
-    }
-
-    public class HoldItem : InputItem
-    {
-        public static String itemType = "Hold";
-
-        public HoldItem(params Input[] inputs)
-        {
-            this.inputs = inputs;
-            this.Description = itemType + " " + getInputString(inputs);
+            //After sound has played we wait the remainder of the frame duration
+            sf4control.WaitFrames(this.GetFrameDuration() - 1);
         }
 
         public override int GetFrameDuration()
         {
-            return 0;
+            return frames;
+        }
+    }
+
+    public class HoldItemModel : InputItemModel
+    {
+        public new static String itemType = "Hold";
+
+        public override string Description
+        {
+            get
+            {
+                return itemType + " " + getInputString(inputs);
+            }
         }
 
+        public HoldItemModel(params Input[] inputs)
+        {
+            this.inputs = inputs;
+            frames = 0;
+        }
 
         public override void Action(SF4Control sf4control, bool sendInputs)
         {
@@ -266,8 +319,6 @@ namespace SF4ComboTrainerModel
             }
         }
 
-
-
         public override string Serialize()
         {
             String obj = itemType + "#" + PlaySound + "#" + inputs.Count();
@@ -277,16 +328,28 @@ namespace SF4ComboTrainerModel
             }
             return obj;
         }
+
+        public override int GetFrameDuration()
+        {
+            return GetFrameDuration();
+        }
     }
 
-    public class ReleaseItem : InputItem
+    public class ReleaseItemModel : InputItemModel
     {
-        public static String itemType = "Release";
+        public new static String itemType = "Release";
 
-        public ReleaseItem(params Input[] inputs)
+        public override string Description
+        {
+            get
+            {
+                return itemType + " " + getInputString(inputs);
+            }
+        }
+
+        public ReleaseItemModel(params Input[] inputs)
         {
             this.inputs = inputs;
-            this.Description = itemType + " " + getInputString(inputs);
         }
 
         public override void Action(SF4Control sf4control, bool sendInputs)
@@ -313,8 +376,6 @@ namespace SF4ComboTrainerModel
         {
             return 1;
         }
-
-
 
         public override string Serialize()
         {

@@ -10,20 +10,22 @@ namespace SF4ComboTrainerViewModel
 {
     public class TimeLineItemViewModel : ObservableObject
     {
-        private TimeLineItem timeLineItem;
-        public TimeLineItem TimeLineItem
+
+        private InputItemModel inputItem = new PressItemModel();
+        public InputItemModel InputItem
         {
-            get { return timeLineItem; }
+            get { return inputItem; }
             set
             {
-                if (value != timeLineItem)
+                if (value != inputItem)
                 {
-                    timeLineItem = value;
-                    OnPropertyChanged("TimeLineItem");
+                    inputItem = value;
+                    OnPropertyChanged("InputItem");
                 }
             }
         }
 
+        //Identifiers
         private int index;
         public int Index
         {
@@ -41,7 +43,7 @@ namespace SF4ComboTrainerViewModel
         private string description;
         public string Description
         {
-            get { return timeLineItem.Description; }
+            get { return inputItem.Description; }
             set
             {
                 if (value != description)
@@ -52,6 +54,7 @@ namespace SF4ComboTrainerViewModel
             }
         }
 
+        //Options
         private bool sendInputs;
         public bool SendInputs
         {
@@ -66,15 +69,14 @@ namespace SF4ComboTrainerViewModel
             }
         }
 
-
         public bool PlaySound
         {
-            get { return timeLineItem.PlaySound; }
+            get { return inputItem.PlaySound; }
             set
             {
-                if (value != timeLineItem.PlaySound)
+                if (value != inputItem.PlaySound)
                 {
-                    timeLineItem.PlaySound = value;
+                    inputItem.PlaySound = value;
                     OnPropertyChanged("PlaySound");
                 }
             }
@@ -83,35 +85,193 @@ namespace SF4ComboTrainerViewModel
         private int waitFrames;
         public int WaitFrames
         {
-            get { return timeLineItem.GetFrameDuration(); }
+            get { return inputItem.GetFrameDuration(); }
             set
             {
-                if (value != waitFrames)
+                if (value != inputItem.Frames)
                 {
-                    waitFrames = value;
+                    inputItem.Frames = value;
                     OnPropertyChanged("WaitFrames");
                 }
             }
         }
 
+        #region Input Property Definitions
+
+        //Directions
+        public bool Direction_Up
+        {
+            get { return inputItem.InputState.Up; }
+            set
+            {
+                if (value != inputItem.InputState.Up)
+                {
+                    inputItem.InputState.Up = value;
+                    OnPropertyChanged("Direction_Up");
+                }
+            }
+        }
+        public bool Direction_Down
+        {
+            get { return inputItem.InputState.Down; }
+            set
+            {
+                if (value != inputItem.InputState.Down)
+                {
+                    inputItem.InputState.Down = value;
+                    OnPropertyChanged("Direction_Down");
+                }
+            }
+        }
+        public bool Direction_Left
+        {
+            get { return inputItem.InputState.Left; }
+            set
+            {
+                if (value != inputItem.InputState.Left)
+                {
+                    inputItem.InputState.Left = value;
+                    OnPropertyChanged("Direction_Left");
+                }
+            }
+        }
+        public bool Direction_Right
+        {
+            get { return inputItem.InputState.Right; }
+            set
+            {
+                if (value != inputItem.InputState.Right)
+                {
+                    inputItem.InputState.Right = value;
+                    OnPropertyChanged("Direction_Right");
+                }
+            }
+        }
+        public bool Direction_Forward
+        {
+            get { return inputItem.InputState.Forward; }
+            set
+            {
+                if (value != inputItem.InputState.Forward)
+                {
+                    inputItem.InputState.Forward = value;
+                    OnPropertyChanged("Direction_Forward");
+                }
+            }
+        }
+        public bool Direction_Backward
+        {
+            get { return inputItem.InputState.Backward; }
+            set
+            {
+                if (value != inputItem.InputState.Backward)
+                {
+                    inputItem.InputState.Backward = value;
+                    OnPropertyChanged("Direction_Backward");
+                }
+            }
+        }
+        //Punches
+
+        public bool Light_Punch
+        {
+            get { return inputItem.InputState.LightPunch; }
+            set
+            {
+                if (value != inputItem.InputState.LightPunch)
+                {
+                    inputItem.InputState.LightPunch = value;
+                    OnPropertyChanged("Light_Punch");
+                }
+            }
+        }
+        public bool Medium_Punch
+        {
+            get { return inputItem.InputState.MediumPunch; }
+            set
+            {
+                if (value != inputItem.InputState.MediumPunch)
+                {
+                    inputItem.InputState.MediumPunch = value;
+                    OnPropertyChanged("Medium_Punch");
+                }
+            }
+        }
+        public bool Hard_Punch
+        {
+            get { return inputItem.InputState.HardPunch; }
+            set
+            {
+                if (value != inputItem.InputState.HardPunch)
+                {
+                    inputItem.InputState.HardPunch = value;
+                    OnPropertyChanged("Hard_Punch");
+                }
+            }
+        }
+
+        //Kicks
+        public bool Light_Kick
+        {
+            get { return inputItem.InputState.LightKick; }
+            set
+            {
+                if (value != inputItem.InputState.LightKick)
+                {
+                    inputItem.InputState.LightKick = value;
+                    OnPropertyChanged("Light_Kick");
+                }
+            }
+        }
+        public bool Medium_Kick
+        {
+            get { return inputItem.InputState.MediumKick; }
+            set
+            {
+                if (value != inputItem.InputState.MediumKick)
+                {
+                    inputItem.InputState.MediumKick = value;
+                    OnPropertyChanged("Medium_Kick");
+                }
+            }
+        }
+        public bool Hard_Kick
+        {
+            get { return inputItem.InputState.HardKick; }
+            set
+            {
+                if (value != inputItem.InputState.Up)
+                {
+                    inputItem.InputState.HardKick = value;
+                    OnPropertyChanged("Hard_Kick");
+                }
+            }
+        }
+
+        #endregion
+
+        public TimeLineItemViewModel(){
+            this.inputItem = new PressItemModel();
+        }
+
         public void Action(SF4Record recorder)
         {
-            this.timeLineItem.Action(recorder, this.sendInputs);
+            this.InputItem.Action(recorder, this.sendInputs);
         }
 
         internal string Serialize()
         {
-            return this.timeLineItem.Serialize();
+            return this.InputItem.Serialize();
         }
 
         static internal TimeLineItemViewModel Deserialize(string stringValue)
         {
             //Deserialize actual timeline item
-            TimeLineItem tmpTimeLineItem = TimeLineItem.Deserialize(stringValue);
+            InputItemModel tmpTimeLineItem = InputItemModel.Deserialize(stringValue);
 
             //Setup TimeLineItemViewModel
             TimeLineItemViewModel result = new TimeLineItemViewModel();
-            result.TimeLineItem = tmpTimeLineItem;
+            result.InputItem = tmpTimeLineItem;
             result.WaitFrames = tmpTimeLineItem.GetFrameDuration();
             result.Description = tmpTimeLineItem.Description;
             result.Index = -1;

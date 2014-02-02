@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace SF4ComboTrainerView
+namespace SF4ComboTrainerModel
 {
     public abstract class ObservableObject : INotifyPropertyChanged
     {

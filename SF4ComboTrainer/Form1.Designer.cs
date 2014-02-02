@@ -22,7 +22,7 @@ namespace SF4ComboTrainer
 
             if (disposing)
             {
-                TimeLineItem.DisposeRoadie();                
+                InputItemModel.DisposeRoadie();                
             }
 
             base.Dispose(disposing);

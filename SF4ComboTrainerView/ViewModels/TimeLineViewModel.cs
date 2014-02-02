@@ -204,7 +204,7 @@ namespace SF4ComboTrainerViewModel
             recorder.ReleaseALL();
 
             //// Get the last item in the list
-            //TimeLineItem lastItem = (TimeLineItem)TimeLine.Items[TimeLine.Items.Count - 1];
+            //TimeLineItemModel lastItem = (TimeLineItemModel)TimeLine.Items[TimeLine.Items.Count - 1];
             SelectedItem = (TimeLineItemViewModel)TimeLineItems[TimeLineItems.Count - 1];
             PlaybackStop();
         }

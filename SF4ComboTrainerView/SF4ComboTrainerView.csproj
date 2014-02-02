@@ -89,22 +89,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PropertyObjects\ObservableObject.cs" />
+    <Compile Include="PropertyObjects\RelayCommand.cs" />
     <Compile Include="ViewModels\InputViewModel.cs" />
     <Compile Include="UserControls\ControllerInterface.xaml.cs">
       <DependentUpon>ControllerInterface.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TimeLineItemDetails.xaml.cs">
-      <DependentUpon>TimeLineItemDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PropertyObjects\ObservableObject.cs" />
-    <Compile Include="PropertyObjects\RelayCommand.cs" />
     <Compile Include="ViewModels\TimeLineViewModel.cs" />
     <Compile Include="ViewModels\TimeLineItemViewModel.cs" />
     <Page Include="UserControls\ControllerInterface.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TimeLineItemDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

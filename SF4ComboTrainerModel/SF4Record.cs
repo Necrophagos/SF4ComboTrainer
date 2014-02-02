@@ -41,7 +41,7 @@ namespace SF4ComboTrainerModel
             recordingActive = false;
         }
 
-        public delegate void RecordedInputEvent(TimeLineItem timeLineItem);
+        public delegate void RecordedInputEvent(InputItemModel timeLineItem);
         public event RecordedInputEvent OnRecordInput;
         public delegate void ResetInputEvent();
         public event ResetInputEvent OnResetInput;
@@ -55,7 +55,7 @@ namespace SF4ComboTrainerModel
 
             //If the state stays empty - add in waittimelineitem
             SF4InputState prevState = null;
-            List<TimeLineItem> timeLineItems = new List<TimeLineItem>();
+            List<InputItemModel> timeLineItems = new List<InputItemModel>();
          
             // Reset / start the frameTimer which is used to get time between frames.
             frameTimer.Reset();
@@ -87,12 +87,12 @@ namespace SF4ComboTrainerModel
                         // add the wait time to the list and 
                         if (prevState.NonePressed )
                         {
-                            OnRecordInput(new WaitFrameItem(waitGap));
+                            OnRecordInput(new PressItemModel(waitGap));
                             waitGap = 0;
                         }
                         else if(inputHandler.CurrentState != prevState)
                         {
-                            OnRecordInput(new PressItem(inputHandler.CurrentState.ToInputsArray()));
+                            OnRecordInput(new PressItemModel(inputHandler.CurrentState.ToInputsArray()));
                             Debug.WriteLine("RECORDED INPUT");
                         }
                     }

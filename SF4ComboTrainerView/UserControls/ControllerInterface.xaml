@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:SF4ComboTrainerViewModel"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              x:Class="SF4ComboTrainerView.UserControls.ControllerInterface" 
              mc:Ignorable="d" 
               >
@@ -28,71 +29,86 @@
             <Setter Property="Height" Value="40" />
             <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
         </Style>
-        <vm:InputViewModel x:Key="InputStateKey" />
+        <vm:TimeLineItemViewModel x:Key="TimeLineItemKey" />
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource InputStateKey}" />
+        <Binding Source="{StaticResource TimeLineItemKey}" />
     </UserControl.DataContext>
-    <Grid Height="Auto">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <Grid Height="220" Width="300">
         <Grid.RowDefinitions>
+            <RowDefinition MinHeight="150"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <UniformGrid  Rows="3" Columns="3" 
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <UniformGrid  Rows="3" Columns="3" 
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center" >
-            <RadioButton GroupName="grpDirection">
-                <Image  Source="{StaticResource UpBackwardDirectionImage}"/>
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource UpDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource UpForwardDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource BackwardDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource NeutralDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource ForwardDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource DownBackwardDirectionImage}"/>
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource DownDirectionImage}" />
-            </RadioButton>
-            <RadioButton GroupName="grpDirection" >
-                <Image Source="{StaticResource DownForwardDirectionImage}" />
-            </RadioButton>
-        </UniformGrid>
-        <UniformGrid Grid.Column="1" Rows="2" Columns="3"
+                <RadioButton GroupName="grpDirection">
+                    <Image Source="{StaticResource UpBackwardDirectionImage}"/>
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" IsChecked="{Binding Direction_Up, Mode=TwoWay}">
+                    <Image Source="{StaticResource UpDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection"  >
+                    <Image Source="{StaticResource UpForwardDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" IsChecked="{Binding Direction_Backward, Mode=TwoWay}">
+                    <Image Source="{StaticResource BackwardDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" >
+                    <Image Source="{StaticResource NeutralDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" IsChecked="{Binding Direction_Forward, Mode=TwoWay}">
+                    <Image Source="{StaticResource ForwardDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" >
+                    <Image Source="{StaticResource DownBackwardDirectionImage}"/>
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" IsChecked="{Binding Direction_Down, Mode=TwoWay}" >
+                    <Image Source="{StaticResource DownDirectionImage}" />
+                </RadioButton>
+                <RadioButton GroupName="grpDirection" >
+                    <Image Source="{StaticResource DownForwardDirectionImage}" />
+                </RadioButton>
+            </UniformGrid>
+            <UniformGrid Grid.Column="1" Rows="3" Columns="3"
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center">
-            <ToggleButton IsChecked="{Binding Mode=OneWay}">
-                <Image Source="{StaticResource LightPunchImage}" />
-            </ToggleButton>
-            <ToggleButton>
-                <Image Source="{StaticResource MediumPunchImage}"/>
-            </ToggleButton>
-            <ToggleButton>
-                <Image Source="{StaticResource HardPunchImage}"/>
-            </ToggleButton>
-            <ToggleButton>
-                <Image Source="{StaticResource LightKickImage}" />
-            </ToggleButton>
-            <ToggleButton>
-                <Image Source="{StaticResource MediumKickImage}" />
-            </ToggleButton>
-            <ToggleButton>
-                <Image Source="{StaticResource HardKickImage}" />
-            </ToggleButton>
-        </UniformGrid>
+                <ToggleButton  IsChecked="{Binding Light_Punch, Mode=TwoWay}">
+                    <Image Source="{StaticResource LightPunchImage}" />
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Medium_Punch, Mode=TwoWay}">
+                    <Image Source="{StaticResource MediumPunchImage}"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Hard_Punch, Mode=TwoWay}">
+                    <Image Source="{StaticResource HardPunchImage}"/>
+                </ToggleButton>
+                <ToggleButton  IsChecked="{Binding Light_Kick, Mode=TwoWay}">
+                    <Image Source="{StaticResource LightKickImage}" />
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Medium_Kick, Mode=TwoWay}">
+                    <Image Source="{StaticResource MediumKickImage}" />
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Hard_Kick, Mode=TwoWay}">
+                    <Image Source="{StaticResource HardKickImage}" />
+                </ToggleButton>
+            </UniformGrid>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <UniformGrid  Columns="1" Grid.Column="0">
+                <xctk:IntegerUpDown Minimum="1" Maximum="300" 
+                  Value="{Binding WaitFrames,FallbackValue=1}" ToolTip="The frame duration of any Time Line Item"/>
+                <Slider Value="{Binding WaitFrames,FallbackValue=1}" Maximum="300" Minimum="1" />
+            </UniformGrid>
+            <ToggleButton Content="Play Sound" Grid.Column ="1" Width="Auto" IsChecked="{Binding PlaySound}"/>
+        </Grid>
     </Grid>
 </UserControl>

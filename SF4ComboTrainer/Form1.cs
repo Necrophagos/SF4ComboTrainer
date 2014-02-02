@@ -30,7 +30,7 @@ namespace SF4ComboTrainer
         private void TimeLine_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!TimeLine.Focused) { return; }
-            TimeLineItem curItem = (TimeLineItem)TimeLine.SelectedItem;
+            InputItemModel curItem = (InputItemModel)TimeLine.SelectedItem;
             if (curItem == null)
             {
                 lblIndex.Text = "0:";
@@ -51,15 +51,15 @@ namespace SF4ComboTrainer
             int currentFrame = 0;
             for (int i = 0; i < index; i++)
             {
-                currentFrame += ((TimeLineItem)TimeLine.Items[i]).GetFrameDuration();
+                currentFrame += ((InputItemModel)TimeLine.Items[i]).GetFrameDuration();
             }
             lblCurrentFrame.Text = "Current Frame: " + currentFrame;
             chkPlaySound.Checked = curItem.PlaySound;
 
-            if (curItem.GetType() == typeof(WaitFrameItem))
+            if (curItem.GetType() == typeof(InputItemModel))
             {
                 numChgWaitFrames.Enabled = true;
-                numChgWaitFrames.Value = ((WaitFrameItem)curItem).GetFrameDuration();
+                numChgWaitFrames.Value = ((PressItemModel)curItem).GetFrameDuration();
             }
             else
             {
@@ -71,7 +71,7 @@ namespace SF4ComboTrainer
 
         private void chkPlaySound_CheckedChanged(object sender, EventArgs e)
         {
-            TimeLineItem tlItem = ((TimeLineItem)TimeLine.SelectedItem);
+            InputItemModel tlItem = ((InputItemModel)TimeLine.SelectedItem);
             if (null != tlItem)
             {
                 tlItem.PlaySound = chkPlaySound.Checked;
@@ -83,7 +83,7 @@ namespace SF4ComboTrainer
 
             int index = TimeLine.SelectedIndex;
             if (0 >= index) { return; }
-            TimeLineItem tmp = (TimeLineItem)TimeLine.Items[index];
+            InputItemModel tmp = (InputItemModel)TimeLine.Items[index];
             TimeLine.Items[index] = TimeLine.Items[index - 1];
             TimeLine.Items[index - 1] = tmp;
             TimeLine.SetSelected(index - 1, true);
@@ -95,7 +95,7 @@ namespace SF4ComboTrainer
         {
             int index = TimeLine.SelectedIndex;
             if (TimeLine.Items.Count - 1 == index || 0 > index) { return; }
-            TimeLineItem tmp = (TimeLineItem)TimeLine.Items[index];
+            InputItemModel tmp = (InputItemModel)TimeLine.Items[index];
             TimeLine.Items[index] = TimeLine.Items[index + 1];
             TimeLine.Items[index + 1] = tmp;
             TimeLine.SetSelected(index + 1, true);
@@ -111,7 +111,7 @@ namespace SF4ComboTrainer
 
         private void btnWait_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new WaitFrameItem((int)numFrames.Value));
+            TimeLine.Items.Add(new PressItemModel((int)numFrames.Value));
             numFrames.Value = 1;
         }
 
@@ -119,7 +119,9 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new PressItem(inputs));
+
+            if(numFrames.Value >0)
+                TimeLine.Items.Add(new PressItemModel((int)numFrames.Value,inputs));
             resetInputBoxes();
         }
 
@@ -127,7 +129,7 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new HoldItem(inputs));
+            TimeLine.Items.Add(new HoldItemModel(inputs));
             resetInputBoxes();
         }
 
@@ -135,7 +137,7 @@ namespace SF4ComboTrainer
         {
             Input[] inputs = getInputs();
             if (inputs.Count() == 0) { return; }
-            TimeLine.Items.Add(new ReleaseItem(inputs));
+            TimeLine.Items.Add(new ReleaseItemModel(inputs));
             resetInputBoxes();
         }
 
@@ -189,7 +191,7 @@ namespace SF4ComboTrainer
             if (numChgWaitFrames.Focused)
             {
                 int index = selectedTimeLineIndex;
-                TimeLine.Items.Insert(index, new WaitFrameItem((int)numChgWaitFrames.Value));
+                TimeLine.Items.Insert(index, new PressItemModel((int)numChgWaitFrames.Value));
                 TimeLine.Items.RemoveAt(index + 1);
                 TimeLine.Focus();
                 TimeLine.SetSelected(index, true);
@@ -202,7 +204,7 @@ namespace SF4ComboTrainer
             sf4control.ResetLockupTimer();
             for (int i = 0; i < TimeLine.Items.Count; i++)
             {
-                TimeLineItem item = (TimeLineItem)TimeLine.Items[i];
+                InputItemModel item = (InputItemModel)TimeLine.Items[i];
 
                 //highlighting of current item
                 DoThreadSafe(TimeLine, () =>
@@ -218,7 +220,7 @@ namespace SF4ComboTrainer
                 {
                     // Get the last item in the list
                     i = TimeLine.Items.Count - 1;
-                    item = (TimeLineItem)TimeLine.Items[i];
+                    item = (InputItemModel)TimeLine.Items[i];
 
                     //highlighting the last item.
                     DoThreadSafe(TimeLine, () =>
@@ -240,7 +242,7 @@ namespace SF4ComboTrainer
 
 
             //// Get the last item in the list
-            //TimeLineItem lastItem = (TimeLineItem)TimeLine.Items[TimeLine.Items.Count - 1];
+            //InputItemModel lastItem = (InputItemModel)TimeLine.Items[TimeLine.Items.Count - 1];
 
             ////highlighting the last item.
             //DoThreadSafe(TimeLine, () =>
@@ -335,7 +337,7 @@ namespace SF4ComboTrainer
             get
             {
                 int sum = 0;
-                foreach (TimeLineItem item in TimeLine.Items)
+                foreach (InputItemModel item in TimeLine.Items)
                 {
                     sum += item.GetFrameDuration();
                 }
@@ -362,10 +364,10 @@ namespace SF4ComboTrainer
             sf4control.StopRecording();
         }
 
-        private void RecordedInputUpdate(TimeLineItem timeLineItem)
+        private void RecordedInputUpdate(InputItemModel inputItem)
         {
             if(TimeLine.InvokeRequired){
-                this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Add(timeLineItem);}));
+                this.Invoke(new MethodInvoker(delegate { TimeLine.Items.Add(inputItem); }));
             }
         }
 
@@ -389,7 +391,7 @@ namespace SF4ComboTrainer
             {
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(saveFileDialog.FileName))
                 {
-                    foreach (TimeLineItem item in TimeLine.Items)
+                    foreach (InputItemModel item in TimeLine.Items)
                     {
                         file.WriteLine(item.Serialize());
                     }
@@ -411,7 +413,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
+                    TimeLine.Items.Add(InputItemModel.Deserialize(line));
                 }
             }
 
@@ -432,7 +434,7 @@ namespace SF4ComboTrainer
 
                 foreach (String line in lines)
                 {
-                    TimeLine.Items.Add(TimeLineItem.Deserialize(line));
+                    TimeLine.Items.Add(InputItemModel.Deserialize(line));
                 }
             }
         }
@@ -497,88 +499,88 @@ namespace SF4ComboTrainer
 
         private void btnQCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
         }
 
         private void btnQCB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_BK }));
         }
 
         private void btnDPF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
         }
 
         private void btnDPB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
         }
 
         private void btnHCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
         }
 
         private void btnHCB_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_BK }));
         }
 
         private void btn360_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_UP, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_UP }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
         }
 
         private void btnPPP_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_LP, Input.P1_MP, Input.P1_HP }));
         }
 
 
         private void btnKKK_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_LK, Input.P1_MK, Input.P1_HK }));
         }
 
         private void btnDHCF_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_UP, Input.P1_FW }));
         }
 
         private void btnDelta_Click(object sender, EventArgs e)
         {
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_FW }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_DN, Input.P1_BK }));
-            TimeLine.Items.Add(new PressItem(new Input[] { Input.P1_UP, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_FW }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_DN, Input.P1_BK }));
+            TimeLine.Items.Add(new PressItemModel(new Input[] { Input.P1_UP, Input.P1_FW }));
         }
     }
 }
