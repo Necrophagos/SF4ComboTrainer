@@ -176,6 +176,7 @@
                     return;
                 }
             }
+            SF4Control.ResetLockupTimer();
             SF4Control.WaitFrames(10);
             PlayTimeline();
         }

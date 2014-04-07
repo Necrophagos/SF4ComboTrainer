@@ -110,6 +110,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Images\Icon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,7 +173,9 @@
       <Name>SF4ComboTrainer.TimeLine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Images\Icon.svg" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\AkumaAbout.png" />
   </ItemGroup>
