@@ -164,9 +164,9 @@
       <Project>{450faa03-59f8-40fe-be4f-ecc8c412c819}</Project>
       <Name>SF4ComboTrainer.Home</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SF4ComboTrainer.Library\SF4ComboTrainer.Library.csproj">
+    <ProjectReference Include="..\SF4ComboTrainer.StreetFighterLibrary\SF4ComboTrainer.StreetFighterLibrary.csproj">
       <Project>{bb9129b7-f30f-4ccd-be62-a8f98d8505f1}</Project>
-      <Name>SF4ComboTrainer.Library</Name>
+      <Name>SF4ComboTrainer.StreetFighterLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\SF4ComboTrainer.Timeline\SF4ComboTrainer.TimeLine.csproj">
       <Project>{ab5c3e50-8965-49c0-8858-6d9558dd3b7c}</Project>

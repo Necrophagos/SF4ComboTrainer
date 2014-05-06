@@ -4,7 +4,7 @@
 
     using SF4ComboTrainer.Common;
     using SF4ComboTrainer.Home.ViewModels;
-    using SF4ComboTrainer.Library;
+    using SF4ComboTrainer.StreetFighterLibrary;
     using SF4ComboTrainer.TimeLine;
     using SF4ComboTrainer.TimeLine.ViewModels;
     

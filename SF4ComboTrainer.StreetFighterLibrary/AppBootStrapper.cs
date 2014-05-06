@@ -1,11 +1,12 @@
-﻿namespace SF4ComboTrainer
+﻿namespace SF4ComboTrainer.StreetFighterLibrary
 {
     using System.Collections.Generic;
     using System.Reflection;
 
     using Caliburn.Micro;
 
-    using SF4ComboTrainer.ViewModels;
+    using SF4ComboTrainer.Input;
+    using SF4ComboTrainer.StreetFighterLibrary.ViewModels;
 
     public class AppBootStrapper : Bootstrapper<MainViewModel>
     {
@@ -16,11 +17,8 @@
         protected override IEnumerable<Assembly> SelectAssemblies()
         {
             List<Assembly> assemblies = new List<Assembly>();
-            assemblies.Add(Assembly.GetExecutingAssembly());
-            assemblies.Add(Assembly.Load("SF4ComboTrainer.Home"));
-            assemblies.Add(Assembly.Load("SF4ComboTrainer.Input"));
-            assemblies.Add(Assembly.Load("SF4ComboTrainer.StreetFighterLibrary"));
-            assemblies.Add(Assembly.Load("SF4ComboTrainer.TimeLine"));
+            assemblies.Add(Assembly.GetExecutingAssembly()); 
+            assemblies.Add(Assembly.Load("SF4ComboTrainer.Input"));  
 
             return assemblies;
         }

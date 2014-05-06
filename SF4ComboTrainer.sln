@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF4ComboTrainer.Common", "SF4ComboTrainer.Common\SF4ComboTrainer.Common.csproj", "{A64D40B5-75E0-4BC9-9634-E3064BD4735D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF4ComboTrainer.Library", "SF4ComboTrainer.Library\SF4ComboTrainer.Library.csproj", "{BB9129B7-F30F-4CCD-BE62-A8F98D8505F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF4ComboTrainer.StreetFighterLibrary", "SF4ComboTrainer.StreetFighterLibrary\SF4ComboTrainer.StreetFighterLibrary.csproj", "{BB9129B7-F30F-4CCD-BE62-A8F98D8505F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF4ComboTrainer.Input", "SF4ComboTrainer.Input\SF4ComboTrainer.Input.csproj", "{E313F641-01FE-4BF8-92AC-AF6060D56A76}"
 EndProject

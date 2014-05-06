@@ -12,6 +12,7 @@
     using SF4ComboTrainer.Input.Utilities;
     using SF4ComboTrainer.Utilities;
     using SF4ComboTrainer.Input.ViewModels;
+    using System.Windows;
 
     public class TimeLineViewModel : Conductor<TimeLineItemViewModel>.Collection.OneActive
     {
@@ -84,11 +85,11 @@
             if (CanRemoveItem)
             {
                 Items.RemoveAt(Items.Count - 1);
-                
-                ActivateItem(Items.Last() );
-            
+
+                ActivateItem(Items.Last());
+
                 NotifyOfPropertyChange(() => CanRemoveItem);
-                NotifyOfPropertyChange(() => Items);                
+                NotifyOfPropertyChange(() => Items);
             }
         }
 
@@ -178,7 +179,14 @@
             }
             SF4Control.ResetLockupTimer();
             SF4Control.WaitFrames(10);
-            PlayTimeline();
+
+            try
+            {
+                PlayTimeline();
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void PlaybackStop()

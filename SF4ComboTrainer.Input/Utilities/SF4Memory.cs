@@ -86,5 +86,15 @@
         {
             return readFloatFromGameMemory(0x80f0cc, new int[] { 12, 0x60 });
         }
+
+        public int GetP1Health()
+        {
+            return readIntFromGameMemory(0x80f0cc, new int[] { 8, 0x6c5c });
+        }
+
+        public int GetP2Health()
+        {
+            return readIntFromGameMemory(0x80f0cc, new int[] { 12, 0x6c5c });
+        }
     }
 }

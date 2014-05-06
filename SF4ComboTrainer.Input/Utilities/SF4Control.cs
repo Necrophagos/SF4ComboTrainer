@@ -91,6 +91,7 @@
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
+                Thread.Sleep(1);
                 currentFrame = sf4memory.GetFrameCount();
 
                 if (currentFrame != lastFrame)

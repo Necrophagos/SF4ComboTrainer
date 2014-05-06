@@ -1,0 +1,118 @@
+﻿<controls:MetroWindow 
+    x:Class="SF4ComboTrainer.StreetFighterLibrary.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    Width="1200"
+    mc:Ignorable="d"
+	Title="{StaticResource Title}">
+    <controls:MetroWindow.Resources>
+        <Style x:Key="FighterHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+
+        <Style x:Key="StatNameHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style x:Key="StatItemStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </controls:MetroWindow.Resources>
+    <DockPanel>
+        <Expander DockPanel.Dock="Left" IsExpanded="True" Width="Auto"  ExpandDirection="Right" >
+            <Expander.Header>
+                <TextBlock HorizontalAlignment="Right">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="-90"/>
+                    </TextBlock.LayoutTransform>Fighters List</TextBlock>
+            </Expander.Header>
+            <ListView ItemsSource="{Binding FightersList}" SelectedItem="{Binding SelectedFighter}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <ContentControl cal:View.Model="{Binding}" Margin="5" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Expander>
+        <Grid x:Name="SelectedFighter" DataContext="{Binding SelectedFighter}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Expander IsExpanded="True" ExpandDirection="Down" >
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource FighterHeaderStyle}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}'s Stats" FallbackValue="Fighter Stats">
+                                        <Binding Path="Name" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </Expander.Header>
+                    <WrapPanel>
+                        <StackPanel Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Stamina</TextBlock>
+                            <TextBlock Text="{Binding Stamina}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Stun</TextBlock>
+                            <TextBlock Text="{Binding Stun}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Forward Move Speed</TextBlock>
+                            <TextBlock Text="{Binding ForwardMoveSpeed}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Backward Move Speed</TextBlock>
+                            <TextBlock Text="{Binding BackwardMoveSpeed}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </Expander>
+                <Border Width="290" BorderBrush="Red">
+                    <Image Source="{Binding Image}"/>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <Expander IsExpanded="True" ExpandDirection="Down" >
+                    <Expander.Header>
+                        <TextBlock Style="{StaticResource FighterHeaderStyle}">Moves List</TextBlock>
+                    </Expander.Header>
+                    <DataGrid ItemsSource="{Binding Path=MovesList}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                            <DataGridTextColumn Header="Move Type" Binding="{Binding Path=MoveType}" />
+
+                            <DataGridTextColumn Header="Block Type" Binding="{Binding Path=BlockType}" />
+                            <DataGridTextColumn Header="Damage" Binding="{Binding Path=Damage}" />
+                            <DataGridTextColumn Header="Stun" Binding="{Binding Path=Stun}" />
+                            <DataGridTextColumn Header="Meter Gain" Binding="{Binding Path=MeterGain}" />
+                            <DataGridTextColumn Header="Cancel Ability" Binding="{Binding Path=CancelAbility}"/>
+                            <DataGridTemplateColumn Header="Command">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentControl cal:View.Model="{Binding Command}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</controls:MetroWindow>
