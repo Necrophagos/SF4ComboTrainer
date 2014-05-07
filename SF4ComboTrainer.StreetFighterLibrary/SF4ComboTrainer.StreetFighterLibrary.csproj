@@ -173,8 +173,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\KenIcon.png" />
     <Resource Include="Resources\Images\RyuIcon.png" />
     <Resource Include="Resources\Images\RyuLarge.jpg" />
+    <Resource Include="Resources\Images\KenLarge.jpg" />
     <Content Include="Resources\Images\Icon.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
