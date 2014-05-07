@@ -153,6 +153,7 @@
                 }
 
                 NotifyOfPropertyChange(() => Light_Punch);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
@@ -172,6 +173,7 @@
                 }
 
                 NotifyOfPropertyChange(() => Medium_Punch);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
@@ -191,6 +193,7 @@
                 }
 
                 NotifyOfPropertyChange(() => Hard_Punch);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
@@ -212,6 +215,7 @@
                 }
 
                 NotifyOfPropertyChange(() => Light_Kick);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
@@ -231,6 +235,7 @@
                 }
 
                 NotifyOfPropertyChange(() => Medium_Kick);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
@@ -250,10 +255,22 @@
                 }
 
                 NotifyOfPropertyChange(() => Hard_Kick);
+                NotifyOfPropertyChange(() => CommandPressed);
                 NotifyOfPropertyChange(() => Description);
             }
         }
 
+        public bool CommandPressed
+        {
+            get {
+                return Light_Punch ||
+                       Light_Kick ||
+                       Medium_Punch ||
+                       Medium_Kick || 
+                       Hard_Punch ||
+                       Hard_Kick;
+            }
+        }
         #endregion
 
         private void ResetDirections()

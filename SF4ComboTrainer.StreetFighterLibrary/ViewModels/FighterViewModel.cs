@@ -2,8 +2,12 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Data;
 
-    public class FighterViewModel
+    using Caliburn.Micro;
+
+    public class FighterViewModel : PropertyChangedBase
     {
         public enum FighterTypeEnum
         {
@@ -25,9 +29,35 @@
 
         public int Stun { get; private set; }
 
+        public float ForwardMovementSpeed { get; private set; }
+
+        public float BackwardMovementSpeed { get; private set; }
+
         public ObservableCollection<MoveViewModel> MovesList { get; private set; }
 
-        public FighterViewModel( string name, FighterTypeEnum figherType, int stamina, int stun, ObservableCollection<MoveViewModel> movesList)
+        public void Group()
+        {
+            ICollectionView collection = CollectionViewSource.GetDefaultView(MovesList);
+            if (collection != null && collection.CanGroup == true)
+            {
+                collection.GroupDescriptions.Clear();
+                collection.GroupDescriptions.Add(new PropertyGroupDescription("MoveType"));
+                //collection.GroupDescriptions.Add(new PropertyGroupDescription("BlockType"));
+            }
+
+            NotifyOfPropertyChange(() => MovesList);
+        }
+
+        public void Ungroup()
+        {
+            ICollectionView collection = CollectionViewSource.GetDefaultView(MovesList);
+            if (collection != null)
+            {
+                collection.GroupDescriptions.Clear();
+            }
+        }
+
+        public FighterViewModel(string name, FighterTypeEnum figherType, int stamina, int stun, float forwardMovementSpeed, float backwardMovementSpeed, ObservableCollection<MoveViewModel> movesList)
         {
             Name = name;
             Image = new Uri("pack://application:,,,/Resources/Images/" + Name + "Large.jpg");
@@ -35,6 +65,8 @@
             FighterType = figherType;
             Stamina = stamina;
             Stun = stun;
+            ForwardMovementSpeed = forwardMovementSpeed;
+            BackwardMovementSpeed = backwardMovementSpeed;
             MovesList = movesList;
         }
     }

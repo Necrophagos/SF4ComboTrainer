@@ -11,6 +11,8 @@
         {
             Normal,
             Unique,
+            Focus,
+            Throw,
             Special,
             ExtraSpecial,
             Super,

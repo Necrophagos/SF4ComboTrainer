@@ -12,6 +12,8 @@
     mc:Ignorable="d"
 	Title="{StaticResource Title}">
     <controls:MetroWindow.Resources>
+
+        <!-- Styles -->
         <Style x:Key="FighterHeaderStyle" TargetType="TextBlock">
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontSize" Value="24" />
@@ -19,6 +21,7 @@
 
         <Style x:Key="StatNameHeaderStyle" TargetType="TextBlock">
             <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
 
         <Style x:Key="StatItemStyle" TargetType="StackPanel">
@@ -26,7 +29,7 @@
         </Style>
     </controls:MetroWindow.Resources>
     <DockPanel>
-        <Expander DockPanel.Dock="Left" IsExpanded="True" Width="Auto"  ExpandDirection="Right" >
+        <Expander DockPanel.Dock="Left" IsExpanded="True" Width="Auto" ExpandDirection="Right" >
             <Expander.Header>
                 <TextBlock HorizontalAlignment="Right">
                     <TextBlock.LayoutTransform>
@@ -61,7 +64,7 @@
                             </TextBlock>
                         </StackPanel>
                     </Expander.Header>
-                    <WrapPanel>
+                    <UniformGrid Rows="2" Columns="2">
                         <StackPanel Style="{StaticResource StatItemStyle}">
                             <TextBlock Style="{StaticResource StatNameHeaderStyle}">Stamina</TextBlock>
                             <TextBlock Text="{Binding Stamina}"/>
@@ -72,13 +75,13 @@
                         </StackPanel>
                         <StackPanel Style="{StaticResource StatItemStyle}">
                             <TextBlock Style="{StaticResource StatNameHeaderStyle}">Forward Move Speed</TextBlock>
-                            <TextBlock Text="{Binding ForwardMoveSpeed}"/>
+                            <TextBlock Text="{Binding ForwardMovementSpeed}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource StatItemStyle}">
                             <TextBlock Style="{StaticResource StatNameHeaderStyle}">Backward Move Speed</TextBlock>
-                            <TextBlock Text="{Binding BackwardMoveSpeed}"/>
+                            <TextBlock Text="{Binding BackwardMovementSpeed}"/>
                         </StackPanel>
-                    </WrapPanel>
+                    </UniformGrid>
                 </Expander>
                 <Border Width="290" BorderBrush="Red">
                     <Image Source="{Binding Image}"/>
@@ -87,15 +90,59 @@
             <StackPanel Grid.Column="1">
                 <Expander IsExpanded="True" ExpandDirection="Down" >
                     <Expander.Header>
-                        <TextBlock Style="{StaticResource FighterHeaderStyle}">Moves List</TextBlock>
+                        <DockPanel >
+                            <TextBlock Style="{StaticResource FighterHeaderStyle}" DockPanel.Dock="Left">Moves List</TextBlock>
+                            <Button Content="Group by Project/Status" Margin="2" DockPanel.Dock="Right" cal:Message.Attach="Group" />
+                            <Button Content="Clear Groups" Margin="10,2,2,2" DockPanel.Dock="Right" cal:Message.Attach="Ungroup" />
+                            <Separator  Margin="10,0,0,0" />
+                        </DockPanel>
                     </Expander.Header>
-                    <DataGrid ItemsSource="{Binding Path=MovesList}"
+                    <DataGrid ItemsSource="{Binding MovesList}"
+                              
                               AutoGenerateColumns="False"
                               IsReadOnly="True">
+                        <DataGrid.GroupStyle>
+                            <!-- Style for groups at top level. -->
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Margin" Value="0,0,0,5"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <Expander IsExpanded="True">
+                                                        <Expander.Header>
+                                                            <DockPanel>
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}"/>
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
+                                                                <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
+                                                            </DockPanel>
+                                                        </Expander.Header>
+                                                        <Expander.Content>
+                                                            <ItemsPresenter />
+                                                        </Expander.Content>
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                            <!-- Style for groups under the top level. -->
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Background="LightBlue">
+                                            <TextBlock Text="{Binding Path=Name}" Margin="30,0,0,0" Width="100"/>
+                                            <TextBlock Text="{Binding Path=ItemCount}"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </DataGrid.GroupStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
                             <DataGridTextColumn Header="Move Type" Binding="{Binding Path=MoveType}" />
-
                             <DataGridTextColumn Header="Block Type" Binding="{Binding Path=BlockType}" />
                             <DataGridTextColumn Header="Damage" Binding="{Binding Path=Damage}" />
                             <DataGridTextColumn Header="Stun" Binding="{Binding Path=Stun}" />
@@ -110,6 +157,24 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>
                         </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="ToolTip">
+                                    <Setter.Value>
+                                        <DataGrid ItemsSource="{Binding Path=Hits}"
+                                            AutoGenerateColumns="True"
+                                            IsReadOnly="True" Margin="30,0,0,0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Path=Hits}"
+                                    AutoGenerateColumns="True"
+                                    IsReadOnly="True" Margin="30,0,0,0"/>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                 </Expander>
             </StackPanel>
