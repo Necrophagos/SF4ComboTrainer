@@ -46,13 +46,17 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Expander>
-        <Grid x:Name="SelectedFighter" DataContext="{Binding SelectedFighter}">
+        <Grid x:Name="SelectedFighter" DataContext="{Binding SelectedFighter}" Height="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <Expander IsExpanded="True" ExpandDirection="Down" >
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Expander IsExpanded="True" ExpandDirection="Down" ScrollViewer.CanContentScroll="True" >
                     <Expander.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Style="{StaticResource FighterHeaderStyle}">
@@ -83,11 +87,11 @@
                         </StackPanel>
                     </UniformGrid>
                 </Expander>
-                <Border Width="290" BorderBrush="Red">
+                <Border Grid.Row="1" Width="290" BorderBrush="Red" VerticalAlignment="Top">
                     <Image Source="{Binding Image}"/>
                 </Border>
-            </StackPanel>
-            <StackPanel Grid.Column="1">
+            </Grid>
+            <Grid Grid.Column="1" Height="Auto">
                 <Expander IsExpanded="True" ExpandDirection="Down" >
                     <Expander.Header>
                         <DockPanel >
@@ -98,7 +102,7 @@
                         </DockPanel>
                     </Expander.Header>
                     <DataGrid ItemsSource="{Binding MovesList}"
-                              
+                              Height="Auto"
                               AutoGenerateColumns="False"
                               IsReadOnly="True">
                         <DataGrid.GroupStyle>
@@ -168,6 +172,7 @@
                                 </Setter>
                             </Style>
                         </DataGrid.RowStyle>
+                        <!--
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>
                                 <DataGrid ItemsSource="{Binding Path=Hits}"
@@ -175,9 +180,10 @@
                                     IsReadOnly="True" Margin="30,0,0,0"/>
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
+                        -->
                     </DataGrid>
                 </Expander>
-            </StackPanel>
+            </Grid>
         </Grid>
     </DockPanel>
 </controls:MetroWindow>

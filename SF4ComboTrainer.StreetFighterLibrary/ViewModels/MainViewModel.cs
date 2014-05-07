@@ -59,8 +59,9 @@
         {
             FightersList = new ObservableCollection<FighterViewModel>();
 
-           
+
             FightersList.Add(FighterDataAE2012.RyuData());
+            FightersList.Add(FighterDataAE2012.KenData());
         }
     }
 }
