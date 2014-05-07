@@ -8,7 +8,9 @@
         {
             High,
             Mid,
-            Low
+            Low,
+            Techable,
+            Unblockable
         }
 
         public enum CancelAbilityEnum
