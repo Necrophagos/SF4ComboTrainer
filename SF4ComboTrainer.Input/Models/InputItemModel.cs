@@ -182,14 +182,6 @@
             throw new FormatException("Cannot parse Input for " + str);
         }
 
-        /// <summary>
-        ///  Deconstructor to make the Roadie private.
-        /// </summary>
-        public static void DisposeRoadie()
-        {
-            Roadie.Instance.Dispose();
-        }
-
         public string GetInputString()
         {
             return GetInputString(Inputs);

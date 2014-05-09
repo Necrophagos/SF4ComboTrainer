@@ -5,6 +5,7 @@
 
     using Caliburn.Micro;
 
+    using SF4ComboTrainer.Common.Utilities;
     using SF4ComboTrainer.ViewModels;
 
     public class AppBootStrapper : Bootstrapper<MainViewModel>
@@ -24,7 +25,13 @@
 
             return assemblies;
         }
-        
-        public AppBootStrapper() : base() { }
+
+        protected override void OnExit(object sender, System.EventArgs e)
+        {
+            Roadie.Instance.Dispose();
+            base.OnExit(sender, e);
+        }
+
+        public AppBootStrapper() : base() {}
     }
 }

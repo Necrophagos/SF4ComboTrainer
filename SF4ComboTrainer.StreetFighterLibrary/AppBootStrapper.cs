@@ -2,9 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
-
     using Caliburn.Micro;
-
+    using SF4ComboTrainer.Common.Utilities;
     using SF4ComboTrainer.Input;
     using SF4ComboTrainer.StreetFighterLibrary.ViewModels;
 
@@ -22,9 +21,14 @@
 
             return assemblies;
         }
-        
+
+        protected override void OnExit(object sender, System.EventArgs e)
+        {
+            Roadie.Instance.Dispose();
+            base.OnExit(sender, e);
+        }
+
         public AppBootStrapper() : base() {
-            Common.Utilities.Roadie.Instance.Dispose();
         }
     }
 }
