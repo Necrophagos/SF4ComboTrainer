@@ -307,6 +307,7 @@
         {
             this.InputItem = new InputItemModel();
             this.WaitFrames = 1;
+            this.SendInputs = true;
         }
     }
 }

@@ -85,14 +85,19 @@
             int currentFrame = sf4memory.GetFrameCount();
             int endFrame = currentFrame + frames;
             long lastFrameTime = frameTimer.ElapsedMilliseconds;
-            
-            while (currentFrame < endFrame 
+            frameTimer.Stop();
+            while (currentFrame < endFrame
                 && (frameTimer.ElapsedMilliseconds - lastFrameTime) < MIN_TIME_BETWEEN_FRAMES)
             {
                 // Set lastFrame then the new current frame
                 lastFrame = currentFrame;
-                Thread.Sleep(1);
-                currentFrame = sf4memory.GetFrameCount();
+                int escape = 1000;
+                while (currentFrame == lastFrame && escape > 0)
+                {
+                    Thread.Sleep(2);
+                    currentFrame = sf4memory.GetFrameCount();
+                    escape--;
+                }
 
                 if (currentFrame != lastFrame)
                 {
