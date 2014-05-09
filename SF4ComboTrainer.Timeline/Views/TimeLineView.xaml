@@ -4,9 +4,16 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib" 
     xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
     x:Class="SF4ComboTrainer.TimeLine.Views.TimeLineView"
-    MinHeight="180" MinWidth="360"
+    xmlns:my="clr-namespace:SF4ComboTrainer.TimeLine.Controls"
+    MinHeight="720" MinWidth="1280"
     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-    <Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition  Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid> 
+       <Grid.RowDefinitions>
         <RowDefinition />
         <RowDefinition  Height="Auto"/>
     </Grid.RowDefinitions>
@@ -51,5 +58,7 @@
             </ListView.ItemTemplate>
         </ListView>
     </DockPanel>
+    </Grid>
+    <my:WindowsHostHelper Grid.Column="1" Width="1280" Height="720" cal:Message.Attach="StartSF4InWindowsHostHelper($source)" />
 
 </Grid> 

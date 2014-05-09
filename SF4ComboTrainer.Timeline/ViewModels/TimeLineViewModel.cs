@@ -4,21 +4,26 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Linq;
+    using System.Windows;
 
     using Caliburn.Micro;
 
     using SF4ComboTrainer.Input.Models;
     using SF4ComboTrainer.Input.Utilities;
-    using SF4ComboTrainer.Utilities;
     using SF4ComboTrainer.Input.ViewModels;
-    using System.Windows;
+    using SF4ComboTrainer.TimeLine.Controls;
+    using SF4ComboTrainer.Utilities;
+   
 
     public class TimeLineViewModel : Conductor<TimeLineItemViewModel>.Collection.OneActive
     {
         private bool _autoSwitchToSF4;
         private bool _isSteamVersion;
         private SF4Control _sf4Control;
+
+        public Process PR;
 
         public bool AutoSwitchToSF4
         {
@@ -172,9 +177,13 @@
         {
             if (AutoSwitchToSF4)
             {
-                if (!SF4Control.SwitchToSF4())
+                if (!SF4Control.SwitchToSF4(PR))
                 {
                     return;
+                }
+                else
+                {
+                    
                 }
             }
             SF4Control.ResetLockupTimer();
@@ -220,6 +229,25 @@
                         file.WriteLine(item.InputItemViewModel.Serialize());
                     }
                 }
+            }
+        }
+
+        public void StartSF4InWindowsHostHelper(WindowsHostHelper sender)
+        {
+            PR = new Process();
+            PR.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\Steam\SteamApps\common\Super Street Fighter IV - Arcade Edition\SSFIV.exe");
+            (sender as WindowsHostHelper).Process = PR;
+        }
+
+        ~TimeLineViewModel()
+        {
+            try
+            {
+                PR.Kill();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
             }
         }
 

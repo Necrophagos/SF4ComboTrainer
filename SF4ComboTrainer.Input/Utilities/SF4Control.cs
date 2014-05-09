@@ -64,6 +64,13 @@
             return false;
         }
 
+        public bool SwitchToSF4(Process process)
+        {
+            SetForegroundWindow(process.MainWindowHandle);
+            ShowWindow(process.MainWindowHandle, 1);
+            return true;
+        }
+
         public bool SF4isForegroundWindow()
         {
             Process[] processes = Process.GetProcessesByName("SSFIV");
@@ -130,7 +137,7 @@
 
         public void Press(InputCommandModel inputCommandModel)
         {
-            if (!SF4isForegroundWindow()) { return; }
+            if (!SF4isForegroundWindow()) { SwitchToSF4(); }
 
             foreach (Input input in inputCommandModel.ToInputsArray())
             {
