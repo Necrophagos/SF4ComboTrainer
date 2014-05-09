@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using SF4ComboTrainer.Common.Utilities;
     using SF4ComboTrainer.Input.Utilities;
 
     /**
@@ -47,12 +48,7 @@
             Hold,
             Release
         }
-
-        /// <summary>
-        /// The sound handler.
-        /// </summary>
-        protected static Roadie roadie = new Roadie();
-
+        
         /// <summary>
         /// The type of the time line item.
         /// </summary>
@@ -191,7 +187,7 @@
         /// </summary>
         public static void DisposeRoadie()
         {
-            roadie.Dispose();
+            Roadie.Instance.Dispose();
         }
 
         public string GetInputString()
@@ -230,14 +226,14 @@
             {
                 if (Inputs.Intersect(Directions).Count() > 0 && Inputs.Intersect(Buttons).Count() > 0)
                 {
-                    roadie.PlaySound(Roadie.WAIT_SOUND);
+                    Roadie.Instance.PlaySound(Roadie.WAIT_SOUND);
                 }
                 else
                 {
                     if (Inputs.Intersect(Directions).Count() > 0)
-                        roadie.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
+                        Roadie.Instance.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
                     if (Inputs.Intersect(Buttons).Count() > 0)
-                        roadie.PlaySound(Roadie.PRESS_BUTTON_SOUND);
+                        Roadie.Instance.PlaySound(Roadie.PRESS_BUTTON_SOUND);
                 }
             }
 

@@ -114,7 +114,6 @@
     <Compile Include="Utilities\InputResolver.cs" />
     <Compile Include="Utilities\MemoryEditor\MAPI.cs" />
     <Compile Include="Utilities\MemoryEditor\Memory.cs" />
-    <Compile Include="Utilities\Roadie.cs" />
     <Compile Include="Utilities\SF4Control.cs" />
     <Compile Include="Utilities\SF4Memory.cs" />
     <Compile Include="ViewModels\InputItemViewModel.cs" />

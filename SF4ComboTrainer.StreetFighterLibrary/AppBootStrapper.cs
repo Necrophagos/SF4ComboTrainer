@@ -23,6 +23,8 @@
             return assemblies;
         }
         
-        public AppBootStrapper() : base() { }
+        public AppBootStrapper() : base() {
+            Common.Utilities.Roadie.Instance.Dispose();
+        }
     }
 }

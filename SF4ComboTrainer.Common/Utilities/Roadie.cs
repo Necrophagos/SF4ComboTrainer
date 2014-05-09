@@ -1,4 +1,4 @@
-﻿namespace SF4ComboTrainer.Input.Utilities
+﻿namespace SF4ComboTrainer.Common.Utilities
 {
     using System;
     using System.Threading;
@@ -14,16 +14,10 @@
      */
     public class Roadie : IDisposable
     {
-        private EventWaitHandle wh = new AutoResetEvent(false);
-        private Thread worker;
-        private readonly object locker = new object();
-        private Queue<string> tasks = new Queue<string>();
+        [DllImport("winmm.dll")]
+        private static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
 
-        private static String getSoundDir()
-        {
-            return System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\sounds\";
-
-        }
+        private static Roadie instance;
 
         private static String PRESS_BUTTON = "open \"" + getSoundDir() + "press_button.wav\" type waveaudio alias s_pre_but";
         private static String PRESS_DIRECTION = "open \"" + getSoundDir() + "press_direction.wav\" type waveaudio alias s_pre_dir";
@@ -41,13 +35,14 @@
         public static String RELEASE_DIRECTION_SOUND = "play s_rel_dir from 0";
         public static String WAIT_SOUND = "play s_wait from 0";
 
-        [DllImport("winmm.dll")]
-        private static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+        private EventWaitHandle wh = new AutoResetEvent(false);
+        private Thread worker;
+        private readonly object locker = new object();
+        private Queue<string> tasks = new Queue<string>();
 
-        public Roadie()
+        private static String getSoundDir()
         {
-            worker = new Thread(Work);
-            worker.Start();
+            return System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\sounds\";
         }
 
         public void PlaySound(string sound)
@@ -56,14 +51,19 @@
             wh.Set();
         }
 
-        public void Dispose()
+        public static Roadie Instance
         {
-            PlaySound(null);    // Signal the consumer to exit.
-            worker.Join();      // Wait for the consumer's thread to finish.
-            wh.Close();         // Release any OS resources.
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Roadie();
+                }
+                return instance;
+            }
         }
 
-        void Work()
+        private void Work()
         {
             mciSendString(PRESS_BUTTON, null, 0, IntPtr.Zero);
             mciSendString(PRESS_DIRECTION, null, 0, IntPtr.Zero);
@@ -80,15 +80,34 @@
                     if (tasks.Count > 0)
                     {
                         task = tasks.Dequeue();
-                        if (task == null) return;
+                        if (task == null)
+                        {
+                            return;
+                        }
                     }
                 if (task != null)
                 {
                     mciSendString(task, null, 0, IntPtr.Zero);
                 }
                 else
+                {
                     wh.WaitOne();         // No more tasks - wait for a signal
+                }
             }
         }
+
+        public void Dispose()
+        {
+            PlaySound(null);    // Signal the consumer to exit.
+            worker.Join();      // Wait for the consumer's thread to finish.
+            wh.Close();         // Release any OS resources.
+        }
+
+        private Roadie()
+        {
+            worker = new Thread(Work);
+            worker.Start();
+        }
+
     }
 }
