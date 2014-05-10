@@ -33,6 +33,10 @@
 
         public float BackwardMovementSpeed { get; private set; }
 
+        public float JumpHeight { get; private set; }
+
+        public float JumpLength { get; private set; } 
+
         public ObservableCollection<MoveViewModel> MovesList { get; private set; }
 
         public void Group()
@@ -60,8 +64,8 @@
         public FighterViewModel(string name, FighterTypeEnum figherType, int stamina, int stun, float forwardMovementSpeed, float backwardMovementSpeed, ObservableCollection<MoveViewModel> movesList)
         {
             Name = name;
-            Image = new Uri("pack://application:,,,/Resources/Images/" + Name + "Large.jpg");
-            Icon = new Uri("pack://application:,,,/Resources/Images/" + Name + "Icon.png");
+            Image = new Uri("pack://application:,,,/Resources/Images/ssf4-" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".jpg");
+            Icon = new Uri("pack://application:,,,/Resources/Images/FighterListIcons/" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".gif");
             FighterType = figherType;
             Stamina = stamina;
             Stun = stun;
