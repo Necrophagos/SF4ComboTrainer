@@ -8,6 +8,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        
       Width="360"
       mc:Ignorable="d"  
       d:DesignHeight="500" d:DesignWidth="300"
@@ -24,8 +25,7 @@
 
             <!-- Time Line -->
             <ContentControl DockPanel.Dock="Left" cal:View.Model="{Binding TimeLineViewModel}" />
-
-            <Grid Width="1280" Height="720" Background="AntiqueWhite"></Grid>
+            
         </DockPanel>
     </Border>
 </controls:MetroWindow>

@@ -53,9 +53,7 @@ namespace SF4ComboTrainer.TimeLine.Controls
                     int dwStyle = GetWindowLong(this.windowHandle, GWL_STYLE);
                     SetWindowLong(this.windowHandle, GWL_STYLE, new IntPtr(dwStyle &
                     ~WS_CAPTION & ~WS_THICKFRAME));
-                    //SetWindowPos(this.windowHandle, IntPtr.Zero, 0, 0,
-                    //Convert.ToInt32(Math.Floor(this.ActualWidth)),
-                    //Convert.ToInt32(Math.Floor(this.ActualHeight)), SWP_FRAMECHANGED);
+
                     SetWindowPos(this.windowHandle, IntPtr.Zero, 0, 0,
                     Convert.ToInt32(Math.Floor(this.ActualWidth)),
                     Convert.ToInt32(Math.Floor(this.ActualHeight)), SWP_FRAMECHANGED);

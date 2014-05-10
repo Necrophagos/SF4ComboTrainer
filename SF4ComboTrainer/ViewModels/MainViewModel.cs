@@ -2,14 +2,12 @@
 {
     using Caliburn.Micro;
 
-    using SF4ComboTrainer.Common;
     using SF4ComboTrainer.Home.ViewModels;
-    using SF4ComboTrainer.StreetFighterLibrary;
-    using SF4ComboTrainer.TimeLine;
     using SF4ComboTrainer.TimeLine.ViewModels;
-    
+
+
     public class MainViewModel : PropertyChangedBase
-    {
+    {    
         /// <summary>
         /// The title.
         /// </summary>
@@ -29,6 +27,7 @@
         /// The time line view model.
         /// </summary>
         public TimeLineViewModel TimeLineViewModel { get; private set; }
+
 
         /// <summary>
         /// Gets or sets window title.
