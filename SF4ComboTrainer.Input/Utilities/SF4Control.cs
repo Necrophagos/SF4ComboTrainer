@@ -122,7 +122,7 @@
 
                 Thread.Sleep(1);
             }
-            
+
         }
 
         public void ResetLockupTimer()
@@ -181,121 +181,6 @@
             }
         }
 
-    //    #region Recording System
-
-    //   // private SF4InputHandler inputHandler;
-    //    //private List<SF4InputState> inputsList;
-
-    //    //Recording thread section
-    //    private System.Threading.Thread recordThread = null;
-    //    private volatile bool recordingActive;
-
-    //    public delegate void RecordedInputEvent(InputItemModel timeLineItem);
-    //    public event RecordedInputEvent OnRecordInput;
-    //    public delegate void ResetInputEvent();
-    //    public event ResetInputEvent OnResetInput;
-
-    //    private void recordForFrames(object maxFrames)
-    //    {
-
-    //        int currentFrame = sf4memory.GetFrameCount();
-    //        int endFrame = currentFrame + (int)maxFrames;
-
-    //        int waitGap = 0;
-
-    //        //If the state stays empty - add in waittimelineitem
-    //        // SF4InputState prevState = null;
-    //        List<InputItemModel> timeLineItems = new List<InputItemModel>();
-
-    //        // Reset / start the frameTimer which is used to get time between frames.
-    //        frameTimer.Reset();
-    //        frameTimer.Start();
-
-    //        while (currentFrame < endFrame && frameTimer.ElapsedMilliseconds < MIN_TIME_BETWEEN_FRAMES && recordingActive)
-    //        {
-    //            // Set lastFrame then the new current frame
-    //            lastFrame = currentFrame;
-    //            currentFrame = sf4memory.GetFrameCount();
-
-    //            if (currentFrame != lastFrame)
-    //            {
-    //                // Stop the frame timer since the frame has changed.
-    //                frameTimer.Stop();
-
-    //                //Time to check inputs
-    //                inputHandler.InputUpdate(); //Get controllers input state this frame
-
-    //                //Use the back button on the controller to reset the timeline
-    //                if (inputHandler.CurrentState.Back)
-    //                    OnResetInput();
-
-
-    //                //If no input - increment the wait gap so we can get timings
-    //                if (inputHandler.CurrentState.NonePressed == false)
-    //                {
-    //                    //If nothing pressed in last frame but something pressed now -
-    //                    // add the wait time to the list and 
-    //                    if (prevState.NonePressed)
-    //                    {
-    //                        OnRecordInput(new PressItemModel(waitGap));
-    //                        waitGap = 0;
-    //                    }
-    //                    else if (inputHandler.CurrentState != prevState)
-    //                    {
-    //                        OnRecordInput(new PressItemModel(inputHandler.CurrentState.ToInputsArray()));
-    //                        Debug.WriteLine("RECORDED INPUT");
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    waitGap++;
-    //                }
-
-    //                prevState = inputHandler.CurrentState;
-
-    //                frameTimer.Reset();
-    //                frameTimer.Start();
-
-    //                // Since we currentFrame != lastFrame we are in a match.
-    //                // (frames on menu screen or pause menu are constant).
-    //                InMatch = true;
-    //            }
-    //            else
-    //                InMatch = false;
-
-    //            Thread.Sleep(1);
-    //        }
-    //    }
-
-    //    public void ConnectToController(int playerSlot)
-    //    {
-    //        //inputHandler = new SF4InputHandler(1, SF4InputHandler.InputType.XBoxController);
-    //    }
-    //    public void Record()
-    //    {
-    //        //inputHandler.InputUpdate();
-    //        //SF4InputState state = inputHandler.CurrentState;
-    //    }
-
-
-    //    public void StartRecording()
-    //    {
-
-    //        //prevent multiple threads
-    //        if (null != recordThread) { return; }
-    //        recordingActive = true;
-    //        recordThread = new System.Threading.Thread(recordForFrames);
-    //        recordThread.Start(100000);
-    //    }
-
-    //    public void StopRecording()
-    //    {
-    //        recordingActive = false;
-    //    }
-
- 
-    //
-    //    #endregion
 
     }
 }
