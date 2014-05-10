@@ -1,0 +1,128 @@
+﻿<ItemsControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:converters="clr-namespace:SF4ComboTrainer.Common.Converters;assembly=SF4ComboTrainer.Common"
+      x:Class="SF4ComboTrainer.StreetFighterLibrary.Views.CommandView" 
+      ItemsSource="{Binding Commands}">
+    <ItemsControl.Resources>
+        <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+        <converters:BoolToCollapsedConverter x:Key="boolToCollapsedConverter" />
+        <converters:BoolToVisibleConverter x:Key="boolToVisibleConverter" />
+        <Style x:Key="DirectionRectangleStyle" TargetType="{x:Type Rectangle}"  >
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+
+        <Style x:Key="DirectionInputJoinerStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style x:Key="InputRectangleStyle" TargetType="{x:Type Rectangle}"  >
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+        </Style>
+    </ItemsControl.Resources>
+    <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+            <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+        </ItemsPanelTemplate>
+    </ItemsControl.ItemsPanel>
+
+    <ItemsControl.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="commaTextBlock" Style="{StaticResource DirectionInputJoinerStyle}" Text=", "/>
+
+                <Rectangle Fill="{DynamicResource DirectionUpBack}" Style="{StaticResource DirectionRectangleStyle}"  
+               Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=UpBack,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+
+                <Rectangle Fill="{DynamicResource DirectionUp}" Style="{StaticResource DirectionRectangleStyle}" 
+                  Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Up,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+
+                <Rectangle Fill="{DynamicResource DirectionUpForward}" Style="{StaticResource DirectionRectangleStyle}" 
+                  Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=UpForward,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+
+                <Rectangle Fill="{DynamicResource DirectionBack}" Style="{StaticResource DirectionRectangleStyle}" 
+                  Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Back,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+                <!--For now this is not needed, we don't need to know in the moveslist if it is neutral as this is assumed.-->
+                <!--<Rectangle Fill="{DynamicResource DirectionNeutral}" Style="{StaticResource DirectionRectangleStyle}" 
+                  Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Neutral,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>-->
+                
+                <Rectangle Fill="{DynamicResource DirectionForward}" Style="{StaticResource DirectionRectangleStyle}" 
+               Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Forward,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+
+                <Rectangle Fill="{DynamicResource DirectionDownBack}" Style="{StaticResource DirectionRectangleStyle}" 
+               Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=DownBack,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+                <Rectangle Fill="{DynamicResource DirectionDown}" Style="{StaticResource DirectionRectangleStyle}" 
+               Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Down,FallbackValue=false}"
+                Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+                <Rectangle Fill="{DynamicResource DirectionDownForward}" Style="{StaticResource DirectionRectangleStyle}" 
+               Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=DownForward,FallbackValue=false}"
+               Visibility="{Binding Tag, Converter={StaticResource boolToCollapsedConverter}, RelativeSource={RelativeSource Self}}"/>
+                
+                <TextBlock Text="+" Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},
+                    ConverterParameter=Neutral ,FallbackValue=false}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DirectionInputJoinerStyle}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding CommandPressed}" Value="True"/>
+                                        <Condition Binding="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Neutral}"
+                                                   Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource LPIcon}" 
+               Visibility="{Binding Light_Punch,Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Light Punch" />
+                
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource MPIcon}" 
+               Visibility="{Binding Medium_Punch,Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Medium Punch" />
+                
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource HPIcon}" 
+               Visibility="{Binding Hard_Punch, Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Hard Punch"/>
+
+                
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource LKIcon}" 
+               Visibility="{Binding Light_Kick, Mode=OneWay,Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Light Kick"/>
+                
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource MKIcon}" 
+               Visibility="{Binding Medium_Kick, Mode=OneWay,Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Medium Kick"/>
+                
+                <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource HKIcon}" 
+               Visibility="{Binding Hard_Kick, Mode=OneWay,Converter={StaticResource boolToCollapsedConverter}}" ToolTip="Hard Kick"/>
+
+            </StackPanel>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                    <Setter Property="Visibility" TargetName="commaTextBlock" Value="Collapsed"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </ItemsControl.ItemTemplate>
+</ItemsControl>
