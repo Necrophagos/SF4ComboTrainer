@@ -173,10 +173,47 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\KenIcon.png" />
-    <Resource Include="Resources\Images\RyuIcon.png" />
+    <Resource Include="Resources\Images\FighterListIcons\juri.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\ken.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\makoto.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\oni.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\rose.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\rufus.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\ryu.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\sagat.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\sakura.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\satui.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\seth.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\vega.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\viper.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\yan.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\yun.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\zangief.gif" />
     <Resource Include="Resources\Images\RyuLarge.jpg" />
     <Resource Include="Resources\Images\KenLarge.jpg" />
+    <Resource Include="Resources\Images\FighterListIcons\abel.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\adon.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\balrog.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\bison.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\blanka.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\cammy.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\chunli.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\cody.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\dan.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\dhalsim.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\dj.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\dudley.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\el_fuerte.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\feilong.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\gen.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\gouken.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\gouki.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\guile.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\guy.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\hakan.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\hawk.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\honda.gif" />
+    <Resource Include="Resources\Images\FighterListIcons\ibuki.gif" />
     <Content Include="Resources\Images\Icon.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
