@@ -1,0 +1,32 @@
+﻿<controls:MetroWindow
+      x:Class="FrameTrapped.Views.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        
+      Width="859"
+      mc:Ignorable="d"  
+      d:DesignHeight="500"
+	  Title="{StaticResource Title}"
+      Style="{DynamicResource CommonWindowStyle}">
+    
+    <i:Interaction.Behaviors>
+        <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False"/>
+        <behaviours:GlowWindowBehavior/>
+    </i:Interaction.Behaviors>
+    <Border BorderThickness="1" BorderBrush="DarkGray">
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <!-- Menu bar -->
+            <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
+
+            <!-- Time Line -->
+            <ContentControl cal:View.Model="{Binding CurrentViewModel}" />
+
+        </DockPanel>
+    </Border>
+</controls:MetroWindow>
