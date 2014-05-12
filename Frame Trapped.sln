@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.StreetFighterL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.Input", "FrameTrapped.Input\FrameTrapped.Input.csproj", "{E313F641-01FE-4BF8-92AC-AF6060D56A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.TimeLine", "FrameTrapped.Timeline\FrameTrapped.TimeLine.csproj", "{AB5C3E50-8965-49C0-8858-6D9558DD3B7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.ComboTrainer", "FrameTrapped.Timeline\FrameTrapped.ComboTrainer.csproj", "{AB5C3E50-8965-49C0-8858-6D9558DD3B7C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E313F641-01FE-4BF8-92AC-AF6060D56A76} = {E313F641-01FE-4BF8-92AC-AF6060D56A76}
 		{A64D40B5-75E0-4BC9-9634-E3064BD4735D} = {A64D40B5-75E0-4BC9-9634-E3064BD4735D}

@@ -7,8 +7,8 @@
     <ProjectGuid>{AB5C3E50-8965-49C0-8858-6D9558DD3B7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameTrapped.TimeLine</RootNamespace>
-    <AssemblyName>FrameTrapped.TimeLine</AssemblyName>
+    <RootNamespace>FrameTrapped.ComboTrainer</RootNamespace>
+    <AssemblyName>FrameTrapped.ComboTrainer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

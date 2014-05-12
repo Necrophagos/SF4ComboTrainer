@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Frame Trapped")]
-[assembly: AssemblyCopyright("Tom Piddock 2014")]
+[assembly: AssemblyCopyright("Copyright © Tom Piddock 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
