@@ -2,7 +2,7 @@
 {
     using MahApps.Metro.Controls;
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for StreetFighterLibraryView.xaml
     /// </summary>
     public partial class MainView : MetroWindow
     {

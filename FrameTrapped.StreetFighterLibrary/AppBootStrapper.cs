@@ -7,7 +7,7 @@
     using FrameTrapped.Input;
     using FrameTrapped.StreetFighterLibrary.ViewModels;
 
-    public class AppBootStrapper : Bootstrapper<MainViewModel>
+    public class AppBootStrapper : Bootstrapper<StreetFighterLibraryViewModel>
     {
         /// <summary>
         /// Select the assemblies that contain model views.

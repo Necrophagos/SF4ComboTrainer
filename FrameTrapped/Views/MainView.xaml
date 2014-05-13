@@ -23,9 +23,7 @@
         <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <!-- Menu bar -->
             <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
-
-            <!-- Time Line -->
-            <ContentControl cal:View.Model="{Binding HomeViewModel}" />
+ 
 
             <TabControl x:Name="MainTabControl" TabStripPlacement="Left" SelectedIndex="0" >
                 <TabItem x:Name="HomeTabItem" IsSelected="{Binding HomeTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">

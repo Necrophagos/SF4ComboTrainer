@@ -9,6 +9,7 @@
     using System.Windows.Input;
     using System.ComponentModel.Composition;
 
+    [Export(typeof(MainViewModel))]
     public class MainViewModel : Screen
     {
         /// <summary>
@@ -278,6 +279,7 @@
 
             HomeViewModel = new HomeViewModel();
             StreetFighterLibraryViewModel = new StreetFighterLibraryViewModel();
+            ComboTrainerViewModel = new ComboTrainerViewModel();
 
         }
     }
