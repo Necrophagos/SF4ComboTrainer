@@ -4,7 +4,16 @@
 
     <sys:String x:Key="Title">Frame Trap</sys:String>
     <sys:String x:Key="ShortTitle">SF4:Combo Trainer</sys:String>
+
+    <!-- Home -->
+    <sys:String x:Key="Home">Home</sys:String>
     
+    <!-- Library -->
+    <sys:String x:Key="SFLibrary">Street Fighter Library</sys:String>
+
+    <!-- Combo Trainer -->
+    <sys:String x:Key="ComboTrainer">Combo Trainer</sys:String>
+
     <!-- Common text -->
     <sys:String x:Key="OK">OK</sys:String>
     <sys:String x:Key="Cancel">Cancel</sys:String>

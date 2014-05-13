@@ -1,4 +1,4 @@
-﻿namespace FrameTrapped.TimeLine.ViewModels
+﻿namespace FrameTrapped.ComboTrainer.ViewModels
 {
     using System;
 

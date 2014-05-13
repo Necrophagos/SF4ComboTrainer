@@ -25,8 +25,34 @@
             <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
 
             <!-- Time Line -->
-            <ContentControl cal:View.Model="{Binding CurrentViewModel}" />
+            <ContentControl cal:View.Model="{Binding HomeViewModel}" />
 
+            <TabControl x:Name="MainTabControl" TabStripPlacement="Left" SelectedIndex="0" >
+                <TabItem x:Name="HomeTabItem" IsSelected="{Binding HomeTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Home}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=HomeViewModel, Mode=TwoWay}" />
+                </TabItem>
+                <TabItem x:Name="StreetFighterLibraryTabItem" IsSelected="{Binding StreetFighterLibraryTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal"> 
+                            <TextBlock Text="{DynamicResource SFLibrary}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=StreetFighterLibraryViewModel, Mode=TwoWay}" />
+                </TabItem>
+                <TabItem x:Name="ComboTrainerTabItem" IsSelected="{Binding LibraryTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource ComboTrainer}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=ComboTrainerViewModel, Mode=TwoWay}" />
+                </TabItem>
+            </TabControl>
         </DockPanel>
     </Border>
 </controls:MetroWindow>

@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:converters="clr-namespace:FrameTrapped.Common.Converters;assembly=FrameTrapped.Common"
-      x:Class="FrameTrapped.TimeLine.Views.TimeLineItemView" 
+      x:Class="FrameTrapped.ComboTrainer.Views.TimeLineItemView" 
       mc:Ignorable="d"  Orientation="Horizontal">
     <StackPanel.Resources>
         <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>

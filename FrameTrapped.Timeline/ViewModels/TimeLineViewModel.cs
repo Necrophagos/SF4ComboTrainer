@@ -1,4 +1,4 @@
-﻿namespace FrameTrapped.TimeLine.ViewModels
+﻿namespace FrameTrapped.ComboTrainer.ViewModels
 {
     using Microsoft.Win32;
     using System;
@@ -13,8 +13,9 @@
     using FrameTrapped.Input.Models;
     using FrameTrapped.Input.Utilities;
     using FrameTrapped.Input.ViewModels;
-    using FrameTrapped.TimeLine.Controls;
+    using FrameTrapped.ComboTrainer.Controls;
     using FrameTrapped.Utilities;
+    using FrameTrapped.ComboTrainer.Utilities;
    
 
     public class TimeLineViewModel : Conductor<TimeLineItemViewModel>.Collection.OneActive
@@ -23,7 +24,6 @@
         private bool _isSteamVersion;
         private SF4Control _sf4Control;
 
-        public Process PR;
 
         public bool AutoSwitchToSF4
         {
@@ -177,7 +177,7 @@
         {
             if (AutoSwitchToSF4)
             {
-                if (!SF4Control.SwitchToSF4(PR))
+                if (!SF4Control.SwitchToSF4(SF4ProcessHandler.Instance.GetSF4()))
                 {
                     return;
                 }
@@ -230,26 +230,7 @@
                     }
                 }
             }
-        }
-
-        public void StartSF4InWindowsHostHelper(WindowsHostHelper sender)
-        {
-            PR = new Process();
-            PR.StartInfo = new ProcessStartInfo(@"C:\Program Files (x86)\Steam\SteamApps\common\Super Street Fighter IV - Arcade Edition\SSFIV.exe");
-            (sender as WindowsHostHelper).Process = PR;
-        }
-
-        ~TimeLineViewModel()
-        {
-            try
-            {
-                PR.Kill();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-            }
-        }
+        } 
 
         public TimeLineViewModel()
         {

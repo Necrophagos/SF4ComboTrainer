@@ -1,25 +1,18 @@
 ﻿<Grid
+    x:Class="FrameTrapped.ComboTrainer.Views.TimeLineView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System="clr-namespace:System;assembly=mscorlib" 
     xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-    x:Class="FrameTrapped.TimeLine.Views.TimeLineView"
-    xmlns:my="clr-namespace:FrameTrapped.TimeLine.Controls"
-    MinHeight="720" MinWidth="1280"
-    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition  Width="Auto"/>
-    </Grid.ColumnDefinitions>
+    MinHeight="500" MinWidth="300">
 
-    <Grid> 
-       <Grid.RowDefinitions>
+    <Grid.RowDefinitions>
         <RowDefinition />
         <RowDefinition  Height="Auto"/>
     </Grid.RowDefinitions>
 
     <ContentControl x:Name="ActiveItem" cal:View.Model="{Binding ElementName=Items, Path=SelectedItem.InputItemViewModel}" Grid.Row="1"/>
-    
+
     <DockPanel Grid.Row="0">
 
         <!--Playback functions-->
@@ -52,13 +45,12 @@
                     <StackPanel Orientation="Horizontal">
                         <!--<TextBlock Text="{Binding Index}" Width="20"/>
                         <Separator />-->
-                            <ContentControl cal:View.Model="{Binding}" Margin="10" />
+                        <ContentControl cal:View.Model="{Binding}" Margin="10" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </DockPanel>
-    </Grid>
-    <my:WindowsHostHelper Grid.Column="1" Width="1280" Height="720" cal:Message.Attach="StartSF4InWindowsHostHelper($source)" />
-
-</Grid> 
+</Grid>
+  
+ 

@@ -51,17 +51,6 @@
             wh.Set();
         }
 
-        public static Roadie Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Roadie();
-                }
-                return instance;
-            }
-        }
 
         private void Work()
         {
@@ -96,6 +85,18 @@
             }
         }
 
+        public static Roadie Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Roadie();
+                }
+                return instance;
+            }
+        }
+
         public void Dispose()
         {
             PlaySound(null);    // Signal the consumer to exit.
@@ -108,6 +109,5 @@
             worker = new Thread(Work);
             worker.Start();
         }
-
     }
 }

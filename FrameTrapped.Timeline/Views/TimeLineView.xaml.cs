@@ -1,4 +1,4 @@
-﻿namespace FrameTrapped.TimeLine.Views
+﻿namespace FrameTrapped.ComboTrainer.Views
 {
     using System.Windows;
     using System.Windows.Controls;

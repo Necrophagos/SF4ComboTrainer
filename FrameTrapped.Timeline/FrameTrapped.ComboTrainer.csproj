@@ -96,8 +96,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\WindowsHostHelper.cs" />
+    <Compile Include="Utilities\SF4ProcessHandler.cs" />
+    <Compile Include="ViewModels\ComboTrainerViewModel.cs" />
     <Compile Include="ViewModels\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModels\TimeLineViewModel.cs" />
+    <Compile Include="Views\ComboTrainerView.xaml.cs">
+      <DependentUpon>ComboTrainerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TimeLineView.xaml.cs">
       <DependentUpon>TimeLineView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +140,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ComboTrainerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TimeLineView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
