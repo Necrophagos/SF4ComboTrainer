@@ -2,10 +2,11 @@
 {
     using System.Collections.ObjectModel;
     using Caliburn.Micro;
-    using Input.ViewModels;
+
+    using FrameTrapped.Input.ViewModels;
     using FrameTrapped.StreetFighterLibrary.Utilities;
 
-    public class MainViewModel : PropertyChangedBase
+    public class StreetFighterLibraryViewModel : PropertyChangedBase
     {
         /// <summary>
         /// The title.
@@ -55,7 +56,7 @@
             }
         }
 
-        public MainViewModel()
+        public StreetFighterLibraryViewModel()
         {
             FightersList = new ObservableCollection<FighterViewModel>();
 

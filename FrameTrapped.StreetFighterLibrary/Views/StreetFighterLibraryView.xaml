@@ -1,0 +1,190 @@
+﻿<DockPanel
+    x:Class="FrameTrapped.StreetFighterLibrary.Views.StreetFighterLibraryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d">
+    <DockPanel.Resources>
+
+        <!-- Styles -->
+        <Style x:Key="FighterHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+
+        <Style x:Key="StatNameHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style x:Key="StatItemStyle" TargetType="StackPanel">
+            <Setter Property="Margin" Value="10" />
+        </Style>
+
+    </DockPanel.Resources>
+
+    <Expander DockPanel.Dock="Left" IsExpanded="True" Width="Auto" ExpandDirection="Right">
+        <Expander.Header>
+            <TextBlock HorizontalAlignment="Right">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="-90"/>
+                </TextBlock.LayoutTransform>Fighters List</TextBlock>
+        </Expander.Header>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding FightersList}" SelectedItem="{Binding SelectedFighter}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <ContentControl cal:View.Model="{Binding}" Margin="5" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Expander DataContext="{Binding SelectedFighter}" Grid.Row="1" IsExpanded="True" ExpandDirection="Up" Height="Auto"  ScrollViewer.CanContentScroll="True" >
+                <Expander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource FighterHeaderStyle}">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}'s Stats" FallbackValue="Fighter Stats">
+                                    <Binding Path="Name" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Expander.Header>
+                <StackPanel>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" Grid.Row="0" Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Stamina</TextBlock>
+                            <TextBlock Text="{Binding Stamina}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="0" Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Stun</TextBlock>
+                            <TextBlock Text="{Binding Stun}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="0" Grid.Row="1" Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Forward Move Speed</TextBlock>
+                            <TextBlock Text="{Binding ForwardMovementSpeed}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="1" Style="{StaticResource StatItemStyle}">
+                            <TextBlock Style="{StaticResource StatNameHeaderStyle}">Backward Move Speed</TextBlock>
+                            <TextBlock Text="{Binding BackwardMovementSpeed}"/>
+                        </StackPanel>
+                        <Border Background="Black" Grid.ColumnSpan="2" Grid.Row="2" Width="290" BorderBrush="Red" VerticalAlignment="Top">
+                            <Image  Source="{Binding Image}"/>
+                        </Border>
+                    </Grid>
+
+                </StackPanel>
+            </Expander>
+        </Grid>
+    </Expander>
+
+    <!-- Move Data -->
+    <Grid x:Name="SelectedFighter" DataContext="{Binding SelectedFighter}" Height="Auto">
+        <Grid Height="Auto">
+            <Expander IsExpanded="True" ExpandDirection="Down" >
+                <Expander.Header>
+                    <DockPanel >
+                        <TextBlock Style="{StaticResource FighterHeaderStyle}" DockPanel.Dock="Left">Moves List</TextBlock>
+                        <Button Content="Clear Groups" Margin="10,2,2,2" DockPanel.Dock="Right" cal:Message.Attach="Ungroup" />
+                        <Button Content="Group by Move Type" Margin="2" DockPanel.Dock="Right" cal:Message.Attach="Group" />
+                        <Separator  Margin="10,0,0,0" />
+                    </DockPanel>
+                </Expander.Header>
+                <DataGrid ItemsSource="{Binding MovesList}"
+                              Height="Auto"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              FrozenColumnCount="2"  AlternationCount="2"  AlternatingRowBackground="Black">
+                    <DataGrid.GroupStyle>
+                        <!-- Style for groups at top level. -->
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Margin" Value="0,0,0,5"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <Expander IsExpanded="True">
+                                                    <Expander.Header>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}"/>
+                                                            <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" Width="100"/>
+                                                        </StackPanel>
+                                                    </Expander.Header>
+                                                    <Expander.Content>
+                                                        <ItemsPresenter />
+                                                    </Expander.Content>
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                        <!-- Style for groups under the top level. -->
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel Background="LightBlue">
+                                        <TextBlock Text="{Binding Path=ItemCount}"/>
+                                        <TextBlock Text="{Binding Path=Name}" Margin="30,0,0,0" Width="100"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                        <DataGridTextColumn Header="Move Type" Binding="{Binding Path=MoveType}"  />
+                        <DataGridTemplateColumn Header="Command">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ContentControl cal:View.Model="{Binding Command}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Block Type" Binding="{Binding Path=BlockType}" />
+                        <DataGridTextColumn Header="Damage" Binding="{Binding Path=Damage}" />
+                        <DataGridTextColumn Header="Stun" Binding="{Binding Path=Stun}" />
+                        <DataGridTextColumn Header="Meter Gain" Binding="{Binding Path=MeterGain}" />
+                        <DataGridTextColumn Header="Cancel Ability" Binding="{Binding Path=CancelAbility}"/>
+
+                        <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <DataGrid ItemsSource="{Binding Path=Hits}"
+                                            AutoGenerateColumns="True"
+                                            IsReadOnly="True" Margin="30,0,0,0"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </Expander>
+        </Grid>
+    </Grid>
+</DockPanel> 

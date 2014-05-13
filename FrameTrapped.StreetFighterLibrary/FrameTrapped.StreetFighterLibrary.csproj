@@ -118,7 +118,7 @@
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\FighterViewModel.cs" />
     <Compile Include="ViewModels\HitViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\StreetFighterLibraryViewModel.cs" />
     <Compile Include="ViewModels\MoveViewModel.cs" />
     <Compile Include="Views\CommandView.xaml.cs">
       <DependentUpon>CommandView.xaml</DependentUpon>
@@ -126,8 +126,8 @@
     <Compile Include="Views\FighterView.xaml.cs">
       <DependentUpon>FighterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
+    <Compile Include="Views\StreetFighterLibraryView.xaml.cs">
+      <DependentUpon>StreetFighterLibraryView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -167,7 +167,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="Views\StreetFighterLibraryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
