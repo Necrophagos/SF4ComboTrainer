@@ -177,7 +177,7 @@
         {
             if (AutoSwitchToSF4)
             {
-                if (!SF4Control.SwitchToSF4(SF4ProcessHandler.Instance.GetSF4()))
+                if (!SF4Control.SwitchToSF4())
                 {
                     return;
                 }

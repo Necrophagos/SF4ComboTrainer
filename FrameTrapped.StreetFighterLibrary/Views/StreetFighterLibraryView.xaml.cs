@@ -1,14 +1,15 @@
 ﻿namespace FrameTrapped.StreetFighterLibrary.Views
 {
+    using System.Windows.Controls;
     using Caliburn.Micro;
     using MahApps.Metro.Controls;
     
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for StreetFighterLibraryView.xaml
     /// </summary>
-    public partial class MainView : MetroWindow
+    public partial class StreetFighterLibraryView : DockPanel
     {
-        public MainView()
+        public StreetFighterLibraryView()
         {
             InitializeComponent();
         }
