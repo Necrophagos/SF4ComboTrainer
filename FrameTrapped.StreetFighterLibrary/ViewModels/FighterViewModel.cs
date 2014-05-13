@@ -64,8 +64,8 @@
         public FighterViewModel(string name, FighterTypeEnum figherType, int stamina, int stun, float forwardMovementSpeed, float backwardMovementSpeed, ObservableCollection<MoveViewModel> movesList)
         {
             Name = name;
-            Image = new Uri("pack://application:,,,/FrameTrapped.StreetFighterLibrary;/Resources/Images/ssf4-" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".jpg");
-            Icon = new Uri("pack://application:,,,/FrameTrapped.StreetFighterLibrary;/Resources/Images/FighterListIcons/" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".gif");
+            Image = new Uri("pack://application:,,,/FrameTrapped.StreetFighterLibrary;component/Resources/Images/ssf4-" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".jpg");
+            Icon = new Uri("pack://application:,,,/FrameTrapped.StreetFighterLibrary;component/Resources/Images/FighterListIcons/" + string.Join("", Name.ToLower().Replace(' ', '_').Split('.')) + ".gif");
             FighterType = figherType;
             Stamina = stamina;
             Stun = stun;
