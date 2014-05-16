@@ -138,13 +138,12 @@
         public void Press(InputCommandModel inputCommandModel)
         {
             if (!SF4isForegroundWindow()) { SwitchToSF4(); }
-
+            
             foreach (Input input in inputCommandModel.ToInputsArray())
             {
                 InputSimulator.SimulateKeyDown(inputResolver.Get(input));
             }
-            WaitFrames(1);
-            foreach (Input input in inputCommandModel.ToInputsArray())
+            foreach (Input input in inputCommandModel.ToReleasedArray())
             {
                 InputSimulator.SimulateKeyUp(inputResolver.Get(input));
             }
