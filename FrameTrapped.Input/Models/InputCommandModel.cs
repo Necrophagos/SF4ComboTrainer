@@ -24,23 +24,23 @@ namespace FrameTrapped.Input.Models
     {
         public enum DirectionStateEnum
         {
-            UpBack,
-            Up,
-            UpForward,
+            DownBack = 1,
+            Down = 2,
+            DownForward = 3,
 
-            Back,
-            Neutral,
-            Forward,
+            Back = 4,
+            Neutral = 5,
+            Forward = 6,
 
-            DownBack,
-            Down,
-            DownForward
+            UpBack =7,
+            Up = 8,
+            UpForward = 9
         }
 
         public enum ButtonStateEnum
         {
-            Pressed,
-            Released
+            Pressed = 1,
+            Released = 0
         }
 
 
@@ -70,60 +70,7 @@ namespace FrameTrapped.Input.Models
         }
 
         /// <summary>
-        /// Converts the current SF4InputState into an InputsArray.
-        /// </summary>
-        /// <returns><see cref="Input"/> array.</returns>
-        public Input[] ToInputsArray()
-        {
-            List<Input> inputsArray = new List<Input>();
-            switch (DirectionState)
-            {
-                case DirectionStateEnum.UpBack:
-                    inputsArray.Add(Input.P1_UP);
-                    inputsArray.Add(Input.P1_BK);
-                    break;
-                case DirectionStateEnum.Up:
-                    inputsArray.Add(Input.P1_UP);
-                    break;
-                case DirectionStateEnum.UpForward:
-                    inputsArray.Add(Input.P1_UP);
-                    inputsArray.Add(Input.P1_FW);
-                    break;
-                case DirectionStateEnum.Back:
-                    inputsArray.Add(Input.P1_BK);
-                    break;
-                case DirectionStateEnum.Neutral:
-                    // Do nothing - Placeholder for later.
-                    break;
-                case DirectionStateEnum.Forward:
-                    inputsArray.Add(Input.P1_FW);
-                    break;
-                case DirectionStateEnum.DownBack:
-                    inputsArray.Add(Input.P1_DN);
-                    inputsArray.Add(Input.P1_BK);
-                    break;
-                case DirectionStateEnum.Down:
-                    inputsArray.Add(Input.P1_DN);
-                    break;
-                case DirectionStateEnum.DownForward:
-                    inputsArray.Add(Input.P1_DN);
-                    inputsArray.Add(Input.P1_FW);
-                    break;
-            }
-
-            if (LightPunch == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_LP);
-            if (MediumPunch == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_MP);
-            if (HardPunch == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_HP);
-            if (LightKick == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_LK);
-            if (MediumKick == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_MK);
-            if (HardKick == ButtonStateEnum.Pressed) inputsArray.Add(Input.P1_HK);
-
-            return inputsArray.ToArray();
-        }
-
-
-        /// <summary>
-        /// Converts the current SF4InputState into an InputsArray.
+        /// Converts the current SF4InputState into an InputsArray of pressed buttons.
         /// </summary>
         /// <returns><see cref="Input"/> array.</returns>
         public Input[] ToInputsPressedArray()
@@ -176,10 +123,10 @@ namespace FrameTrapped.Input.Models
 
 
         /// <summary>
-        /// Converts the current SF4InputState into an InputsArray.
+        /// Converts the current SF4InputState into an InputsArray of released buttons.
         /// </summary>
         /// <returns><see cref="Input"/> array.</returns>
-        public Input[] ToReleasedArray()
+        public Input[] ToInputsReleasedArray()
         {
             List<Input> inputsArray = new List<Input>();
             inputsArray.Add(Input.P1_UP);
@@ -231,6 +178,7 @@ namespace FrameTrapped.Input.Models
 
             return inputsArray.ToArray();
         }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             throw new System.NotImplementedException();

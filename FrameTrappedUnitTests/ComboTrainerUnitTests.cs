@@ -1,7 +1,7 @@
 ﻿namespace FrameTrappedUnitTests
 {
     using System;
-    using System.Diagnostics;
+    using System.Diagnostics; 
     using FrameTrapped.ComboTrainer.Utilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

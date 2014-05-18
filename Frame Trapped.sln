@@ -6,10 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.Common", "FrameTrapped.Common\FrameTrapped.Common.csproj", "{A64D40B5-75E0-4BC9-9634-E3064BD4735D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.StreetFighterLibrary", "FrameTrapped.StreetFighterLibrary\FrameTrapped.StreetFighterLibrary.csproj", "{BB9129B7-F30F-4CCD-BE62-A8F98D8505F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AB5C3E50-8965-49C0-8858-6D9558DD3B7C} = {AB5C3E50-8965-49C0-8858-6D9558DD3B7C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.Input", "FrameTrapped.Input\FrameTrapped.Input.csproj", "{E313F641-01FE-4BF8-92AC-AF6060D56A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.ComboTrainer", "FrameTrapped.Timeline\FrameTrapped.ComboTrainer.csproj", "{AB5C3E50-8965-49C0-8858-6D9558DD3B7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.ComboTrainer", "FrameTrapped.ComboTrainer\FrameTrapped.ComboTrainer.csproj", "{AB5C3E50-8965-49C0-8858-6D9558DD3B7C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E313F641-01FE-4BF8-92AC-AF6060D56A76} = {E313F641-01FE-4BF8-92AC-AF6060D56A76}
 		{A64D40B5-75E0-4BC9-9634-E3064BD4735D} = {A64D40B5-75E0-4BC9-9634-E3064BD4735D}
@@ -18,19 +21,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped", "FrameTrapped\FrameTrapped.csproj", "{ADF032EA-F44F-45D5-A4BD-26A08A54364A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{450FAA03-59F8-40FE-BE4F-ECC8C412C819} = {450FAA03-59F8-40FE-BE4F-ECC8C412C819}
+		{E313F641-01FE-4BF8-92AC-AF6060D56A76} = {E313F641-01FE-4BF8-92AC-AF6060D56A76}
 		{AB5C3E50-8965-49C0-8858-6D9558DD3B7C} = {AB5C3E50-8965-49C0-8858-6D9558DD3B7C}
 		{A64D40B5-75E0-4BC9-9634-E3064BD4735D} = {A64D40B5-75E0-4BC9-9634-E3064BD4735D}
 		{BB9129B7-F30F-4CCD-BE62-A8F98D8505F1} = {BB9129B7-F30F-4CCD-BE62-A8F98D8505F1}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrapped.Home", "FrameTrapped.Home\FrameTrapped.Home.csproj", "{450FAA03-59F8-40FE-BE4F-ECC8C412C819}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{16CD4076-79D3-4EB4-807F-C099D667A52A}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameTrappedUnitTests", "FrameTrappedUnitTests\FrameTrappedUnitTests.csproj", "{B1F51E9B-7080-4C93-985F-1FE55073BA18}"
 EndProject

@@ -1,8 +1,10 @@
 ﻿namespace FrameTrapped.StreetFighterLibrary.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Windows;
     using Caliburn.Micro;
-
+    using FrameTrapped.ComboTrainer.Messages;
+    using FrameTrapped.ComboTrainer.ViewModels;
     using FrameTrapped.Input.ViewModels;
     using FrameTrapped.StreetFighterLibrary.Utilities;
 
@@ -13,6 +15,14 @@
         /// </summary>
         private string _title;
 
+        /// <summary>
+        /// The events aggregator.
+        /// </summary>
+        private IEventAggregator _events;
+
+        /// <summary>
+        /// The currently selected fighter.
+        /// </summary>
         private FighterViewModel _selectedFighter;
 
         /// <summary>
@@ -56,10 +66,25 @@
             }
         }
 
-        public StreetFighterLibraryViewModel()
+        /// <summary>
+        /// Add command to time line.
+        /// </summary>
+        /// <param name="moveViewModel">The move view model containing the moves.</param>
+        public void AddCommandToTimeline(MoveViewModel moveViewModel)
         {
+            foreach (InputItemViewModel inputItemViewModel in moveViewModel.Command.Commands)
+            {
+                TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel();
+                timeLineItemViewModel.InputItemViewModel = inputItemViewModel;
+                _events.Publish(new AddTimeLineItemMessage(timeLineItemViewModel));
+            }
+        }
+        
+        public StreetFighterLibraryViewModel(IEventAggregator events)
+        {
+            _events = events;
+            
             FightersList = new ObservableCollection<FighterViewModel>();
-
 
             FightersList.Add(FighterDataAE2012.Ryu());
             FightersList.Add(FighterDataAE2012.Ken());

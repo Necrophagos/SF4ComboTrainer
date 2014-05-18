@@ -7,7 +7,9 @@ namespace FrameTrapped.Input.Utilities
 
     using WindowsInput;
 
-    using FrameTrapped.Input.Models; 
+    using FrameTrapped.Input.Models;
+    using System.Reflection;
+    using System.IO; 
 
     /**
  * this class translates our custom Input enum to actual keyboard codes that are used by the input simulator.
@@ -30,7 +32,9 @@ namespace FrameTrapped.Input.Utilities
         private void readInputConfig()
         {
 
-            string filename = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\sf4keyboard.cfg";
+             string asmLocation = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.FullName;
+             
+            string filename = string.Format("{0}{1}", asmLocation, @"\sf4keyboard.cfg");
 
             string[] lines = System.IO.File.ReadAllLines(filename);
 

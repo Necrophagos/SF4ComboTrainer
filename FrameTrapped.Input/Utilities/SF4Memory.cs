@@ -27,7 +27,7 @@
     public class SF4Memory
     {
         private int steamVersionMemoryOffset;
-        private Memory memory = new Memory();
+        private MemoryReader memory = new MemoryReader();
 
         public SF4Memory(bool steamVersion)
         {

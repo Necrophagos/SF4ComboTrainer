@@ -1,23 +1,24 @@
 ﻿namespace FrameTrapped.Input.ViewModels
 {
-    using System;
 
     using Caliburn.Micro;
 
     using FrameTrapped.Input.Models;
-    using FrameTrapped.Input.Utilities;
 
     public class InputItemViewModel : PropertyChangedBase
     {
-        private InputItemModel inputItem;
+        private int _index;
+        private InputItemModel _inputItem;
+        private bool _sendInputs;
+
         public InputItemModel InputItem
         {
-            get { return inputItem; }
+            get { return _inputItem; }
             set
             {
-                if (value != inputItem)
+                if (value != _inputItem)
                 {
-                    inputItem = value;
+                    _inputItem = value;
                     NotifyOfPropertyChange(() => InputItem);
                     NotifyOfPropertyChange(() => Direction);
                     NotifyOfPropertyChange(() => Light_Punch);
@@ -25,67 +26,34 @@
                     NotifyOfPropertyChange(() => Hard_Punch);
                     NotifyOfPropertyChange(() => Light_Kick);
                     NotifyOfPropertyChange(() => Medium_Kick);
-                    NotifyOfPropertyChange(() => Hard_Kick);
-                    NotifyOfPropertyChange(() => Description);
+                    NotifyOfPropertyChange(() => Hard_Kick); 
                 }
             }
         }
 
         //Identifiers
-        private int index;
         public int Index
         {
-            get { return index; }
+            get { return _index; }
             set
             {
-                if (value != index)
+                if (value != _index)
                 {
-                    index = value;
+                    _index = value;
                     NotifyOfPropertyChange(() => Index);
                 }
             }
         }         
 
-        /// <summary>
-        /// Description of the Time Line Item, displays the inputs in string format.
-        /// </summary>
-        public string Description
-        {
-            get
-            {
-                InputCommandModel state = inputItem.InputCommandState;
-                if (state == null)
-                {
-                    return "No inputs.";
-                }
-
-                inputItem.InputItemType = state.NonePressed ? InputItemModel.InputItemTypeEnum.Wait : InputItemModel.InputItemTypeEnum.Press;
-
-                if (!state.NonePressed && WaitFrames == 1)
-                {
-                    return InputItem.InputItemType.ToString() + " " + InputItem.GetInputString();
-                }
-                else if (!state.NonePressed && WaitFrames > 1)
-                {
-                    return InputItem.InputItemType.ToString() + " " + InputItem.GetInputString() + " and wait " + WaitFrames + " frames";
-                }
-                else
-                {
-                    return "Wait " + WaitFrames + " frames";
-                }
-            }
-        }
-
         //Options
-        private bool sendInputs;
         public bool SendInputs
         {
-            get { return sendInputs; }
+            get { return _sendInputs; }
             set
             {
-                if (value != sendInputs)
+                if (value != _sendInputs)
                 {
-                    sendInputs = value;
+                    _sendInputs = value;
                     NotifyOfPropertyChange(() => SendInputs);
                 }
             }
@@ -93,14 +61,13 @@
 
         public bool PlaySound
         {
-            get { return inputItem.PlaySound; }
+            get { return _inputItem.PlaySound; }
             set
             {
-                if (value != inputItem.PlaySound)
+                if (value != _inputItem.PlaySound)
                 {
-                    inputItem.PlaySound = value;
-                    NotifyOfPropertyChange(() => PlaySound);
-                    NotifyOfPropertyChange(() => Description);
+                    _inputItem.PlaySound = value;
+                    NotifyOfPropertyChange(() => PlaySound); 
                 }
             }
         }
@@ -110,11 +77,10 @@
             get { return InputItem.Frames; }
             set
             {
-                if (value != inputItem.Frames)
+                if (value != _inputItem.Frames)
                 {
                     InputItem.Frames = value;
-                    NotifyOfPropertyChange(() => WaitFrames);
-                    NotifyOfPropertyChange(() => Description);
+                    NotifyOfPropertyChange(() => WaitFrames); 
                 }
             }
         }
@@ -126,137 +92,133 @@
         {
             get
             {
-                return inputItem.InputCommandState.DirectionState;
+                return _inputItem.InputCommandState.DirectionState;
             }
             set
             {
-                inputItem.InputCommandState.DirectionState = value;
-                NotifyOfPropertyChange(() => Direction);
-                NotifyOfPropertyChange(() => Description);
-
+                _inputItem.InputCommandState.DirectionState = value;
+                NotifyOfPropertyChange(() => Direction); 
             }
         }
 
         //Punches
         public bool Light_Punch
         {
-            get { return inputItem.InputCommandState.LightPunch == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.LightPunch == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.LightPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.LightPunch = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.LightPunch = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.LightPunch = InputCommandModel.ButtonStateEnum.Released;
                 }
 
                 NotifyOfPropertyChange(() => Light_Punch);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
+
         public bool Medium_Punch
         {
-            get { return inputItem.InputCommandState.MediumPunch == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.MediumPunch == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.MediumPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.MediumPunch = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.MediumPunch = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.MediumPunch = InputCommandModel.ButtonStateEnum.Released;
 
                 }
 
                 NotifyOfPropertyChange(() => Medium_Punch);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
+
         public bool Hard_Punch
         {
-            get { return inputItem.InputCommandState.HardPunch == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.HardPunch == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.HardPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.HardPunch = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.HardPunch = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.HardPunch = InputCommandModel.ButtonStateEnum.Released;
 
                 }
 
                 NotifyOfPropertyChange(() => Hard_Punch);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
 
         //Kicks
         public bool Light_Kick
         {
-            get { return inputItem.InputCommandState.LightKick == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.LightKick == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.LightKick = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.LightKick = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.LightKick = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.LightKick = InputCommandModel.ButtonStateEnum.Released;
 
                 }
 
                 NotifyOfPropertyChange(() => Light_Kick);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
+
         public bool Medium_Kick
         {
-            get { return inputItem.InputCommandState.MediumKick == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.MediumKick == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.MediumKick = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.MediumKick = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.MediumKick = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.MediumKick = InputCommandModel.ButtonStateEnum.Released;
 
                 }
 
                 NotifyOfPropertyChange(() => Medium_Kick);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
+
         public bool Hard_Kick
         {
-            get { return inputItem.InputCommandState.HardKick == InputCommandModel.ButtonStateEnum.Pressed; }
+            get { return _inputItem.InputCommandState.HardKick == InputCommandModel.ButtonStateEnum.Pressed; }
             set
             {
                 if (value)
                 {
-                    inputItem.InputCommandState.HardKick = InputCommandModel.ButtonStateEnum.Pressed;
+                    _inputItem.InputCommandState.HardKick = InputCommandModel.ButtonStateEnum.Pressed;
                 }
                 else
                 {
-                    inputItem.InputCommandState.HardKick = InputCommandModel.ButtonStateEnum.Released;
+                    _inputItem.InputCommandState.HardKick = InputCommandModel.ButtonStateEnum.Released;
 
                 }
 
                 NotifyOfPropertyChange(() => Hard_Kick);
-                NotifyOfPropertyChange(() => CommandPressed);
-                NotifyOfPropertyChange(() => Description);
+                NotifyOfPropertyChange(() => CommandPressed); 
             }
         }
 
@@ -275,18 +237,12 @@
 
         private void ResetDirections()
         {
-            inputItem.InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Neutral;
+            _inputItem.InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Neutral;
             NotifyOfPropertyChange(() => Direction);
-        }
-
-        public void Action(SF4Control sf4Control)
-        {
-            this.InputItem.Action(sf4Control, this.sendInputs);
-        }
-
+        } 
         public string Serialize()
         {
-            return this.InputItem.Serialize();
+            return InputItem.Serialize();
         }
 
         public static InputItemViewModel Deserialize(string stringValue)

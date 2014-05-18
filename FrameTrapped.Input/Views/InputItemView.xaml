@@ -2,52 +2,66 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      x:Class="FrameTrapped.Input.Views.InputItemView"/>
+    <!--xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:converters="clr-namespace:FrameTrapped.Common.Converters;assembly=FrameTrapped.Common"
       x:Class="FrameTrapped.Input.Views.InputItemView" 
       Width="340"
       mc:Ignorable="d" >
     <Grid.Resources>
-        <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
-        <converters:BoolToCollapsedConverter x:Key="boolToCollapsedConverter" />
-        <converters:BoolToVisibleConverter x:Key="boolToVisibleConverter" />
-        <RadialGradientBrush x:Key="ButtonBackgroundBrush">
-            <GradientStop Color="White" Offset="0.75"/>
-            <GradientStop Color="LightGray" Offset="1"/>
-        </RadialGradientBrush>
-        <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MetroCircleToggleButtonStyle}">
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="Width" Value="48" />
-            <Setter Property="Height" Value="48" />
-            <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
-        </Style>
-        <Style TargetType="{x:Type UniformGrid}" >
-            <Setter Property="Margin" Value="5" />
-        </Style>
-        <Style x:Key="DirectionRectangleStyle" TargetType="{x:Type Rectangle}"  >
-            <Setter Property="Width" Value="42"/>
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="Opacity" Value="{Binding 
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Brushes.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Icons/SFInputIcons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+            <converters:BoolToCollapsedConverter x:Key="boolToCollapsedConverter" />
+            <converters:BoolToVisibleConverter x:Key="boolToVisibleConverter" />
+            <RadialGradientBrush x:Key="ButtonBackgroundBrush">
+                <GradientStop Color="White" Offset="0.75"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+            </RadialGradientBrush>
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MetroCircleToggleButtonStyle}">
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="6" />
+                <Setter Property="Width" Value="48" />
+                <Setter Property="Height" Value="48" />
+                <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+            </Style>
+            <Style TargetType="{x:Type UniformGrid}" >
+                <Setter Property="Margin" Value="5" />
+            </Style>
+            <Style x:Key="DirectionRectangleStyle" TargetType="{x:Type Rectangle}"  >
+                <Setter Property="Width" Value="36"/>
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Opacity" Value="{Binding 
                          RelativeSource={RelativeSource AncestorType=ToggleButton},
                          Path=IsChecked,
                          Converter={StaticResource boolToOpacityConverter}}"/>
-        </Style>
-        <Style x:Key="InputRectangleStyle" TargetType="{x:Type Rectangle}"  >
-            <Setter Property="Width" Value="50"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Opacity" Value="{Binding 
+            </Style>
+            <Style x:Key="InputRectangleStyle" TargetType="{x:Type Rectangle}"  >
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Opacity" Value="{Binding 
                          RelativeSource={RelativeSource AncestorType=ToggleButton},
                          Path=IsChecked,
                          Converter={StaticResource boolToOpacityConverter}}"/>
-        </Style>
-        <Style x:Key="CustomToggle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MetroCircleToggleButtonStyle}">
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Width" Value="56" />
-            <Setter Property="Height" Value="56" />
-            <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
-        </Style>
+            </Style>
+            <Style x:Key="CustomToggle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MetroCircleToggleButtonStyle}">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Width" Value="56" />
+                <Setter Property="Height" Value="56" />
+                <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+            </Style>
+        </ResourceDictionary>
 
     </Grid.Resources>
     <Grid Height="Auto" Width="Auto">
@@ -83,8 +97,8 @@
                 </RadioButton>
                 <RadioButton GroupName="grpDirection" IsChecked="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=Neutral}">
                     <RadioButton.RenderTransform>
-                        <ScaleTransform ScaleX="1.25" CenterX="24" 
-                                         ScaleY="1.25" CenterY="24"/>
+                        <ScaleTransform ScaleX="1.05" CenterX="24" 
+                                         ScaleY="1.05" CenterY="24"/>
                     </RadioButton.RenderTransform>
                     <Rectangle Fill="{DynamicResource DirectionNeutral}" Style="{StaticResource DirectionRectangleStyle}"/>
                 </RadioButton>
@@ -189,9 +203,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Slider Grid.Column="0" VerticalAlignment="Center" Value="{Binding WaitFrames,FallbackValue=1}" Maximum="300" Minimum="1"/>
-            <ToggleButton Content="Play Sound" Grid.Column ="1" Width="Auto" IsChecked="{Binding PlaySound}"/>
+            <Slider Grid.Column="0" VerticalAlignment="Center" Value="{Binding WaitFrames,FallbackValue=1}" Style="{DynamicResource SliderStyle}" Maximum="300" Minimum="1"/>
+            <xctk:IntegerUpDown Grid.Column="1" VerticalAlignment="Center" Value="{Binding WaitFrames,FallbackValue=1}" Maximum="300" Minimum="1"/>
+            <ToggleButton Grid.Column="2" Content="Play Sound" Width="Auto" IsChecked="{Binding PlaySound}"/>
         </Grid>
     </Grid>
-</Grid>
+</Grid>-->
