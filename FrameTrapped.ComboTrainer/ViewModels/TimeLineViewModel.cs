@@ -107,10 +107,17 @@
         {
             if (CanRemoveItem)
             {
+                int index = TimeLineItems.IndexOf(SelectedTimeLineItem);
+
                 TimeLineItems.Remove(SelectedTimeLineItem);
-
-                SelectedTimeLineItem = TimeLineItems.Last();
-
+                if (index != TimeLineItems.Count)
+                {
+                    SelectedTimeLineItem = TimeLineItems[index];
+                }
+                else
+                {
+                    SelectedTimeLineItem = TimeLineItems.Last();
+                }
                 NotifyOfPropertyChange(() => CanRemoveItem);
                 NotifyOfPropertyChange(() => TimeLineItems);
             }
