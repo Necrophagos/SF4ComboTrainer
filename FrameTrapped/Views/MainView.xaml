@@ -7,11 +7,10 @@
       xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        
-      Width="859"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+      Width="800"
       mc:Ignorable="d"  
-      d:DesignHeight="500"
+      d:DesignHeight="600" MinWidth="{Binding RelativeSource={RelativeSource Self}, Path=Content.MinWidth}"
 	  Title="{StaticResource Title}"
       Style="{DynamicResource CommonWindowStyle}">
     

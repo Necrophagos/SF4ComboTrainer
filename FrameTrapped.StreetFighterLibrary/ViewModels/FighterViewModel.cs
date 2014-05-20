@@ -4,8 +4,12 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Data;
-
+    
     using Caliburn.Micro;
+
+    using FrameTrapped.ComboTrainer.Messages;
+    using FrameTrapped.ComboTrainer.ViewModels;
+    using FrameTrapped.Input.ViewModels;
 
     public class FighterViewModel : PropertyChangedBase
     {
@@ -16,7 +20,7 @@
             Grappler,
             Zoner,
             Charge
-        }
+        } 
 
         public string Name { get; private set; }
 

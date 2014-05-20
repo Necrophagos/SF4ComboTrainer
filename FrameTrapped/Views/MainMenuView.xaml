@@ -7,17 +7,17 @@
     <MenuItem Header="File">
         <MenuItem Header="New"/>
         <Separator/>
-        <MenuItem Header="Open Time Line"  cal:Message.Attach="OpenTimeLineCommand"/>
-        <MenuItem Header="Append Time Line" cal:Message.Attach="AppendTimeLineCommand"/>
+        <MenuItem Header="Open Time Line"  cal:Message.Attach="OpenTimeLine"/>
+        <MenuItem Header="Append Time Line" cal:Message.Attach="AppendTimeLine"/>
         <Separator/>
-        <MenuItem Header="Save Time Line" cal:Message.Attach="SaveTimeLineCommand"/>
+        <MenuItem Header="Save Time Line" cal:Message.Attach="SaveTimeLine"/>
     </MenuItem>
     <MenuItem Header="Edit">
         <MenuItem Header="Copy"/>
         <MenuItem Header="Cut" />
         <MenuItem Header="Paste" />
         <Separator />
-        <MenuItem Header="Clear All" Command="{Binding ClearTimeLineCommand}"/>
+        <MenuItem Header="Clear All" cal:Message.Attach="ClearTimeLineCommand"/>
     </MenuItem>
     <MenuItem Header="View">
         <MenuItem Header="Game Overlay" IsEnabled="False"/>

@@ -275,11 +275,11 @@
             _events = events;
             _events.Subscribe(this);
 
-            MainMenuViewModel = new MainMenuViewModel();
+            MainMenuViewModel = new MainMenuViewModel(_events);
 
             HomeViewModel = new HomeViewModel();
-            StreetFighterLibraryViewModel = new StreetFighterLibraryViewModel();
-            ComboTrainerViewModel = new ComboTrainerViewModel();
+            StreetFighterLibraryViewModel = new StreetFighterLibraryViewModel(_events);
+            ComboTrainerViewModel = new ComboTrainerViewModel(_events);
 
         }
     }

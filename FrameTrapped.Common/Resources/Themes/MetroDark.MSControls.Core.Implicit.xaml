@@ -111,6 +111,7 @@
 						<Ellipse x:Name="ThumbBackground" Fill="{TemplateBinding Background}" Width="16" Height="16" />
 						<Ellipse x:Name="FocusedVisualElement" Stroke="{StaticResource SliderThumbFocusedBorderBrush}" Width="16" Height="16" StrokeThickness="2" Opacity="0" />
 						<Ellipse x:Name="DisabledVisualElement" Fill="{StaticResource DisabledVisualElement}" Width="16" Height="16" Opacity="0" />
+                        <Label x:Name="ThumbValueLabel" Content="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Slider}}}" />
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">

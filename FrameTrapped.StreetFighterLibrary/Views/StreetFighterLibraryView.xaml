@@ -8,32 +8,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Name="LayoutRoot">
     <DockPanel.Resources>
-
-        <!-- Styles -->
-        <Style x:Key="FighterHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="FontSize" Value="24" />
-        </Style>
-
-        <Style x:Key="StatNameHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-
-        <Style x:Key="StatItemStyle" TargetType="StackPanel">
-            <Setter Property="Margin" Value="10" />
-        </Style>
-
+        <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/MergedCommonResources.xaml"/>
     </DockPanel.Resources>
 
     <Expander DockPanel.Dock="Left" IsExpanded="True" Width="Auto" ExpandDirection="Right">
         <Expander.Header>
-            <TextBlock HorizontalAlignment="Right">
-                <TextBlock.LayoutTransform>
-                    <RotateTransform Angle="-90"/>
-                </TextBlock.LayoutTransform>Fighters List</TextBlock>
+            <TextBlock Text="Fighters List" Style="{StaticResource VerticalExpanderHeaderTextBlockStyle}"  />
         </Expander.Header>
         <Grid>
             <Grid.RowDefinitions>
@@ -93,7 +76,6 @@
                             <Image  Source="{Binding Image}"/>
                         </Border>
                     </Grid>
-
                 </StackPanel>
             </Expander>
         </Grid>
@@ -111,11 +93,14 @@
                         <Separator  Margin="10,0,0,0" />
                     </DockPanel>
                 </Expander.Header>
-                <DataGrid ItemsSource="{Binding MovesList}"
-                              Height="Auto"
-                              AutoGenerateColumns="False"
-                              IsReadOnly="True"
-                              FrozenColumnCount="2"  AlternationCount="2"  AlternatingRowBackground="Black">
+                <DataGrid x:Name="MovesList" 
+                          ItemsSource="{Binding MovesList}"
+                          Height="Auto"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          FrozenColumnCount="2"  
+                          AlternationCount="2"  AlternatingRowBackground="Black"
+                          Tag="{Binding DataContext, ElementName=LayoutRoot}" >
                     <DataGrid.GroupStyle>
                         <!-- Style for groups at top level. -->
                         <GroupStyle>
@@ -169,7 +154,6 @@
                         <DataGridTextColumn Header="Stun" Binding="{Binding Path=Stun}" />
                         <DataGridTextColumn Header="Meter Gain" Binding="{Binding Path=MeterGain}" />
                         <DataGridTextColumn Header="Cancel Ability" Binding="{Binding Path=CancelAbility}"/>
-
                         <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}"/>
                     </DataGrid.Columns>
                     <DataGrid.RowStyle>
@@ -181,10 +165,17 @@
                                             IsReadOnly="True" Margin="30,0,0,0"/>
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu cal:Action.TargetWithoutContext="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource Self}}" >
+                                        <MenuItem Header="Add To Time Line" cal:Message.Attach="AddCommandToTimeline($dataContext)" />
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </DataGrid.RowStyle>
                 </DataGrid>
             </Expander>
         </Grid>
     </Grid>
-</DockPanel> 
+</DockPanel>

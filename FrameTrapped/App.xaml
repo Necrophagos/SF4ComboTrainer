@@ -6,10 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Languages/en-GB.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Generic.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Icons/SFInputIcons.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/MergedCommonResources.xaml"/> 
+                <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/MetroDark.MSControls.Core.Implicit.xaml"/>
 
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />

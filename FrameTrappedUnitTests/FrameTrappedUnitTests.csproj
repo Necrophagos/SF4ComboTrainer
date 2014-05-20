@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\lib\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="FrameTrapped.ComboTrainer">
+      <HintPath>..\lib\FrameTrapped.ComboTrainer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -52,12 +58,6 @@
   <ItemGroup>
     <Compile Include="ComboTrainerUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FrameTrapped.Timeline\FrameTrapped.ComboTrainer.csproj">
-      <Project>{ab5c3e50-8965-49c0-8858-6d9558dd3b7c}</Project>
-      <Name>FrameTrapped.ComboTrainer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

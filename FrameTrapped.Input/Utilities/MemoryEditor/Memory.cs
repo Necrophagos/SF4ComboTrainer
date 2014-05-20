@@ -6,7 +6,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
 
-    public class Memory
+    public class MemoryReader
     {
         private IntPtr hReadProcess = IntPtr.Zero;
         private Process mReadProcess;
