@@ -28,7 +28,7 @@
         private bool _autoSwitchToSF4;
 
         private bool _isSteamVersion;
-        
+
         private TimeLineItemViewModel _selectedTimeLineItem;
 
         public TimeLineItemViewModel SelectedTimeLineItem
@@ -74,34 +74,30 @@
                 }
             }
         }
-         
+
         public bool CanRemoveItem
         {
-            get { return TimeLineItems.Count > 0; }
+            get { return TimeLineItems.Count > 1; }
         }
-          
+
         public void AddTimeLineItem()
         {
             TimeLineItemViewModel newTimeLineItemViewModel = new TimeLineItemViewModel(this);
+            AddTimeLineItem(newTimeLineItemViewModel);
 
-            TimeLineItems.Add(newTimeLineItemViewModel);
-
-            SelectedTimeLineItem = newTimeLineItemViewModel;           
-
-            NotifyOfPropertyChange(() => CanRemoveItem);
-            NotifyOfPropertyChange(() => TimeLineItems);
         }
 
         public void AddTimeLineItem(TimeLineItemViewModel timeLineItemViewModel)
         {
-            TimeLineItems.Add(timeLineItemViewModel);
+            TimeLineItems.Insert(TimeLineItems.IndexOf(SelectedTimeLineItem) + 1, timeLineItemViewModel);
 
             SelectedTimeLineItem = timeLineItemViewModel;
+
 
             NotifyOfPropertyChange(() => CanRemoveItem);
             NotifyOfPropertyChange(() => TimeLineItems);
         }
-    
+
         public void AppendTimeLine()
         {
             OpenTimeLine(true);
@@ -111,10 +107,17 @@
         {
             if (CanRemoveItem)
             {
-                TimeLineItems.RemoveAt(TimeLineItems.Count - 1);
+                int index = TimeLineItems.IndexOf(SelectedTimeLineItem);
 
-                SelectedTimeLineItem = TimeLineItems.Last();
-
+                TimeLineItems.Remove(SelectedTimeLineItem);
+                if (index != TimeLineItems.Count)
+                {
+                    SelectedTimeLineItem = TimeLineItems[index];
+                }
+                else
+                {
+                    SelectedTimeLineItem = TimeLineItems.Last();
+                }
                 NotifyOfPropertyChange(() => CanRemoveItem);
                 NotifyOfPropertyChange(() => TimeLineItems);
             }
@@ -138,7 +141,7 @@
                 _events.Publish(new PlayTimeLineMessage(TimeLineItems));
             }
         }
-         
+
         public void OpenTimeLine(bool append = false)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -160,7 +163,7 @@
                 }
             }
         }
- 
+
         public void SaveTimeLine()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -202,8 +205,9 @@
             _events.Subscribe(this);
 
             TimeLineItems = new BindableCollection<TimeLineItemViewModel>();
+            TimeLineItems.Add(new TimeLineItemViewModel(this));
 
-            AddTimeLineItem();
+            SelectedTimeLineItem = TimeLineItems.Last();
 
             _autoSwitchToSF4 = true;
             _isSteamVersion = true;

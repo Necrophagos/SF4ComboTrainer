@@ -9,10 +9,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
       Width="800"
-      mc:Ignorable="d"  
-      d:DesignHeight="600" MinWidth="{Binding RelativeSource={RelativeSource Self}, Path=Content.MinWidth}"
-	  Title="{StaticResource Title}"
-      Style="{DynamicResource CommonWindowStyle}">
+      MinWidth="380"
+      MinHeight="600" 
+	  Title="{DynamicResource Title}"
+      Style="{DynamicResource CommonWindowStyle}" >
     
     <i:Interaction.Behaviors>
         <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False"/>
