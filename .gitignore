@@ -39,3 +39,12 @@ $RECYCLE.BIN/
 .DS_Store
 SF4ComboTrainer/bin/Debug/
 *.psd
+FrameTrapped/lib/FrameTrapped.ComboTrainer.dll
+FrameTrapped/lib/FrameTrapped.Common.dll
+FrameTrapped/lib/FrameTrapped.Home.dll
+FrameTrapped/lib/FrameTrapped.Input.dll
+FrameTrapped/lib/FrameTrapped.StreetFighterLibrary.dll
+FrameTrapped.ComboTrainer/bin/
+FrameTrapped.Input/bin/
+FrameTrapped.StreetFighterLibrary/bin/
+FrameTrapped/bin/
