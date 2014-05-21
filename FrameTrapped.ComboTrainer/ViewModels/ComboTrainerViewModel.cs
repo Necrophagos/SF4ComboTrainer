@@ -47,6 +47,12 @@
             {
                 GameViewModel = new GameViewModel(_events, "SSFIV.exe");
             }
+            else
+            {
+                GameViewModel.TryClose();
+                GameViewModel = null;
+                GameViewModel = new GameViewModel(_events, "SSFIV.exe");
+            }
         }
 
         ~ComboTrainerViewModel()
