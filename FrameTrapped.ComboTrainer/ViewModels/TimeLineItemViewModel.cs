@@ -51,6 +51,10 @@
             {
                 return InputItemViewModel.Direction;
             }
+            set
+            {
+                InputItemViewModel.Direction = value;
+            }
         }
 
         //Punches
@@ -60,50 +64,91 @@
             {
                 return InputItemViewModel.Light_Punch;
             }
-
+            set
+            {
+                InputItemViewModel.Light_Punch = value;
+            }
         }
         public bool Medium_Punch
         {
-            get { return InputItemViewModel.Medium_Punch; }
-
+            get
+            {
+                return InputItemViewModel.Medium_Punch;
+            }
+            set
+            {
+                InputItemViewModel.Medium_Punch = value;
+            }
         }
         public bool Hard_Punch
         {
-            get { return InputItemViewModel.Hard_Punch; }
-
+            get
+            {
+                return InputItemViewModel.Hard_Punch;
+            }
+            set
+            {
+                InputItemViewModel.Hard_Punch = value;
+            }
         }
 
         //Kicks
         public bool Light_Kick
         {
-            get { return InputItemViewModel.Light_Kick; }
-
+            get
+            {
+                return InputItemViewModel.Light_Kick;
+            }
+            set
+            {
+                InputItemViewModel.Light_Kick = value;
+            }
         }
+
         public bool Medium_Kick
         {
-            get { return InputItemViewModel.Medium_Kick; }
-
+            get
+            {
+                return InputItemViewModel.Medium_Kick;
+            }
+            set
+            {
+                InputItemViewModel.Medium_Kick = value;
+            }
         }
+
         public bool Hard_Kick
         {
-            get { return InputItemViewModel.Hard_Kick; }
-
+            get
+            {
+                return InputItemViewModel.Hard_Kick;
+            }
+            set
+            {
+                InputItemViewModel.Hard_Kick = value;
+            }
         }
 
         public int WaitFrames
         {
-            get { return InputItemViewModel.WaitFrames; }
-
+            get
+            {
+                return InputItemViewModel.WaitFrames;
+            }
+            set
+            {
+                InputItemViewModel.WaitFrames = value;
+            }
         }
 
         public void Highlight()
         {
-            IsActiveItem = true;  
+            IsActiveItem = true;
         }
-        
+
         public void DeHighlight()
         {
-            IsActiveItem = false; 
+            IsActiveItem = false;
         }
 
         public void Update()
@@ -133,10 +178,10 @@
             inputItemViewModel.WaitFrames = 1;
         }
 
-        public TimeLineItemViewModel( )
-        { 
+        public TimeLineItemViewModel()
+        {
 
-            inputItemViewModel = new InputItemViewModel(); 
+            inputItemViewModel = new InputItemViewModel();
             inputItemViewModel.WaitFrames = 1;
         }
     }

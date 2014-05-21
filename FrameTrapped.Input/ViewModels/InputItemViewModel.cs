@@ -77,11 +77,9 @@
             get { return InputItem.Frames; }
             set
             {
-                if (value != _inputItem.Frames)
-                {
-                    InputItem.Frames = value;
-                    NotifyOfPropertyChange(() => WaitFrames); 
-                }
+                InputItem.Frames = value;
+                NotifyOfPropertyChange(() => WaitFrames);
+
             }
         }
 
@@ -218,13 +216,14 @@
                 }
 
                 NotifyOfPropertyChange(() => Hard_Kick);
-                NotifyOfPropertyChange(() => CommandPressed); 
+                NotifyOfPropertyChange(() => CommandPressed);
             }
         }
 
         public bool CommandPressed
         {
-            get {
+            get
+            {
                 return Light_Punch ||
                        Light_Kick ||
                        Medium_Punch ||
