@@ -14,12 +14,12 @@
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
     <Grid>
-        <ContentControl Grid.Row="1" VerticalAlignment="Stretch" cal:View.Model="{Binding TimeLineViewModel}"/>
+        <ContentControl Grid.Row="1" VerticalAlignment="Stretch" Margin="0,0,5,0" cal:View.Model="{Binding TimeLineViewModel}"/>
     </Grid>
     <Grid Grid.Column="1">
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition  Height="*"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Content="Load  SF4..." cal:Message.Attach="StartSF4">
             <Button.Style>
@@ -37,12 +37,12 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Border Grid.Row="1" BorderBrush="AntiqueWhite" BorderThickness="3">
-       
-        <ContentControl cal:View.Model="{Binding Path=GameViewModel, Mode=TwoWay}"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                Width="1280" Height="720" />
-    </Border>
-</Grid>
-<!--Visibility="{Binding IsWindowsHostHelperVisible, Converter={StaticResource BoolToVisibleConverter}}"-->
+        <Border Grid.Row="1" BorderBrush="AntiqueWhite" BorderThickness="3" >
+
+            <ContentControl cal:View.Model="{Binding Path=GameViewModel, Mode=TwoWay}"
+                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                />
+        </Border>
+    </Grid>
+    <!--Visibility="{Binding IsWindowsHostHelperVisible, Converter={StaticResource BoolToVisibleConverter}}"-->
 </Grid>

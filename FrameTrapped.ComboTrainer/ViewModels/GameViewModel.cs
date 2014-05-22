@@ -337,7 +337,7 @@
         private void PanelResize(object sender, EventArgs e)
         {
             NativeModel.SetWindowPos(_gameProcessMainWindowHandle, Process.GetCurrentProcess().MainWindowHandle,
-                0, 0, _panel.ClientSize.Width, _panel.ClientSize.Height,
+                0, 0, _panel.Width, _panel.Height,
                 NativeModel.SWP_NOZORDER | NativeModel.SWP_NOACTIVATE);
         }
 
