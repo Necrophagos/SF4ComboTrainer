@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-            Height="740" Width="1280">
+            >
     <Border BorderBrush="AntiqueWhite" BorderThickness="3">
         <StackPanel>
         <TextBlock HorizontalAlignment="Center" Text="{Binding OffsetFrame}"/>
-        <WindowsFormsHost x:Name="GameHost" Height="720"/>
+        <WindowsFormsHost x:Name="GameHost" MinWidth="640" MinHeight="480"/>
         </StackPanel>
     </Border>
 </UserControl>

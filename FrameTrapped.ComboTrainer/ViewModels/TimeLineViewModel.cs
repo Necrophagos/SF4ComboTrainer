@@ -158,7 +158,18 @@
                 foreach (String line in lines)
                 {
                     TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
-                    timeLineItemViewModel.InputItemViewModel = InputItemViewModel.Deserialize(line);
+                    InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
+                    timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
+                    timeLineItemViewModel.Direction = inputItem.Direction;
+
+                    timeLineItemViewModel.Light_Punch = inputItem.Light_Punch;
+                    timeLineItemViewModel.Medium_Punch = inputItem.Medium_Punch;
+                    timeLineItemViewModel.Hard_Punch = inputItem.Hard_Punch;
+
+                    timeLineItemViewModel.Light_Kick = inputItem.Light_Kick;
+                    timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
+                    timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
+
                     TimeLineItems.Add(timeLineItemViewModel);
                 }
             }
@@ -211,7 +222,6 @@
 
             _autoSwitchToSF4 = true;
             _isSteamVersion = true;
-
         }
     }
 }

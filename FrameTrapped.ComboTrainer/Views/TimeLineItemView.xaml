@@ -82,7 +82,7 @@
     </UserControl.Resources>
     <StackPanel>
         <DockPanel>
-            <TextBlock x:Name="WaitFrames" DockPanel.Dock="Right"/>
+            <TextBlock Text="{Binding WaitFrames}" DockPanel.Dock="Right"/>
             <StackPanel Orientation="Horizontal" >
                 <Rectangle Fill="{DynamicResource DirectionUpBack}" Style="{StaticResource DirectionRectangleStyle}"  
                Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=UpBack,FallbackValue=false}"
