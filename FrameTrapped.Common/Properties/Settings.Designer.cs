@@ -22,5 +22,19 @@ namespace FrameTrapped.Common.Properties {
                 return defaultInstance;
             }
         }
+        
+        /// <summary>
+        /// The location for SSFIV.exe
+        /// </summary>
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("The location for SSFIV.exe")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\Super Street Fighter IV - Arcade E" +
+            "dition\\SSFIV.exe\"")]
+        public string SSFIVLocation {
+            get {
+                return ((string)(this["SSFIVLocation"]));
+            }
+        }
     }
 }

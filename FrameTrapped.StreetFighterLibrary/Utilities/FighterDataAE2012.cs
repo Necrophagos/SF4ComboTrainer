@@ -502,7 +502,7 @@
             moveList.Add(new MoveViewModel("Light Tatsumaki Senpukyaku", MoveViewModel.MoveTypeEnum.Special, tmpHitList, tmpCommand));
 
             #endregion
-
+            
             // Initialise Ryu:
             FighterViewModel ryuFighter = new FighterViewModel("Ryu", FighterViewModel.FighterTypeEnum.Shoto, 1000, 1000, 0.045f, 0.030f, moveList);
             return ryuFighter;
@@ -687,6 +687,8 @@
             return fighter;
         }
 
+        // Second Row
+
         public static FighterViewModel Yun()
         {
             BindableCollection<HitViewModel> tmpHitList; ;
@@ -826,6 +828,8 @@
             FighterViewModel fighter = new FighterViewModel("Yang", FighterViewModel.FighterTypeEnum.Shoto, 1000, 1000, 0.045f, 0.030f, moveList);
             return fighter;
         }
+
+        // Third Row
 
         public static FighterViewModel EvilRyu()
         {

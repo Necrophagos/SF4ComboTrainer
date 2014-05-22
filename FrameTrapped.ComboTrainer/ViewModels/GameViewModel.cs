@@ -15,6 +15,7 @@
 
     using FrameTrapped.ComboTrainer.Messages;
     using FrameTrapped.ComboTrainer.Views;
+    using FrameTrapped.Common.Properties;
     using FrameTrapped.Common.Utilities;
     using FrameTrapped.Input.Models;
     using FrameTrapped.Input.Utilities;
@@ -484,7 +485,7 @@
             _events = events;
             _events.Subscribe(this);
 
-            _gameExecuteablePath = @"C:\Program Files (x86)\Steam\SteamApps\common\Super Street Fighter IV - Arcade Edition\SSFIV.exe";
+            _gameExecuteablePath = Settings.Default.Properties["SSFIVLocation"].ToString();
             _isMainWindowEnabled = true;
 
             _sf4Memory = new SF4Memory(true);
