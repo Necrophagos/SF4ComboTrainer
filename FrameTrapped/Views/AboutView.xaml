@@ -11,10 +11,11 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
-        Title="{StaticResource Title}">
+        Title="{StaticResource Title}"
+        Style="{DynamicResource CommonWindowStyle}" >
     <StackPanel Margin="10" >
         <StackPanel.Background>
-            <ImageBrush ImageSource="../Resources/Images/AkumaAbout.png"/>
+            <ImageBrush Stretch="UniformToFill" ImageSource="../Resources/Images/AkumaAbout.png"/>
         </StackPanel.Background>
         <Separator />
         <TextBlock Text="{StaticResource AboutDescription}" Foreground="Black" FontSize="16" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Width="140"/>

@@ -12,8 +12,7 @@
     /// <summary>
     /// Interaction logic for AboutView.xaml
     /// </summary>
-    /// Exclude 'AboutViewModel' and all its members from obfuscation
-    [Obfuscation(ApplyToMembers = true)]
+    /// Exclude 'AboutViewModel' and all its members from obfuscation 
     public class AboutViewModel : Screen
     {
         /// <summary>
@@ -47,7 +46,7 @@
         /// Initializes a new instance of the <see cref="AboutViewModel"/> class.
         /// </summary>
         /// <param name="isLicensed">Whether the application is licensed.</param>
-        public AboutViewModel(bool isLicensed)
+        public AboutViewModel()
         {
             DisplayName = Application.Current.TryFindResource("AboutTitle").ToString();
 

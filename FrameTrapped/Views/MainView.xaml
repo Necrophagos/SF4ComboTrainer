@@ -11,7 +11,7 @@
     cal:Message.Attach="[Event KeyDown] = [OnKeyDown($eventArgs)];[Event Drop] = [OnDropFile($eventArgs)]"
     MinWidth="1280"
     MinHeight="960"
-    Title="{DynamicResource Title}"
+    Title="{Binding Title}"
     Style="{DynamicResource CommonWindowStyle}" 
     AllowDrop="True">
 
@@ -24,7 +24,7 @@
             <!-- Menu bar -->
             <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
 
-            <TabControl x:Name="MainTabControl" TabStripPlacement="Right" SelectedIndex="0" >
+            <TabControl x:Name="MainTabControl" TabStripPlacement="Left" SelectedIndex="0" >
                 <TabItem x:Name="HomeTabItem" IsSelected="{Binding HomeTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -41,7 +41,7 @@
                     </TabItem.Header>
                     <ContentControl cal:View.Model="{Binding Path=StreetFighterLibraryViewModel, Mode=TwoWay}" />
                 </TabItem>
-                <TabItem x:Name="ComboTrainerTabItem" IsSelected="{Binding LibraryTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                <TabItem x:Name="ComboTrainerTabItem" IsSelected="{Binding ComboTrainerTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{DynamicResource ComboTrainer}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>

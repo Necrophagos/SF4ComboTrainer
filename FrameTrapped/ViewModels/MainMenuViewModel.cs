@@ -10,6 +10,8 @@
     { 
         private IEventAggregator _events;
 
+        private IWindowManager _windowManager;
+
         public void NewTimeLine() { }
 
         public void OpenTimeLine()
@@ -25,11 +27,16 @@
 
             _events.Publish(new SaveTimeLineMessage());
         }
-        public void ClearTimeLineCommand() { }
 
-        public MainMenuViewModel(IEventAggregator events)
+        public void ShowAbout()
+        {
+           _windowManager.ShowDialog(new AboutViewModel());
+        }
+
+        public MainMenuViewModel( IWindowManager windowManager, IEventAggregator events)
         {
             _events = events;
+            _windowManager = windowManager;
         }
     }
 }

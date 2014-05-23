@@ -4,31 +4,29 @@
       xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
       Background="Black">
+    <Menu.Resources>
+        <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/MergedCommonResources.xaml"/>
+    </Menu.Resources>
     <MenuItem Header="File">
-        <MenuItem Header="New"/>
+        <MenuItem Header="Open Time Line"  cal:Message.Attach="OpenTimeLine" InputGestureText="Ctrl+O" />
+        <MenuItem Header="Append Time Line" cal:Message.Attach="AppendTimeLine" InputGestureText="Ctrl+Shift+O" />
         <Separator/>
-        <MenuItem Header="Open Time Line"  cal:Message.Attach="OpenTimeLine"/>
-        <MenuItem Header="Append Time Line" cal:Message.Attach="AppendTimeLine"/>
+        <MenuItem Header="Save Time Line" cal:Message.Attach="SaveTimeLine"  InputGestureText="Ctrl+S" />
         <Separator/>
-        <MenuItem Header="Save Time Line" cal:Message.Attach="SaveTimeLine"/>
+        <MenuItem Header="Exit" cal:Message.Attach="Exit" InputGestureText="Alt+F4" />
     </MenuItem>
-    <MenuItem Header="Edit">
+    <MenuItem Header="Edit" IsEnabled="False">
         <MenuItem Header="Copy"/>
         <MenuItem Header="Cut" />
         <MenuItem Header="Paste" />
         <Separator />
         <MenuItem Header="Clear All" cal:Message.Attach="ClearTimeLineCommand"/>
     </MenuItem>
-    <MenuItem Header="View">
+    <MenuItem Header="View" IsEnabled="False">
         <MenuItem Header="Game Overlay" IsEnabled="False"/>
     </MenuItem>
-    <MenuItem Header="Options" >
-        <MenuItem Header="Auto Switch to SF4" IsCheckable="True" IsChecked="{Binding AutoSwitchToSF4}" />
-        <MenuItem Header="Steam version" IsCheckable="True" IsChecked="{Binding IsSteamVersion}" />
-        <MenuItem Header="Connect to XBox Controller" Command="{Binding ConnectToControllerCommand}"/>
-    </MenuItem>
-    <MenuItem Header="Help" >
-        <MenuItem x:Name="About" Header="About"/>
-        <MenuItem Header="How to use SF4:CT" />
-    </MenuItem>
+    <MenuItem Header="Help">
+        <MenuItem x:Name="ShowAbout" Header="About"/>
+        <MenuItem Header="How to use SF4:CT" IsEnabled="False" ToolTip="Coming Soon!" />
+    </MenuItem> 
 </Menu>

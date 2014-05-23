@@ -97,6 +97,10 @@
             {
                 _homeTabItemSelected = value;
                 NotifyOfPropertyChange(() => HomeTabItemSelected);
+                if (value)
+                {
+                    UpdateTitle(string.Empty);
+                }
             }
         }
 
@@ -114,6 +118,10 @@
             {
                 _streetFighterLibraryTabItemSelected = value;
                 NotifyOfPropertyChange(() => StreetFighterLibraryTabItemSelected);
+                if (value)
+                {
+                    UpdateTitle(Application.Current.TryFindResource("SFLibrary").ToString());
+                }
             }
         }
 
@@ -131,6 +139,10 @@
             {
                 _comboTrainerTabItemSelected = value;
                 NotifyOfPropertyChange(() => ComboTrainerTabItemSelected);
+                if (value)
+                {
+                    UpdateTitle(Application.Current.TryFindResource("ComboTrainer").ToString());
+                }
             }
         }
 
@@ -207,23 +219,18 @@
             }
         }
 
-        ///// <summary>
-        ///// Gets or sets options view model.
-        ///// </summary>
-        //public OptionsViewModel OptionsViewModel
-        //{
-        //    get
-        //    {
-        //        return _optionsViewModel;
-        //    }
+        /// <summary>
+        /// Updates the application title with what view you are on.
+        /// </summary>
+        /// <param name="p"></param>
+        private void UpdateTitle(string title)
+        {
+            string applicationName = Application.Current.TryFindResource("Title").ToString();
 
-        //    set
-        //    {
-        //        _optionsViewModel = value;
-        //        NotifyOfPropertyChange(() => OptionsViewModel);
-        //    }
-        //}
-
+            Title = string.IsNullOrWhiteSpace(title)
+                 ? string.Format("{0}: SF4 Combo Trainer 2.1", applicationName)
+                 : string.Format("{0} - {1}", applicationName, title);
+        }
 
         /// <summary>
         /// Opens files by drag and drop
@@ -235,7 +242,7 @@
             {
                 foreach (string filePath in ((DataObject)e.Data).GetFileDropList())
                 {
-                        _events.Publish(new OpenTimeLineMessage(filePath, true));
+                    _events.Publish(new OpenTimeLineMessage(filePath, true));
                 }
             }
         }
@@ -270,6 +277,9 @@
                         _events.Publish(new SaveTimeLineMessage());
                     }
                     break;
+                case Key.P:
+
+                    break;                        
                 default:
                     break;
             }
@@ -290,7 +300,9 @@
             _events = events;
             _events.Subscribe(this);
 
-            MainMenuViewModel = new MainMenuViewModel(_events);
+            UpdateTitle(string.Empty);
+
+            MainMenuViewModel = new MainMenuViewModel(_windowManager,_events);
 
             HomeViewModel = new HomeViewModel();
             StreetFighterLibraryViewModel = new StreetFighterLibraryViewModel(_events);
