@@ -1,29 +1,56 @@
-this is the source code of the streetfighter 4 combo trainer written in c# using microsoft visual studio express 2013 for desktop
+Frame Trapped - SF4 Combo Trainer 2.0
+===
 
-# IF YOU WANT TO CONTRIBUTE #
+What is Frame Trapped?
+---
 
-here is a list of things that need fixing
+Frame Trapped is a tool developed to be the successor to the SF4: Combo Trainer project.
 
-1) code clean up. the current codebase is incosistent with variable names and access modifiers and also doesn't follow established c# coding style. it also doesn't make use of c# specific syntax elements like using properties instead of get/set methods
+Combining all the features from the original (now shiny and improved!) along with some powerful new tools to boot, Frame Tapped helps you confirm if a particular combo is actually possible by giving . You can use FT to look up frame data, compose a combo string of moves in the time line, and play them back automatically to test them in Street Fighter 4 2012 Arcade Edition.
 
-2) remove any kind of memory allocation during timeline playback. partially fixed by cbcoolbox. It could still be useful to run some kind of memory trace and see what kind of stuff is happening at runtime.
+You can get Frame Trapped by downloading one of the packages below, or compile the source for yourself from my git hub page for FT.
 
-3) fixed by ceaseless
+Current Features
+---
 
-4) fixed by cbcoolbox
+Frame Data Library
+* Look up your favourite fighters frame data, detailed down to the individual hits on a move.
 
-5) fixed
+Time Line Playback
+* Create, save and playback test time lines:- a list of moves that Frame Trapped will execute frame by frame in game for you to test if the combo will work.
 
-6) improve the timeline. this is a bigger one. working with the timeline is pretty clumsy atm. when you want to add things to the top of a long combo you have to bubble it all the way up. grouping, collapsing and commenting timeline items are requested features too. this will probably affect the savefile format too.
+SF4 Embedding
+* Don't want to test it full screen? Plans are to embed Street Fighter fully with in Frame Trapped so that you can test your moves in an isolated environment without needing to switch windows.
 
-7) what ever you'd like to add and might improve the software
+Planned Features
+---
 
-8) add more cool demo combos
+Library to Time Line
+* Drag and drop your moves from the move list in the library into your time line. Easily compose combos and tweak them down to the exact frame timing you want to test.
 
-I'll gladly accept pullrequests, I've never used github to actually collaborate but I think its not that hard.
+What Can I Do On Block?
+* Fed up of getting frame trapped by the enemy or don't know what you can use to punish that whiffed Standing Roundhouse? Using the library I plan a feature to find exactly what moves every character can perform to punish all moves in the game (if possible of course) in an easy to view broken down list.
 
---------------------------------------
-if you are interested in this source code because you want to write your own sf4 tool check out sf4memory.cs and sf4control.cs. to read data from a programs memory you'll also need the files inside the memory editor folder.
+Frame Data
+---
+Using data available on various websites like Event Hubs and Shoryuken.com I've started hand compiling the frame data into a processable format, making it sortable and groupable. You can lookup the frame data for a move and see what others you can follow up with to create links and combos. This is time consuming and I'm looking for other developers to potentially help in getting this data completed. Contact me on the email below to organise collaborations!
 
-you may do whatever you want with this code although I have to mention that I decompiled a programm called SF4 Show-off by lullius (slitherware) and stole memory address information and genral ideas from there.
+Authors and Contributors
+---
 
+Since 20th January 2014 I have taken Frame Trapped from an empty project to what it is today. It's the result of hundreds of hours of work to bring together an ambitious project idea I had after working on the previous project called the Street Fighter 4 Combo Trainer. Here is a list of contributors to that project called SF4:Combo Trainer. Without them this would not have started as strong as it did so take the time to check them out and thank them:
+
+@thopiddock (myself)
+@Necrophagos
+@cbcoolbox
+@leemi
+@Ceaseless
+
+Want to Contribute?
+
+	Contact me on tpiddock@gmail.com
+
+Support or Contact
+---
+
+Having trouble with Frame-Trapped? Don't forget this is in completely pre-alpha stages and a work in progress. There will be bugs that I do not know about so please let me know if you find any. Check out the documentation at the Frame Trapped Wiki or contact me at tpiddock@gmail.com and I'll see if I can help you sort it out.
