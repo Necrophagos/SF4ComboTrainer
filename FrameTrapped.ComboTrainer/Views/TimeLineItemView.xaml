@@ -91,7 +91,9 @@
                     </Rectangle.OpacityMask>
                 </Rectangle>
             </ToggleButton>
+            
             <TextBlock Text="{Binding WaitFrames}" Style="{DynamicResource MediumText}" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+            
             <StackPanel Orientation="Horizontal" >
                 <Rectangle Fill="{DynamicResource DirectionUpBack}" Style="{StaticResource DirectionRectangleStyle}"  
                Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=UpBack,FallbackValue=false}"

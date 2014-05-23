@@ -9,23 +9,29 @@
 
     public class TimeLineItemViewModel : Screen
     {
-        private InputItemViewModel inputItemViewModel;
+        /// <summary>
+        /// The input item view model.
+        /// </summary>
+        private InputItemViewModel _inputItemViewModel;
 
         /// <summary>
         /// The time line parent.
         /// </summary>
         private TimeLineViewModel _parent;
 
+        /// <summary> 
+        /// Indicates if the item is active.
+        /// </summary>
         private bool _isActiveItem;
 
         public InputItemViewModel InputItemViewModel
         {
-            get { return inputItemViewModel; }
+            get { return _inputItemViewModel; }
             set
             {
-                if (value != inputItemViewModel)
+                if (value != _inputItemViewModel)
                 {
-                    inputItemViewModel = value;
+                    _inputItemViewModel = value;
                     NotifyOfPropertyChange(() => InputItemViewModel);
                     Update();
                 }
@@ -46,7 +52,9 @@
             }
         }
 
-        //Directions
+        /// <summary>
+        /// Gets of sets the direction input.
+        /// </summary>
         public InputCommandModel.DirectionStateEnum Direction
         {
             get
@@ -131,6 +139,19 @@
             }
         }
 
+        public bool PlaySound
+        {
+            get
+            {
+                return InputItemViewModel.PlaySound;
+            }
+            set
+            {
+                InputItemViewModel.PlaySound = value;
+                NotifyOfPropertyChange(() => PlaySound);
+            }
+        }
+
         public int WaitFrames
         {
             get
@@ -181,6 +202,7 @@
             NotifyOfPropertyChange(() => Light_Kick);
             NotifyOfPropertyChange(() => Medium_Kick);
             NotifyOfPropertyChange(() => Hard_Kick);
+            NotifyOfPropertyChange(() => PlaySound);
         }
 
         private void InputItemViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -192,17 +214,17 @@
         {
             _parent = parent;
 
-            inputItemViewModel = new InputItemViewModel();
+            _inputItemViewModel = new InputItemViewModel();
 
             InputItemViewModel.PropertyChanged += InputItemViewModel_PropertyChanged;
-            inputItemViewModel.WaitFrames = 1;
+            _inputItemViewModel.WaitFrames = 1;
         }
 
         public TimeLineItemViewModel()
         {
 
-            inputItemViewModel = new InputItemViewModel();
-            inputItemViewModel.WaitFrames = 1;
+            _inputItemViewModel = new InputItemViewModel();
+            _inputItemViewModel.WaitFrames = 1;
         }
     }
 }

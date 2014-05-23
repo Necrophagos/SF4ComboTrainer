@@ -168,16 +168,20 @@
             if (timeLineItem.InputItemViewModel.PlaySound)
             {
                 Input[] inputs = timeLineItem.InputItemViewModel.InputItem.Inputs;
-                if (inputs.Intersect(Directions).Count() > 0 && inputs.Intersect(Buttons).Count() > 0)
+                if (inputs.Intersect(Directions).Count() == 0 && inputs.Intersect(Buttons).Count() == 0)
                 {
                     Roadie.Instance.PlaySound(Roadie.WAIT_SOUND);
                 }
                 else
                 {
-                    if (inputs.Intersect(Directions).Count() > 0)
-                        Roadie.Instance.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
                     if (inputs.Intersect(Buttons).Count() > 0)
+                    {
                         Roadie.Instance.PlaySound(Roadie.PRESS_BUTTON_SOUND);
+                    }
+                    if (inputs.Intersect(Directions).Count() > 0)
+                    {
+                        Roadie.Instance.PlaySound(Roadie.PRESS_DIRECTION_SOUND);
+                    }
                 }
             }
 
