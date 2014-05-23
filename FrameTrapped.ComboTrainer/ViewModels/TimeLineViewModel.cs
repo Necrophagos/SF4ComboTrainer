@@ -177,6 +177,8 @@
                 timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
                 timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
 
+                timeLineItemViewModel.PlaySound = inputItem.PlaySound;
+
                 TimeLineItems.Add(timeLineItemViewModel);
 
             }
