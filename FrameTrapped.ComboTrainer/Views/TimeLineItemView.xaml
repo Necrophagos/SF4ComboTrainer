@@ -6,8 +6,8 @@
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:converters="clr-namespace:FrameTrapped.Common.Converters;assembly=FrameTrapped.Common"
     x:Class="FrameTrapped.ComboTrainer.Views.TimeLineItemView"
-    Width="340" Margin="2"
-    cal:Message.Attach="[Event LostKeyboardFocus] = [Action DeHighlight];[Event GotKeyboardFocus] = [Action Highlight]">
+    Margin="2"
+    cal:Message.Attach="[Event GotKeyboardFocus] = [Action TryHighlight($source, $events)]">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,7 +22,7 @@
             <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
             <converters:BoolToCollapsedConverter x:Key="boolToCollapsedConverter" />
             <converters:BoolToVisibleConverter x:Key="boolToVisibleConverter" />
-            
+
             <RadialGradientBrush x:Key="ButtonBackgroundBrush">
                 <GradientStop Color="White" Offset="0.75"/>
                 <GradientStop Color="LightGray" Offset="1"/>
@@ -30,9 +30,9 @@
 
             <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MetroCircleToggleButtonStyle}">
                 <Setter Property="Margin" Value="2" />
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="Width" Value="42" />
-                <Setter Property="Height" Value="42" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="Width" Value="40" />
+                <Setter Property="Height" Value="40" />
                 <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
             </Style>
 
@@ -53,7 +53,7 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
             </Style>
-            
+
             <Style x:Key="DirectionRectangleStyle" TargetType="{x:Type Rectangle}"  >
                 <Setter Property="Width" Value="28"/>
                 <Setter Property="Height" Value="28"/>
@@ -76,13 +76,22 @@
                          Path=IsChecked,
                          Converter={StaticResource boolToOpacityConverter}}"/>
             </Style>
-
-           
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <DockPanel>
-            <TextBlock Text="{Binding WaitFrames}" DockPanel.Dock="Right"/>
+        <DockPanel Width="280">
+            <ToggleButton x:Name="PlaySound" Style="{StaticResource MetroCircleToggleButtonStyle}" DockPanel.Dock="Right">
+                <Rectangle Fill="Black" Style="{StaticResource InputRectangleStyle}" Width="24" Height="24" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_sound_2}" Stretch="Fill">
+                            <VisualBrush.Transform>
+                                <ScaleTransform CenterX="12" CenterY="12" ScaleX="0.75" ScaleY="0.75"/>
+                            </VisualBrush.Transform>
+                        </VisualBrush>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </ToggleButton>
+            <TextBlock Text="{Binding WaitFrames}" Style="{DynamicResource MediumText}" DockPanel.Dock="Right" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" >
                 <Rectangle Fill="{DynamicResource DirectionUpBack}" Style="{StaticResource DirectionRectangleStyle}"  
                Tag="{Binding Direction, Converter={StaticResource enumBooleanConverter},ConverterParameter=UpBack,FallbackValue=false}"
@@ -135,8 +144,7 @@
                 <Grid Grid.Row="0" Grid.ColumnSpan="2" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/> 
                     </Grid.ColumnDefinitions>
                     <UniformGrid Rows="3" Columns="3" 
 			                HorizontalAlignment="Center"
@@ -185,9 +193,7 @@
                             <Rectangle Fill="{DynamicResource DirectionDownForward}" Style="{StaticResource DirectionRectangleStyle}"/>
                         </RadioButton>
                     </UniformGrid>
-                    <UniformGrid Grid.Column="1" Rows="2" Columns="3"
-			HorizontalAlignment="Center"
-			VerticalAlignment="Center">
+                    <UniformGrid Grid.Column="1" Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <ToggleButton IsChecked="{Binding Light_Punch, Mode=TwoWay}" Style="{StaticResource CustomToggle}">
                             <StackPanel>
                                 <Rectangle Style="{StaticResource InputRectangleStyle}" Fill="{DynamicResource LPIcon}" Visibility="{Binding 
@@ -262,20 +268,17 @@
                         </ToggleButton>
 
                     </UniformGrid>
-                    <ToggleButton Grid.Column="2"  VerticalAlignment="Center" IsChecked="{Binding PlaySound}">
-                        <TextBlock Text="Play Sound" Width="50" TextWrapping="WrapWithOverflow" TextAlignment="Center" />
-                    </ToggleButton>
 
                 </Grid>
                 <DockPanel Grid.Row="1" Margin="2" >
-                    <Button DockPanel.Dock="Left" Style="{StaticResource CustomButton}" >
+                    <Button x:Name="DecrementFrames" DockPanel.Dock="Left" Style="{StaticResource MetroCircleButtonStyle}" >
                         <Rectangle Fill="{DynamicResource DirectionBack}" Style="{StaticResource ButtonRectangleStyle}"/>
                     </Button>
-                    <Button DockPanel.Dock="Right" Style="{StaticResource CustomButton}" >
+                    <Button x:Name="IncrementFrames" DockPanel.Dock="Right" Style="{StaticResource MetroCircleButtonStyle}" >
                         <Rectangle Fill="{DynamicResource DirectionForward}" Style="{StaticResource ButtonRectangleStyle}"/>
                     </Button>
 
-                    <Slider Width="300" HorizontalAlignment="Center" Value="{Binding WaitFrames,FallbackValue=1}" Style="{DynamicResource SliderStyle}" Maximum="300" Minimum="1"/>
+                    <Slider  HorizontalAlignment="Stretch" Value="{Binding WaitFrames,FallbackValue=1}" Style="{DynamicResource SliderStyle}" Maximum="300" Minimum="1"/>
 
                 </DockPanel>
             </Grid>

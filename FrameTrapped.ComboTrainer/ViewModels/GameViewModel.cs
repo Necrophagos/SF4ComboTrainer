@@ -363,6 +363,7 @@
             windowsFormsHost.Child = _panel;
             _panel.Resize += PanelResize;
         }
+
         /// <summary>
         /// Setup to play the time line.
         /// </summary>
@@ -485,7 +486,7 @@
             _events = events;
             _events.Subscribe(this);
 
-            _gameExecuteablePath = Settings.Default.Properties["SSFIVLocation"].ToString();
+            _gameExecuteablePath = Settings.Default.Properties["SSFIVLocation"].DefaultValue.ToString();
             _isMainWindowEnabled = true;
 
             _sf4Memory = new SF4Memory(true);

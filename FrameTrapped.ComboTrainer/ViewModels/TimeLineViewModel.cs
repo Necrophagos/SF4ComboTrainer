@@ -100,7 +100,7 @@
 
         public void AppendTimeLine()
         {
-            OpenTimeLine(true);
+            OpenTimeLine(string.Empty, true);
         }
 
         public void RemoveTimeLineItem()
@@ -142,36 +142,43 @@
             }
         }
 
-        public void OpenTimeLine(bool append = false)
+        public void OpenTimeLine(string filePath, bool append = false)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "SF4 Combo|*.cmb";
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.ShowDialog();
-            if (openFileDialog.FileName != "")
+            if (string.IsNullOrWhiteSpace(filePath))
             {
-                string[] lines = System.IO.File.ReadAllLines(openFileDialog.FileName);
+                OpenFileDialog openFileDialog = new OpenFileDialog();
 
-                if (!append) ClearTimeLine();
-
-                foreach (String line in lines)
+                openFileDialog.Filter = "SF4 Combo|*.cmb";
+                openFileDialog.RestoreDirectory = true;
+                openFileDialog.ShowDialog();
+                if (openFileDialog.FileName == "")
                 {
-                    TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
-                    InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
-                    timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
-                    timeLineItemViewModel.Direction = inputItem.Direction;
-
-                    timeLineItemViewModel.Light_Punch = inputItem.Light_Punch;
-                    timeLineItemViewModel.Medium_Punch = inputItem.Medium_Punch;
-                    timeLineItemViewModel.Hard_Punch = inputItem.Hard_Punch;
-
-                    timeLineItemViewModel.Light_Kick = inputItem.Light_Kick;
-                    timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
-                    timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
-
-                    TimeLineItems.Add(timeLineItemViewModel);
+                    return;
                 }
+                filePath = openFileDialog.FileName;
+            }
+
+            string[] lines = System.IO.File.ReadAllLines(filePath);
+
+            if (!append) ClearTimeLine();
+
+            foreach (String line in lines)
+            {
+                TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
+                InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
+                timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
+                timeLineItemViewModel.Direction = inputItem.Direction;
+
+                timeLineItemViewModel.Light_Punch = inputItem.Light_Punch;
+                timeLineItemViewModel.Medium_Punch = inputItem.Medium_Punch;
+                timeLineItemViewModel.Hard_Punch = inputItem.Hard_Punch;
+
+                timeLineItemViewModel.Light_Kick = inputItem.Light_Kick;
+                timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
+                timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
+
+                TimeLineItems.Add(timeLineItemViewModel);
+
             }
         }
 
@@ -202,7 +209,7 @@
 
         public void Handle(OpenTimeLineMessage message)
         {
-            OpenTimeLine(message.Append);
+            OpenTimeLine(message.FilePath, message.Append);
         }
 
         public void Handle(SaveTimeLineMessage message)

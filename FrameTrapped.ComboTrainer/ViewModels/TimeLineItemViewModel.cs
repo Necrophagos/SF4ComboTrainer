@@ -4,11 +4,13 @@
 
     using FrameTrapped.Input.ViewModels;
     using FrameTrapped.Input.Models;
+    using System.Windows.Input;
+    using System.Windows.Controls.Primitives;
 
     public class TimeLineItemViewModel : Screen
     {
         private InputItemViewModel inputItemViewModel;
-        
+
         /// <summary>
         /// The time line parent.
         /// </summary>
@@ -141,14 +143,32 @@
             }
         }
 
-        public void Highlight()
+        public void DecrementFrames()
         {
-            IsActiveItem = true;
+            WaitFrames--;
+        }
+
+        public void IncrementFrames()
+        {
+            WaitFrames++;
         }
 
         public void DeHighlight()
         {
             IsActiveItem = false;
+        }
+
+        public void Highlight()
+        {
+            IsActiveItem = true;
+        }
+
+        public void TryHighlight(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if ((sender as ToggleButton) != null)
+            {
+                Highlight();
+            }
         }
 
         public void Update()

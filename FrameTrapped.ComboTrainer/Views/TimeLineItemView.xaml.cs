@@ -15,6 +15,6 @@
         public TimeLineItemView()
         {
             InitializeComponent();
-        }
+        } 
     }
 }

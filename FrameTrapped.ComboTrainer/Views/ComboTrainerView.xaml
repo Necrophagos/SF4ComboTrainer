@@ -5,12 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
       xmlns:converters="clr-namespace:FrameTrapped.Common.Converters;assembly=FrameTrapped.Common"
-      mc:Ignorable="d" HorizontalAlignment="Left">
+      mc:Ignorable="d">
     <Grid.Resources>
         <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="360"/>
+        <ColumnDefinition Width="300"/>
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
     <Grid>

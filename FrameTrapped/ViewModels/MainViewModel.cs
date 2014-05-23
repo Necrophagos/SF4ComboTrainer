@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Input;
     using System.ComponentModel.Composition;
+    using FrameTrapped.ComboTrainer.Messages;
 
     [Export(typeof(MainViewModel))]
     public class MainViewModel : Screen
@@ -51,7 +52,7 @@
         /// The home view model.
         /// </summary>
         private HomeViewModel _homeViewModel;
-        
+
         /// <summary>
         /// The street fighter library view model.
         /// </summary>
@@ -61,8 +62,8 @@
         /// The combo trainer view model.
         /// </summary>
         private ComboTrainerViewModel _comboTrainerViewModel;
-        
-        
+
+
         // private OptionsViewModel _optionsViewModel;
 
         /// <summary>
@@ -188,7 +189,7 @@
                 NotifyOfPropertyChange(() => StreetFighterLibraryViewModel);
             }
         }
- 
+
         /// <summary>
         /// Gets or sets the time line view model.
         /// </summary>
@@ -234,25 +235,40 @@
             {
                 foreach (string filePath in ((DataObject)e.Data).GetFileDropList())
                 {
-                    //_events.Publish(new SomeMessageAboutFiles(filePath));
+                        _events.Publish(new OpenTimeLineMessage(filePath, true));
                 }
             }
         }
 
         /// <summary>
-        /// Executes the keyboard shortcut.
+        /// Handle keyboard shortcuts.
         /// </summary>
-        /// <param name="key">The key.</param>
-        private void ExecuteKeyboardShortcut(Key key)
+        /// <param name="e">Key event arguments.</param>
+        public void OnKeyDown(KeyEventArgs e)
         {
-            switch (key)
+            bool modCtrl = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl);
+            bool modShift = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            bool modAlt = Keyboard.IsKeyDown(Key.LeftAlt);
+            bool modAltGr = Keyboard.IsKeyDown(Key.RightAlt);
+
+            switch (e.Key)
             {
                 case Key.O:
-                    if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                    if (modCtrl & !modShift)
                     {
-                        //OpenComboTrainerFile();
+                        _events.Publish(new OpenTimeLineMessage(false));
+                    }
+                    else if (modCtrl && modShift)
+                    {
+                        _events.Publish(new OpenTimeLineMessage(true));
                     }
 
+                    break;
+                case Key.S:
+                    if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                    {
+                        _events.Publish(new SaveTimeLineMessage());
+                    }
                     break;
                 default:
                     break;
@@ -270,7 +286,6 @@
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager, IEventAggregator events)
         {
-
             _windowManager = windowManager;
             _events = events;
             _events.Subscribe(this);
@@ -280,6 +295,8 @@
             HomeViewModel = new HomeViewModel();
             StreetFighterLibraryViewModel = new StreetFighterLibraryViewModel(_events);
             ComboTrainerViewModel = new ComboTrainerViewModel(_events);
+
+            HomeTabItemSelected = true;
 
         }
     }

@@ -5,6 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Brushes.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Themes/Common/Controls.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Icons/SFInputIcons.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Icons/Icons.xaml"/>
 
 
         <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/Languages/en-GB.xaml"/>

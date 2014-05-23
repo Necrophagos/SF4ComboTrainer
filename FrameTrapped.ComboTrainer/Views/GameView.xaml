@@ -5,10 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
             >
-    <Border BorderBrush="AntiqueWhite" BorderThickness="3">
-        <StackPanel>
-        <TextBlock HorizontalAlignment="Center" Text="{Binding OffsetFrame}"/>
-        <WindowsFormsHost x:Name="GameHost" MinWidth="640" MinHeight="480"/>
-        </StackPanel>
+    <Border BorderBrush="AntiqueWhite" BorderThickness="3" >
+      
+            <WindowsFormsHost x:Name="GameHost" MinWidth="640" MinHeight="480"/>
+        
     </Border>
 </UserControl>
