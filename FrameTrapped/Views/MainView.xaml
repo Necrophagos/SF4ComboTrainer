@@ -16,11 +16,12 @@
     AllowDrop="True">
 
     <i:Interaction.Behaviors>
-        <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False"/>
+        <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" AutoSizeToContent="True"/>
         <behaviours:GlowWindowBehavior/>
     </i:Interaction.Behaviors>
+    
     <Border BorderThickness="1" BorderBrush="DarkGray">
-        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel>
             <!-- Menu bar -->
             <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
 

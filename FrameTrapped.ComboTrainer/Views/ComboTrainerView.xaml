@@ -10,7 +10,7 @@
         <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="300"/>
+        <ColumnDefinition Width="320"/>
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
     <Grid>

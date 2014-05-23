@@ -224,6 +224,27 @@
     <EmbeddedResource Include="lib\MahApps.Metro.dll" />
     <EmbeddedResource Include="lib\System.Windows.Interactivity.dll" />
     <EmbeddedResource Include="lib\FrameTrapped.Common.dll" />
+    <Content Include="Resources\Sounds\hold_button.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\hold_direction.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\press_button.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\press_direction.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\release_button.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\release_direction.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\wait.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sf4keyboard.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

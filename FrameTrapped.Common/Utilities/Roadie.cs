@@ -42,7 +42,7 @@
 
         private static String getSoundDir()
         {
-            return System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\sounds\";
+            return System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName) + @"\Resources\Sounds\";
         }
 
         public void PlaySound(string sound)
