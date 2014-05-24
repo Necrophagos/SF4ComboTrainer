@@ -315,9 +315,10 @@
         /// </summary>
         public InputItemViewModel()
         {
-            this.InputItem = new InputItemModel();
-            this.WaitFrames = 1;
-            this.SendInputs = true;
+            InputItem = new InputItemModel();
+            WaitFrames = 1;
+            SendInputs = true;
+            PlaySound = false;
         }
     }
 }

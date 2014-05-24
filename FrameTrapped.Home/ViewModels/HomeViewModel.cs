@@ -4,6 +4,13 @@
 
     public class HomeViewModel : Screen
     {
+        public void ShowLibrary(){
 
+        }
+
+        public void ShowComboTrainer()
+        {
+
+        }
     }
 }
