@@ -254,7 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Banner.png" />
-    <Resource Include="Resources\Images\Logo.ico" />
+    <Resource Include="Resources\Images\Logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <EmbeddedResource Include="lib\FrameTrapped.ComboTrainer.dll" />
     <EmbeddedResource Include="lib\FrameTrapped.Home.dll" />
     <EmbeddedResource Include="lib\FrameTrapped.Input.dll" />

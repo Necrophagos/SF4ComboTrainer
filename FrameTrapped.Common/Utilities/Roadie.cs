@@ -23,37 +23,37 @@
         /// <summary>
         /// The PRESS_BUTTON sound location.
         /// </summary>
-        private static String PRESS_BUTTON = "open \"" + GetSoundDir() + "press_button.wav\" type waveaudio alias s_pre_but";
+        private static String PRESS_BUTTON = "open \"" + GetSoundDir + "press_button.wav\" type waveaudio alias s_pre_but";
 
         /// <summary>
         /// The PRESS_DIRECTION sound location.
         /// </summary>
-        private static String PRESS_DIRECTION = "open \"" + GetSoundDir() + "press_direction.wav\" type waveaudio alias s_pre_dir";
+        private static String PRESS_DIRECTION = "open \"" + GetSoundDir + "press_direction.wav\" type waveaudio alias s_pre_dir";
 
         /// <summary>
         /// The HOLD_BUTTON sound location.
         /// </summary>
-        private static String HOLD_BUTTON = "open \"" + GetSoundDir() + "hold_button.wav\" type waveaudio alias s_hol_but";
+        private static String HOLD_BUTTON = "open \"" + GetSoundDir + "hold_button.wav\" type waveaudio alias s_hol_but";
 
         /// <summary>
         /// The HOLD_DIRECTION sound location.
         /// </summary>
-        private static String HOLD_DIRECTION = "open \"" + GetSoundDir() + "hold_direction.wav\" type waveaudio alias s_hol_dir";
+        private static String HOLD_DIRECTION = "open \"" + GetSoundDir + "hold_direction.wav\" type waveaudio alias s_hol_dir";
 
         /// <summary>
         /// The RELEASE_BUTTON sound location.
         /// </summary>
-        private static String RELEASE_BUTTON = "open \"" + GetSoundDir() + "release_button.wav\" type waveaudio alias s_rel_but";
+        private static String RELEASE_BUTTON = "open \"" + GetSoundDir + "release_button.wav\" type waveaudio alias s_rel_but";
 
         /// <summary>
         /// The RELEASE_DIRECTION sound location.
         /// </summary>
-        private static String RELEASE_DIRECTION = "open \"" + GetSoundDir() + "release_direction.wav\" type waveaudio alias s_rel_dir";
+        private static String RELEASE_DIRECTION = "open \"" + GetSoundDir + "release_direction.wav\" type waveaudio alias s_rel_dir";
 
         /// <summary>
         /// The WAIT sound location.
         /// </summary>
-        private static String WAIT = "open \"" + GetSoundDir() + "wait.wav\" type waveaudio alias s_wait";
+        private static String WAIT = "open \"" + GetSoundDir + "wait.wav\" type waveaudio alias s_wait";
 
         /// <summary>
         /// The PRESS_BUTTON_SOUND sound command string.
