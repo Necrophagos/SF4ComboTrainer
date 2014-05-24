@@ -7,19 +7,17 @@
     using System.Windows;
     using Microsoft.VisualBasic;
 
+    /// <summary>
+    /// An assembly wrapper class for the program.
+    /// </summary>
     public class Program
     {
-        [STAThreadAttribute]
-        public static void Main()
-        {
-            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
-
-            App.Main();
-
-        }
-
-        static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        /// <summary>
+        /// The unhandled exception handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The unhandled exception event args.</param>
+        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             string info = e.ExceptionObject.ToString();
             string message = "Well bummer, an error occured!\n Well this is in beta and I need all the crash info I can get. Send any log info below to tpiddock@gmail.com\n\nPress OK to restart the app, this may take a moment.";
@@ -33,6 +31,11 @@
             }
         }
 
+        /// <summary>
+        /// The resolve assembly handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The resolve event args.</param>
         private static Assembly OnResolveAssembly(object sender, ResolveEventArgs args)
         {
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
@@ -53,6 +56,18 @@
                 stream.Read(assemblyRawBytes, 0, assemblyRawBytes.Length);
                 return Assembly.Load(assemblyRawBytes);
             }
+        }
+
+        /// <summary>
+        /// The main thread function.
+        /// </summary>
+        [STAThreadAttribute]
+        public static void Main()
+        {
+            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+            AppDomain.CurrentDomain.AssemblyResolve += OnResolveAssembly;
+
+            App.Main();
         }
     }
 }

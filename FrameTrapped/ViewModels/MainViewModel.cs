@@ -10,6 +10,9 @@
     using System.ComponentModel.Composition;
     using FrameTrapped.ComboTrainer.Messages;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Export(typeof(MainViewModel))]
     public class MainViewModel : Screen
     {
@@ -293,6 +296,11 @@
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// The Main view model.
+        /// </summary>
+        /// <param name="windowManager">The window manager.</param>
+        /// <param name="events">The events aggregator.</param>
         [ImportingConstructor]
         public MainViewModel(IWindowManager windowManager, IEventAggregator events)
         {
@@ -309,7 +317,6 @@
             ComboTrainerViewModel = new ComboTrainerViewModel(_events);
 
             HomeTabItemSelected = true;
-
         }
     }
 }

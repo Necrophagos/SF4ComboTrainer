@@ -17,20 +17,37 @@
     using FrameTrapped.ComboTrainer.Utilities;
     using FrameTrapped.ComboTrainer.Messages;
 
-
+    /// <summary>
+    /// The time line item view model class.
+    /// </summary>
     public class TimeLineViewModel : Conductor<TimeLineViewModel>.Collection.OneActive,
                                     IHandle<AddTimeLineItemMessage>,
                                     IHandle<SaveTimeLineMessage>,
                                     IHandle<OpenTimeLineMessage>
     {
+        /// <summary>
+        /// The events aggregator.
+        /// </summary>
         private IEventAggregator _events;
 
+        /// <summary>
+        /// The auto switch to SF4 flag.
+        /// </summary>
         private bool _autoSwitchToSF4;
 
+        /// <summary>
+        /// The steam version of SF4 flag.
+        /// </summary>
         private bool _isSteamVersion;
 
+        /// <summary>
+        /// The currently selected time line item.
+        /// </summary>
         private TimeLineItemViewModel _selectedTimeLineItem;
 
+        /// <summary>
+        /// Gets or sets the currently selected time line item.
+        /// </summary>
         public TimeLineItemViewModel SelectedTimeLineItem
         {
             get { return _selectedTimeLineItem; }
@@ -47,8 +64,14 @@
             }
         }
 
+        /// <summary>
+        /// The collection of time line items.
+        /// </summary>
         public BindableCollection<TimeLineItemViewModel> TimeLineItems { get; private set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating wether we wants to automatically switch to SF4.
+        /// </summary>
         public bool AutoSwitchToSF4
         {
             get { return _autoSwitchToSF4; }
@@ -62,6 +85,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether we are using a steam version of SF4.
+        /// </summary>
         public bool IsSteamVersion
         {
             get { return _isSteamVersion; }
@@ -75,11 +101,17 @@
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether you can remove a time line item.
+        /// </summary>
         public bool CanRemoveItem
         {
             get { return TimeLineItems.Count > 1; }
         }
 
+        /// <summary>
+        /// Adds a time line item to the end of the time line.
+        /// </summary>
         public void AddTimeLineItem()
         {
             TimeLineItemViewModel newTimeLineItemViewModel = new TimeLineItemViewModel(this);
@@ -87,6 +119,10 @@
 
         }
 
+        /// <summary>
+        /// Adds a blank item after the current point in the time line.
+        /// </summary>
+        /// <param name="timeLineItemViewModel"></param>
         public void AddTimeLineItem(TimeLineItemViewModel timeLineItemViewModel)
         {
             TimeLineItems.Insert(TimeLineItems.IndexOf(SelectedTimeLineItem) + 1, timeLineItemViewModel);
@@ -98,11 +134,17 @@
             NotifyOfPropertyChange(() => TimeLineItems);
         }
 
+        /// <summary>
+        /// Appends the opened file to the time line.
+        /// </summary>
         public void AppendTimeLine()
         {
             OpenTimeLine(string.Empty, true);
         }
 
+        /// <summary>
+        /// Removes the time line item at the end or after the current selection.
+        /// </summary>
         public void RemoveTimeLineItem()
         {
             if (CanRemoveItem)
@@ -123,16 +165,25 @@
             }
         }
 
+        /// <summary>
+        /// Clears the time line.
+        /// </summary>
         public void ClearTimeLine()
         {
             TimeLineItems.Clear();
         }
 
+        /// <summary>
+        /// Loops the play back for the time line.
+        /// </summary>
         public void LoopPlaybackStart()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Starts playback for the time line.
+        /// </summary>
         public void PlaybackStart()
         {
             if (AutoSwitchToSF4)
@@ -142,6 +193,11 @@
             }
         }
 
+        /// <summary>
+        /// Opens a new time line from file.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="append"></param>
         public void OpenTimeLine(string filePath, bool append = false)
         {
             if (string.IsNullOrWhiteSpace(filePath))
@@ -166,6 +222,8 @@
             {
                 TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
                 InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
+
+                timeLineItemViewModel.PlaySound = inputItem.PlaySound;
                 timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
                 timeLineItemViewModel.Direction = inputItem.Direction;
 
@@ -177,13 +235,15 @@
                 timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
                 timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
 
-                timeLineItemViewModel.PlaySound = inputItem.PlaySound;
 
                 TimeLineItems.Add(timeLineItemViewModel);
 
             }
         }
 
+        /// <summary>
+        /// Saves the time line.
+        /// </summary>
         public void SaveTimeLine()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -197,28 +257,44 @@
                 {
                     foreach (TimeLineItemViewModel item in TimeLineItems)
                     {
-                        file.WriteLine(item.InputItemViewModel.Serialize());
+                        file.WriteLine(item.InputItemViewModel.InputItem.Serialize());
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Handles the <see cref="AddTimeLineItemMessage"/>
+        /// </summary>
+        /// <param name="message">The add time line message.</param>
         public void Handle(AddTimeLineItemMessage message)
         {
             TimeLineItemViewModel timeLineItem = message.TimeLineItemViewModel;
             AddTimeLineItem(timeLineItem);
         }
 
+        /// <summary>
+        /// Handles the <see cref="OpenTimeLineMessage"/>
+        /// </summary>
+        /// <param name="message">The open time line message.</param>
         public void Handle(OpenTimeLineMessage message)
         {
             OpenTimeLine(message.FilePath, message.Append);
         }
 
+        /// <summary>
+        /// Handles the <see cref="SaveTimeLineMessage"/>
+        /// </summary>
+        /// <param name="message">The save time line message.</param>
         public void Handle(SaveTimeLineMessage message)
         {
             SaveTimeLine();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeLineViewmodel"/> class.
+        /// </summary>
+        /// <param name="events">The events aggregator.</param>
         public TimeLineViewModel(IEventAggregator events)
         {
             _events = events;

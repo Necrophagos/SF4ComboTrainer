@@ -15,18 +15,18 @@
         <Separator/>
         <MenuItem Header="Exit" cal:Message.Attach="Exit" InputGestureText="Alt+F4" />
     </MenuItem>
-    <MenuItem Header="Edit" IsEnabled="False">
-        <MenuItem Header="Copy"/>
-        <MenuItem Header="Cut" />
-        <MenuItem Header="Paste" />
+    <MenuItem Header="Edit" IsEnabled="False"  ToolTip="Coming Soon!">
+        <MenuItem Header="Copy" ToolTip="Coming Soon!"/>
+        <MenuItem Header="Cut"  ToolTip="Coming Soon!"/>
+        <MenuItem Header="Paste"  ToolTip="Coming Soon!" />
         <Separator />
-        <MenuItem Header="Clear All" cal:Message.Attach="ClearTimeLineCommand"/>
+        <MenuItem Header="Clear All" cal:Message.Attach="ClearTimeLineCommand"  ToolTip="Coming Soon!"/>
     </MenuItem>
     <MenuItem Header="View" IsEnabled="False">
-        <MenuItem Header="Game Overlay" IsEnabled="False"/>
+        <MenuItem Header="Game Overlay" IsEnabled="False" ToolTip="Coming Soon!"/>
     </MenuItem>
     <MenuItem Header="Help">
-        <MenuItem x:Name="ShowAbout" Header="About"/>
+        <MenuItem x:Name="ShowAboutDialog" Header="About"/>
         <MenuItem Header="How to use SF4:CT" IsEnabled="False" ToolTip="Coming Soon!" />
     </MenuItem> 
 </Menu>

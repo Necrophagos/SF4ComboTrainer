@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
 
-
     /**
     * the timeline classes are the core of this application.
     * they represent an entry in the timeline listbox. there are currently 4 types
@@ -25,11 +24,8 @@
      * There is no reason to have the WaitFrameItem as we can make the PressItemModel act upon
      * its behalf by inputing a neutral input. This creates a waitframe without any inputs.
      *      
-     *          InputItemModel
-     *               |
-     *               |--- PressItemModel
-     *               |--- HoldItemModel
-     *               |--- ReleaseItemModel
+     *          InputItemModel --- Buttons pressed
+     *                         --- Buttons released
      */
 
     [Serializable()]
@@ -55,7 +51,13 @@
         /// </summary>
         public bool PlaySound = false;
 
-        public Input[] Inputs { get { return InputCommandState.ToInputsPressedArray(); } }
+        /// <summary>
+        /// Gets an array of inputs from the InputCommandState.
+        /// </summary>
+        public Input[] Inputs
+        {
+            get { return InputCommandState.ToInputsPressedArray(); }
+        }
 
         /// <summary>
         /// The InputCommandState that is configured by the view model.
@@ -63,7 +65,7 @@
         public InputCommandModel InputCommandState { get; set; }
 
         /// <summary>
-        /// Abstract definition for serializing the inputs into a string. Must be defined by any inheritting classes
+        /// The serialize function for turning the inputs into a string.
         /// </summary>
         /// <returns><see cref="string"/></returns>
         public string Serialize()
@@ -110,8 +112,8 @@
 
             char[] inputs = tokens[2].ToString().ToCharArray();
 
-            
-            item.InputCommandState.DirectionState = (InputCommandModel.DirectionStateEnum) int.Parse(inputs[0].ToString());
+
+            item.InputCommandState.DirectionState = (InputCommandModel.DirectionStateEnum)int.Parse(inputs[0].ToString());
             item.InputCommandState.LightPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[1].ToString());
             item.InputCommandState.MediumPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[2].ToString());
             item.InputCommandState.HardPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[3].ToString());
@@ -120,9 +122,9 @@
             item.InputCommandState.HardKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[6].ToString());
 
             return item;
-            
+
             throw new FormatException("Failed to deserialize TimelineItem, wrong string format: " + value);
-        } 
+        }
 
         /// <summary>
         /// Parses inputs from string to an input enum.
@@ -142,12 +144,19 @@
             throw new FormatException("Cannot parse Input for " + str);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputItemModel"/> class.
+        /// </summary>
+        /// <param name="inputCommand">The input command model to use for this input.</param>
         public InputItemModel(InputCommandModel inputCommand)
         {
-            InputCommandState = inputCommand; 
+            InputCommandState = inputCommand;
             PlaySound = true;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputItemModel"/> class.
+        /// </summary>
         public InputItemModel() : this(new InputCommandModel()) { }
     }
 }

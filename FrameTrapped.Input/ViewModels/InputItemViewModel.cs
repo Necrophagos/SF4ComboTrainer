@@ -5,12 +5,29 @@
 
     using FrameTrapped.Input.Models;
 
+    /// <summary>
+    /// The input item view model class.
+    /// </summary>
     public class InputItemViewModel : PropertyChangedBase
     {
+        /// <summary>
+        /// The index.
+        /// </summary>
         private int _index;
+
+        /// <summary>
+        /// The input item model.
+        /// </summary>
         private InputItemModel _inputItem;
+
+        /// <summary>
+        /// The send inputs flag.
+        /// </summary>
         private bool _sendInputs;
 
+        /// <summary>
+        /// Gets or sets the input item model.
+        /// </summary>
         public InputItemModel InputItem
         {
             get { return _inputItem; }
@@ -31,7 +48,9 @@
             }
         }
 
-        //Identifiers
+        /// <summary>
+        /// Gets of sets the index of the item.
+        /// </summary>
         public int Index
         {
             get { return _index; }
@@ -45,7 +64,9 @@
             }
         }         
 
-        //Options
+        /// <summary>
+        /// Gets or sets a value indicating whether this input should be sent.
+        /// </summary>
         public bool SendInputs
         {
             get { return _sendInputs; }
@@ -59,6 +80,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this input should play a sound.
+        /// </summary>
         public bool PlaySound
         {
             get { return _inputItem.PlaySound; }
@@ -72,6 +96,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the wait frames of the input.
+        /// </summary>
         public int WaitFrames
         {
             get { return InputItem.Frames; }
@@ -85,7 +112,9 @@
 
         #region Input Property Definitions
 
-        //Directions
+        /// <summary>
+        /// Gets or sets the direction state.
+        /// </summary>
         public InputCommandModel.DirectionStateEnum Direction
         {
             get
@@ -99,7 +128,9 @@
             }
         }
 
-        //Punches
+        /// <summary>
+        /// Gets or sets a value indicating whether the light punch is pressed.
+        /// </summary>
         public bool Light_Punch
         {
             get { return _inputItem.InputCommandState.LightPunch == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -119,6 +150,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the medium punch is pressed.
+        /// </summary>
         public bool Medium_Punch
         {
             get { return _inputItem.InputCommandState.MediumPunch == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -139,6 +173,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the hard punch is pressed.
+        /// </summary>
         public bool Hard_Punch
         {
             get { return _inputItem.InputCommandState.HardPunch == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -159,7 +196,9 @@
             }
         }
 
-        //Kicks
+        /// <summary>
+        /// Gets or sets a value indicating whether the light kick is pressed.
+        /// </summary>
         public bool Light_Kick
         {
             get { return _inputItem.InputCommandState.LightKick == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -180,6 +219,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the medium kick is pressed.
+        /// </summary>
         public bool Medium_Kick
         {
             get { return _inputItem.InputCommandState.MediumKick == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -200,6 +242,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the hard kick is pressed.
+        /// </summary>
         public bool Hard_Kick
         {
             get { return _inputItem.InputCommandState.HardKick == InputCommandModel.ButtonStateEnum.Pressed; }
@@ -220,6 +265,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether any commands were pressed.
+        /// </summary>
         public bool CommandPressed
         {
             get
@@ -234,16 +282,20 @@
         }
         #endregion
 
+        /// <summary>
+        /// Resets the direction.
+        /// </summary>
         private void ResetDirections()
         {
             _inputItem.InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Neutral;
             NotifyOfPropertyChange(() => Direction);
         } 
-        public string Serialize()
-        {
-            return InputItem.Serialize();
-        }
 
+        /// <summary>
+        /// The deserialize function.
+        /// </summary>
+        /// <param name="stringValue">The <see cref="string"/> to deserialize.</param>
+        /// <returns>A new <see cref="InputItemViewModel"/>.</returns>
         public static InputItemViewModel Deserialize(string stringValue)
         {
             //Deserialize actual timeline item
@@ -258,6 +310,9 @@
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputItemViewModel"/> class.
+        /// </summary>
         public InputItemViewModel()
         {
             this.InputItem = new InputItemModel();
