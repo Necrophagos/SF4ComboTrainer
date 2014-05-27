@@ -1,7 +1,8 @@
-Press#False#1#P1_DN
-Press#False#2#P1_DN#P1_FW
-Press#False#1#P1_FW
-Press#False#1#P1_DN
-Press#False#2#P1_DN#P1_FW
-Press#False#1#P1_FW
-Press#False#3#P1_LK#P1_MK#P1_HK
+FTComboFile[v2.1]
+0#1#2000000
+0#2#3000000
+0#1#6000000
+0#1#2000000
+0#2#3000000
+0#1#6000000
+0#3#5000111
