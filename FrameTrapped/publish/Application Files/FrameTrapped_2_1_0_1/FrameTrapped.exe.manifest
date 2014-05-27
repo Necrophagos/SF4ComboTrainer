@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="FrameTrapped.exe" version="2.1.0.1" publicKeyToken="a1c937e76b4f10b3" language="neutral" processorArchitecture="amd64" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="FrameTrapped" version="1.6.3.0" language="neutral" processorArchitecture="amd64" />
+    <commandLine file="FrameTrapped.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Autofac.dll" size="201728">
+      <assemblyIdentity name="Autofac" version="3.3.0.0" publicKeyToken="17863AF14B0044DA" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>zgL77tq/iT5ocGmn2BQvNsnaK/ArZP4eJM5hPb3wyd0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Caliburn.Micro.dll" size="120832">
+      <assemblyIdentity name="Caliburn.Micro" version="1.5.2.0" publicKeyToken="8E5891231F2ED21F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>whlk+bGvII1AiEqyKB01wzK51pzJtzrHMvKRHkqi8Rg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.exe" size="14565376">
+      <assemblyIdentity name="FrameTrapped" version="1.6.3.0" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>T5plcj7UkqPyWkaSntQAS5FFnEDhgJn4Ss5zss9mqeU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.ComboTrainer.dll" size="49664">
+      <assemblyIdentity name="FrameTrapped.ComboTrainer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>03cbulOgtYA3v8FQqMcZAbBDDBnI/nBn9ekDiRQgUjw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.Common.dll" size="1589760">
+      <assemblyIdentity name="FrameTrapped.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>cqmQW1Ah/3p39lyvi58PGVtmJ2y2yYRZjuBsZCjVJVU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.Home.dll" size="208384">
+      <assemblyIdentity name="FrameTrapped.Home" version="1.3.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>/9I3iareAapObaVy4msPhHmnwPAZOfJdXEN5NsOqqiw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.Input.dll" size="28160">
+      <assemblyIdentity name="FrameTrapped.Input" version="1.3.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>CmMRdNx0lgUjiASbIChSFUw6KGLiKJoTzy0vq4R+oog=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrameTrapped.StreetFighterLibrary.dll" size="3904512">
+      <assemblyIdentity name="FrameTrapped.StreetFighterLibrary" version="1.3.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>LHOdb0PZgMkgu05/N87E5eWex+qylE8xxvmwxtcz0aw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="InputSimulator.dll" size="13824">
+      <assemblyIdentity name="InputSimulator" version="0.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Pd1Wg+/747DwxL0iZobuPJoh/rIwYAuwkjH+uic+FNs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MahApps.Metro.dll" size="779776">
+      <assemblyIdentity name="MahApps.Metro" version="0.13.1.0" publicKeyToken="F4FB5A3C4D1E5B4F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>KpomZRlOQYhdq8xFGpBOavCB90+BOqH15g6iyHJEjdk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Windows.Interactivity.dll" size="55904">
+      <assemblyIdentity name="System.Windows.Interactivity" version="4.5.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>k/vFnkiAr8nxNsOsCXatp/P6p8rO3OXIJLM3y8qdLr8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="FrameTrapped.exe.config" size="1026">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BUhMcMelZWrNB4sgO0gYyOudAi00Jp8oJeDS+Sl0iYM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\Images\Icon.svg" size="2109">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>IZbFi42KpKX+mCZSj8Z6f6uEQShiJdIPpB/4FdqBqls=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="sf4keyboard.cfg" size="1796">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>CWz070bxJEvhL6ytACNSNWIuEMCzu2tp6AdileJAGpU=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=Porcupine-STORM\Porcupine" issuerKeyHash="975b5b173e19fdf4430b32c22b7c745bbaa8dc81" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>5LSyJc8JjAqLpaZPuVob8p02WCTF2WzeSiXSXsaOOBo=</DigestValue></Reference></SignedInfo><SignatureValue>fz0ve4JeFGmS7W/0dkUkWkMV+gTCN+JGOTcEi4zc57pX53Tja4vH/0P9D6S+s81aiCnwOZlIqDhIdHdsQm825+Ttd2ESECfPxDSyrXCo/XILt0Atlc0OaK8K7h7Ia/JA+m4QBLzN2JbSwOqdT43/DKKW4His5JVUH3Jguo92NlI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>jwuH8ovVeE1b8Pt5vmAFaFYXfW87mRBw485kNEYCNbD4aaEgqaMittp5iCXKKrH1UxLkRQxSp7BrFqganpULv5u6wJbG0pgE7M2NzFN4mCaPwg2EBTbr9nd53zHSPPnc5/cOMs0c/kCxdFFehVLPHH5ZpEDbZ4PVnuzp8yQfh/8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1a388ec65ed2254ade6cd9c52458369df21b5ab94fa6a58b0a8c09cf25b2b4e4" Description="" Url=""><as:assemblyIdentity name="FrameTrapped.exe" version="2.1.0.1" publicKeyToken="a1c937e76b4f10b3" language="neutral" processorArchitecture="amd64" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Porcupine-STORM\Porcupine</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>W5IcJvIag3OApwHM+fL4NXR7be5a2OBTOelldKZfBkg=</DigestValue></Reference></SignedInfo><SignatureValue>TgA5UoLAZgaXo8G8Bh66oPIzXKwrQJ/FYnHKMfocFGwurjZLGqGFgIQA0t1JTbKCgsk6UZHvKXkmc0fPjBqmVrsRAZsb1VQwx/HbvSmFvqzIxYWCoGxlwcqmD5uK5dyypclxv2affVqD6dDb+shS9JJpgowzXRxpLzhwWJgPPjE=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>jwuH8ovVeE1b8Pt5vmAFaFYXfW87mRBw485kNEYCNbD4aaEgqaMittp5iCXKKrH1UxLkRQxSp7BrFqganpULv5u6wJbG0pgE7M2NzFN4mCaPwg2EBTbr9nd53zHSPPnc5/cOMs0c/kCxdFFehVLPHH5ZpEDbZ4PVnuzp8yQfh/8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB/TCCAWagAwIBAgIQFOoGHEdbPLZAvW0JjnUjiTANBgkqhkiG9w0BAQsFADA9MTswOQYDVQQDHjIAUABvAHIAYwB1AHAAaQBuAGUALQBTAFQATwBSAE0AXABQAG8AcgBjAHUAcABpAG4AZTAeFw0xNDA1MjAwMTQ3MDhaFw0xNTA1MjAwNzQ3MDhaMD0xOzA5BgNVBAMeMgBQAG8AcgBjAHUAcABpAG4AZQAtAFMAVABPAFIATQBcAFAAbwByAGMAdQBwAGkAbgBlMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPC4fyi9V4TVvw+3m+YAVoVhd9bzuZEHDjzmQ0RgI1sPhpoSCpoyK22nmIJcoqsfVTEuRFDFKnsGsWqBqelQu/m7rAlsbSmATszY3MU3iYJo/CDYQFNuv2d3nfMdI8+dzn9w4yzRz+QLF0UV6FUs8cflmkQNtng9We7OnzJB+H/wIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAIcuPfsIDKddFnoMXuCM32yb/ynqZjOIEV2wBFVko7eodVy3pRxPa2HAYiJodwQ+ZfayWb4KO7Vk7aDIf7zJRxn1YeYKBapWjxPlIVWiWpSksnLfvhcPZBoyR43ndJARMkjG+jrqxwxvYsWgDWOhC9nazV/hy9md/n0qJDd0utIq</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
