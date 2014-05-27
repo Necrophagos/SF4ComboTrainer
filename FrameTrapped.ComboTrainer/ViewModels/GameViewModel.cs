@@ -346,6 +346,13 @@
                 NativeModel.SWP_NOZORDER | NativeModel.SWP_NOACTIVATE);
         }
 
+        public void SetResolution(int width, int height)
+        {
+            _panel.Width =  width;
+            _panel.Height =  height;
+            _panel.Refresh();
+        }
+
         /// <summary>
         /// In the OnLoaded event, set up the game in the WindowsFormsHost.
         /// </summary>

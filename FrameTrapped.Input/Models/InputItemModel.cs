@@ -56,7 +56,77 @@
         /// </summary>
         public Input[] Inputs
         {
-            get { return InputCommandState.ToInputsPressedArray(); }
+            get
+            {
+                return InputCommandState.ToInputsPressedArray();
+            }
+            set
+            {
+                // Directions
+                if (value.Contains(Input.P1_UP) && value.Contains(Input.P1_BK))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.UpBack;
+                }
+                else if (value.Contains(Input.P1_UP) && value.Contains(Input.P1_FW))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.UpForward;
+                }
+                else if (value.Contains(Input.P1_UP))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Up;
+                }
+                else if (value.Contains(Input.P1_DN) && value.Contains(Input.P1_BK))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.DownBack;
+                }
+                else if (value.Contains(Input.P1_DN) && value.Contains(Input.P1_FW))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.DownForward;
+                }
+                else if (value.Contains(Input.P1_DN))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Down;
+                }
+                else if (value.Contains(Input.P1_BK))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Back;
+                }
+                else if (value.Contains(Input.P1_FW))
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Forward;
+                }
+                else
+                {
+                    InputCommandState.DirectionState = InputCommandModel.DirectionStateEnum.Neutral;
+                }
+
+                // Buttons
+                if (value.Contains(Input.P1_LP))
+                {
+                    InputCommandState.LightPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+                if (value.Contains(Input.P1_MP))
+                {
+                    InputCommandState.MediumPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+                if (value.Contains(Input.P1_HP))
+                {
+                    InputCommandState.HardPunch = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+                if (value.Contains(Input.P1_LK))
+                {
+                    InputCommandState.LightKick = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+                if (value.Contains(Input.P1_MK))
+                {
+                    InputCommandState.MediumKick = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+                if (value.Contains(Input.P1_HK))
+                {
+                    InputCommandState.HardKick = InputCommandModel.ButtonStateEnum.Pressed;
+                }
+
+            }
         }
 
         /// <summary>
@@ -105,23 +175,27 @@
             String[] tokens = value.ToUpper().Split('#');
 
             // Big change: this is the new default to help transform old file type.
+            int n;
+            bool isNumeric = int.TryParse(tokens[0].ToString(), out n);
+            if (isNumeric)
+            {
+                InputItemModel item = new InputItemModel();
+                item.PlaySound = int.Parse(tokens[0].ToString()) == 0 ? false : true;
+                item.Frames = int.Parse(tokens[1].ToString());
 
-            InputItemModel item = new InputItemModel();
-            item.PlaySound = int.Parse(tokens[0].ToString()) == 0 ? false : true;
-            item.Frames = int.Parse(tokens[1].ToString());
-
-            char[] inputs = tokens[2].ToString().ToCharArray();
+                char[] inputs = tokens[2].ToString().ToCharArray();
 
 
-            item.InputCommandState.DirectionState = (InputCommandModel.DirectionStateEnum)int.Parse(inputs[0].ToString());
-            item.InputCommandState.LightPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[1].ToString());
-            item.InputCommandState.MediumPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[2].ToString());
-            item.InputCommandState.HardPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[3].ToString());
-            item.InputCommandState.LightKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[4].ToString());
-            item.InputCommandState.MediumKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[5].ToString());
-            item.InputCommandState.HardKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[6].ToString());
+                item.InputCommandState.DirectionState = (InputCommandModel.DirectionStateEnum)int.Parse(inputs[0].ToString());
+                item.InputCommandState.LightPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[1].ToString());
+                item.InputCommandState.MediumPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[2].ToString());
+                item.InputCommandState.HardPunch = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[3].ToString());
+                item.InputCommandState.LightKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[4].ToString());
+                item.InputCommandState.MediumKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[5].ToString());
+                item.InputCommandState.HardKick = (InputCommandModel.ButtonStateEnum)int.Parse(inputs[6].ToString());
+                return item;
 
-            return item;
+            }
 
             throw new FormatException("Failed to deserialize TimelineItem, wrong string format: " + value);
         }
@@ -142,6 +216,16 @@
                 if (str.Equals(input.ToString())) { return input; }
             }
             throw new FormatException("Cannot parse Input for " + str);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputItemModel"/> class.
+        /// </summary>
+        /// <param name="inputCommand">The input command model to use for this input.</param>
+        public InputItemModel(Input[] inputArray)
+        {
+            Inputs = inputArray;
+            PlaySound = true;
         }
 
         /// <summary>

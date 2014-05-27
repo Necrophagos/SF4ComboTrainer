@@ -1,14 +1,17 @@
 ﻿namespace FrameTrapped.ViewModels
 {
-    using Caliburn.Micro;
-
-    using FrameTrapped.Home.ViewModels;
-    using FrameTrapped.ComboTrainer.ViewModels;
-    using FrameTrapped.StreetFighterLibrary.ViewModels;
+    using System.ComponentModel.Composition;
+    using System.Deployment;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
-    using System.ComponentModel.Composition;
+
+    using Caliburn.Micro;
+
     using FrameTrapped.ComboTrainer.Messages;
+    using FrameTrapped.ComboTrainer.ViewModels;
+    using FrameTrapped.Home.ViewModels;
+    using FrameTrapped.StreetFighterLibrary.ViewModels; 
 
     /// <summary>
     /// 
@@ -229,10 +232,19 @@
         private void UpdateTitle(string title)
         {
             string applicationName = Application.Current.TryFindResource("Title").ToString();
+            System.Version currentVersion;
+            try
+            {
+                currentVersion = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion;
+            }
+            catch
+            {
+                currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            }
 
             Title = string.IsNullOrWhiteSpace(title)
-                 ? string.Format("{0}: SF4 Combo Trainer 2.1", applicationName)
-                 : string.Format("{0} - {1}", applicationName, title);
+                 ? string.Format("{0} v{1}.{2}", applicationName, currentVersion.Major, currentVersion.Minor )
+                 : string.Format("{0} v{1}.{2} - {3}", applicationName, currentVersion.Major, currentVersion.Minor, title);
         }
 
         /// <summary>

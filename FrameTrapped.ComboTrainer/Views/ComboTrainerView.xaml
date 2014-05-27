@@ -13,30 +13,31 @@
         <ColumnDefinition Width="320"/>
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
-    <Grid>
-        <ContentControl Grid.Row="1" VerticalAlignment="Stretch" Margin="0,0,5,0" cal:View.Model="{Binding TimeLineViewModel}"/>
-    </Grid>
+
+    <ContentControl VerticalAlignment="Stretch" Margin="0,0,5,0" cal:View.Model="{Binding TimeLineViewModel}"/>
+
     <Grid Grid.Column="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Content="Load  SF4..." cal:Message.Attach="StartSF4">
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="FontSize" Value="40"/>
-                    <Setter Property="Height" Value="60"/>
-                    <Setter Property="Foreground" Value="{DynamicResource Brush}"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsBusy}" Value="True">
-                            <DataTrigger.Setters>
-                                <Setter Property="Content" Value="Loading"/>
-                            </DataTrigger.Setters>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
+        <ToolBar Grid.Row="0" HorizontalAlignment="Center">
+            <Button DockPanel.Dock="Top" Content="Load/Restart SF4..." cal:Message.Attach="StartSF4">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Content" Value="Loading"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Label Content="Set Resolution:" />
+            <ComboBox x:Name="Resolutions" />
+        </ToolBar>
         <Border Grid.Row="1" BorderBrush="AntiqueWhite" BorderThickness="3" >
 
             <ContentControl cal:View.Model="{Binding Path=GameViewModel, Mode=TwoWay}"

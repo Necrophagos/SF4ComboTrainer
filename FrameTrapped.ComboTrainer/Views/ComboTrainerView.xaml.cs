@@ -10,6 +10,6 @@ namespace FrameTrapped.ComboTrainer.Views
         public ComboTrainerView()
         {
             InitializeComponent();
-        }
+        } 
     }
 }

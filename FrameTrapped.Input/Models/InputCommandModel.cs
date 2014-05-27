@@ -20,7 +20,7 @@ namespace FrameTrapped.Input.Models
         P1_HK
     }
 
-    public class InputCommandModel : ISerializable
+    public class InputCommandModel
     {
         public enum DirectionStateEnum
         {
@@ -177,11 +177,6 @@ namespace FrameTrapped.Input.Models
             if (HardKick == ButtonStateEnum.Released) inputsArray.Add(Input.P1_HK);
 
             return inputsArray.ToArray();
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new System.NotImplementedException();
         }
 
         public InputCommandModel()

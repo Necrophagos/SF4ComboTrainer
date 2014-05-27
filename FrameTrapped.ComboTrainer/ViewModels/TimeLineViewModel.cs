@@ -16,6 +16,7 @@
     using FrameTrapped.Utilities;
     using FrameTrapped.ComboTrainer.Utilities;
     using FrameTrapped.ComboTrainer.Messages;
+    using System.IO;
 
     /// <summary>
     /// The time line item view model class.
@@ -214,30 +215,130 @@
                 filePath = openFileDialog.FileName;
             }
 
-            string[] lines = System.IO.File.ReadAllLines(filePath);
+            List<string> lines = File.ReadAllLines(filePath).ToList();
 
             if (!append) ClearTimeLine();
 
+            if (lines.First().StartsWith("FTComboFile"))
+            {
+                lines.RemoveAt(0);
+                foreach (String line in lines)
+                {
+                    TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
+                    InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
+
+                    timeLineItemViewModel.PlaySound = inputItem.PlaySound;
+                    timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
+                    timeLineItemViewModel.Direction = inputItem.Direction;
+
+                    timeLineItemViewModel.Light_Punch = inputItem.Light_Punch;
+                    timeLineItemViewModel.Medium_Punch = inputItem.Medium_Punch;
+                    timeLineItemViewModel.Hard_Punch = inputItem.Hard_Punch;
+
+                    timeLineItemViewModel.Light_Kick = inputItem.Light_Kick;
+                    timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
+                    timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
+
+
+                    TimeLineItems.Add(timeLineItemViewModel);
+
+                }
+            }
+            else
+            {
+                OldDeserialize(lines);
+            }
+        }
+
+
+        public void OldDeserialize(List<string> lines)
+        {
             foreach (String line in lines)
             {
+                List<Input> inputsOnHold = new List<Input>();
+                String[] tokens = line.Split('#');
+
+                InputItemModel item = new InputItemModel();
+                int numInputs;
+                Input[] inputs;                 
+
+                string inputType = tokens[0].ToString().ToUpper();
+                switch (inputType)
+                {
+                    case "WAIT":
+                        // Only hold inputs needed
+                        item = new InputItemModel();
+                        item.Inputs = inputsOnHold.ToArray();
+                        break;
+
+                    case "PRESS":
+
+                        // Add hold inputs to given inputs
+                        numInputs = int.Parse(tokens[2]);
+                        inputs = new Input[numInputs];
+                        for (int i = 0; i < numInputs; i++)
+                        {
+                            inputs[i] = InputItemModel.ParseInput(tokens[3 + i]);
+                        }
+
+                        item = new InputItemModel(); 
+                        item.Inputs = inputsOnHold.Concat(inputs.ToList()).Distinct().ToArray();
+                        break;
+
+                    case "HOLD":
+
+                        numInputs = int.Parse(tokens[2]);
+                        for (int i = 0; i < numInputs; i++)
+                        {
+                            inputsOnHold.Add(InputItemModel.ParseInput(tokens[3 + i]));
+                        }
+
+                        item = new InputItemModel(); 
+                        item.Inputs = inputsOnHold.Distinct().ToArray();
+                        break;
+
+                    case "RELEASE":
+
+                        // First remove released inputs from on hold list
+                        numInputs = int.Parse(tokens[2]);
+                        inputs = new Input[numInputs];
+                        for (int i = 0; i < numInputs; i++)
+                        {
+                            inputsOnHold.RemoveAll((x) => x == InputItemModel.ParseInput(tokens[3 + i]));
+                        }
+
+                        // Add remaining holds
+                        item = new InputItemModel(); 
+                        item.Inputs = inputsOnHold.ToArray();
+                        break;
+                         
+                    default:
+                        throw new FormatException("Failed to deserialize TimelineItem, wrong string format: " + line);
+                }
+
+                item.PlaySound = Boolean.Parse(tokens[1]);
+                item.Frames = int.Parse(tokens[2].ToString());
+
+                //Setup TimeLineItemViewModel
+                InputItemViewModel result = new InputItemViewModel();
+                result.InputItem = item;
+                result.Index = -1;
+
                 TimeLineItemViewModel timeLineItemViewModel = new TimeLineItemViewModel(this);
-                InputItemViewModel inputItem = InputItemViewModel.Deserialize(line);
 
-                timeLineItemViewModel.PlaySound = inputItem.PlaySound;
-                timeLineItemViewModel.WaitFrames = inputItem.WaitFrames;
-                timeLineItemViewModel.Direction = inputItem.Direction;
+                timeLineItemViewModel.PlaySound = result.PlaySound;
+                timeLineItemViewModel.WaitFrames = result.WaitFrames;
+                timeLineItemViewModel.Direction = result.Direction;
 
-                timeLineItemViewModel.Light_Punch = inputItem.Light_Punch;
-                timeLineItemViewModel.Medium_Punch = inputItem.Medium_Punch;
-                timeLineItemViewModel.Hard_Punch = inputItem.Hard_Punch;
+                timeLineItemViewModel.Light_Punch = result.Light_Punch;
+                timeLineItemViewModel.Medium_Punch = result.Medium_Punch;
+                timeLineItemViewModel.Hard_Punch = result.Hard_Punch;
 
-                timeLineItemViewModel.Light_Kick = inputItem.Light_Kick;
-                timeLineItemViewModel.Medium_Kick = inputItem.Medium_Kick;
-                timeLineItemViewModel.Hard_Kick = inputItem.Hard_Kick;
-
+                timeLineItemViewModel.Light_Kick = result.Light_Kick;
+                timeLineItemViewModel.Medium_Kick = result.Medium_Kick;
+                timeLineItemViewModel.Hard_Kick = result.Hard_Kick;
 
                 TimeLineItems.Add(timeLineItemViewModel);
-
             }
         }
 
@@ -255,6 +356,7 @@
             {
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(saveFileDialog.FileName))
                 {
+                    file.WriteLine("FTComboFile[v2.1]");
                     foreach (TimeLineItemViewModel item in TimeLineItems)
                     {
                         file.WriteLine(item.InputItemViewModel.InputItem.Serialize());
