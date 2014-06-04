@@ -1,0 +1,32 @@
+﻿<Menu x:Class="FrameTrapped.Views.MainMenuView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
+      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+      Background="Black">
+    <Menu.Resources>
+        <ResourceDictionary Source="pack://application:,,,/FrameTrapped.Common;component/Resources/MergedCommonResources.xaml"/>
+    </Menu.Resources>
+    <MenuItem Header="File">
+        <MenuItem Header="Open Time Line"  cal:Message.Attach="OpenTimeLine" InputGestureText="Ctrl+O" />
+        <MenuItem Header="Append Time Line" cal:Message.Attach="AppendTimeLine" InputGestureText="Ctrl+Shift+O" />
+        <Separator/>
+        <MenuItem Header="Save Time Line" cal:Message.Attach="SaveTimeLine"  InputGestureText="Ctrl+S" />
+        <Separator/>
+        <MenuItem Header="Exit" cal:Message.Attach="Exit" InputGestureText="Alt+F4" />
+    </MenuItem>
+    <MenuItem Header="Edit" IsEnabled="False"  ToolTip="Coming Soon!">
+        <MenuItem Header="Copy" ToolTip="Coming Soon!"/>
+        <MenuItem Header="Cut"  ToolTip="Coming Soon!"/>
+        <MenuItem Header="Paste"  ToolTip="Coming Soon!" />
+        <Separator />
+        <MenuItem Header="Clear All" cal:Message.Attach="ClearTimeLineCommand"  ToolTip="Coming Soon!"/>
+    </MenuItem>
+    <MenuItem Header="View" IsEnabled="False">
+        <MenuItem Header="Game Overlay" IsEnabled="False" ToolTip="Coming Soon!"/>
+    </MenuItem>
+    <MenuItem Header="Help">
+        <MenuItem x:Name="ShowAboutDialog" Header="About"/>
+        <MenuItem Header="How to use SF4:CT" IsEnabled="False" ToolTip="Coming Soon!" />
+    </MenuItem> 
+</Menu>

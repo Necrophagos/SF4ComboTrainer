@@ -1,0 +1,49 @@
+﻿<Grid x:Class="FrameTrapped.ComboTrainer.Views.ComboTrainerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+      xmlns:converters="clr-namespace:FrameTrapped.Common.Converters;assembly=FrameTrapped.Common"
+      mc:Ignorable="d">
+    <Grid.Resources>
+        <converters:BoolToVisibleConverter x:Key="BoolToVisibleConverter"/>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="320"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <ContentControl VerticalAlignment="Stretch" Margin="0,0,5,0" cal:View.Model="{Binding TimeLineViewModel}"/>
+
+    <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ToolBar Grid.Row="0" HorizontalAlignment="Center">
+            <Button DockPanel.Dock="Top" Content="Load/Restart SF4..." cal:Message.Attach="StartSF4">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                <DataTrigger.Setters>
+                                    <Setter Property="Content" Value="Loading"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Label Content="Set Resolution:" />
+            <ComboBox x:Name="Resolutions" />
+        </ToolBar>
+        <Border Grid.Row="1" BorderBrush="AntiqueWhite" BorderThickness="3" >
+
+            <ContentControl cal:View.Model="{Binding Path=GameViewModel, Mode=TwoWay}"
+                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                />
+        </Border>
+    </Grid>
+    <!--Visibility="{Binding IsWindowsHostHelperVisible, Converter={StaticResource BoolToVisibleConverter}}"-->
+</Grid>

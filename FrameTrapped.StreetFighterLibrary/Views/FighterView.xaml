@@ -1,0 +1,19 @@
+﻿<StackPanel 
+    x:Class="FrameTrapped.StreetFighterLibrary.Views.FighterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    Orientation="Horizontal"
+    d:DesignHeight="100" d:DesignWidth="300" >
+    <StackPanel.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </StackPanel.Resources>
+    <Image Source="{Binding Icon}" Height="64" Width="68"/>
+    <TextBlock x:Name="Name" />
+</StackPanel>

@@ -1,0 +1,56 @@
+﻿<controls:MetroWindow
+    x:Class="FrameTrapped.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+    cal:Message.Attach="[Event KeyDown] = [OnKeyDown($eventArgs)];[Event Drop] = [OnDropFile($eventArgs)]"
+    MinWidth="1280"
+    MinHeight="960"
+    Title="{Binding Title}"
+    Style="{DynamicResource CommonWindowStyle}" 
+    AllowDrop="True">
+
+    <i:Interaction.Behaviors>
+        <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" AutoSizeToContent="True"/>
+        <behaviours:GlowWindowBehavior/>
+    </i:Interaction.Behaviors>
+    
+    <Border BorderThickness="1" BorderBrush="DarkGray">
+        <DockPanel>
+            <!-- Menu bar -->
+            <ContentControl DockPanel.Dock="Top" cal:View.Model="{Binding MainMenuViewModel}" />
+
+            <TabControl x:Name="MainTabControl" TabStripPlacement="Left" SelectedIndex="0" >
+                <TabItem x:Name="HomeTabItem" IsSelected="{Binding HomeTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Home}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=HomeViewModel, Mode=TwoWay}" />
+                </TabItem>
+                <TabItem x:Name="StreetFighterLibraryTabItem" IsSelected="{Binding StreetFighterLibraryTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource SFLibrary}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=StreetFighterLibraryViewModel, Mode=TwoWay}" />
+                </TabItem>
+                <TabItem x:Name="ComboTrainerTabItem" IsSelected="{Binding ComboTrainerTabItemSelected}" Style="{DynamicResource VerticalTabItemStyle}">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource ComboTrainer}" Style="{DynamicResource VerticalTabTextBlockStyle}"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ContentControl cal:View.Model="{Binding Path=ComboTrainerViewModel, Mode=TwoWay}" />
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Border>
+</controls:MetroWindow>

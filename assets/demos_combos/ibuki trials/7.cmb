@@ -1,3 +1,4 @@
-Press#False#1#P1_HP
-Wait#False#2
-Press#False#1#P1_HP
+FTComboFile[v2.1]
+0#1#5001000
+0#2#5000000
+0#1#5001000

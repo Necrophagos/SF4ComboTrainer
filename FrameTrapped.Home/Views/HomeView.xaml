@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="FrameTrapped.Home.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="HomeViewButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="256"/>
+            <Setter Property="Height" Value="256"/>
+            <Setter Property="Margin" Value="16" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Source="pack://application:,,,/FrameTrapped.Home;component/Resources/Images/Banner.png" Stretch="None"/>
+        <TextBlock Grid.Row="1" Text="This is currently placeholder while I construct the recent files menu, as well as other tid bits like sharing over social networks." TextAlignment="Center" Style="{DynamicResource MediumText}"/>
+        <UniformGrid Grid.Row="2" Columns="2"  >
+            <Button x:Name="ShowComboTrainer" Style="{DynamicResource HomeViewButton}" IsEnabled="False">
+                <Image Source="pack://application:,,,/FrameTrapped.Home;component/Resources/Images/sf4-timeline-button.png"/>
+            </Button>
+            <Button x:Name="ShowLibrary" Style="{DynamicResource HomeViewButton}" IsEnabled="False">
+                <Image Source="pack://application:,,,/FrameTrapped.Home;component/Resources/Images/sf4-library-button.png"/>
+            </Button>
+        </UniformGrid>
+    </Grid>
+</UserControl>

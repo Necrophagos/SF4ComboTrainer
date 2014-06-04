@@ -1,5 +1,6 @@
-Press#False#1#P1_HP
-Wait#False#20
-Press#False#2#P1_DN#P1_HK
-Wait#False#15
-Press#False#1#P1_HK
+FTComboFile[v2.1]
+0#1#5001000
+0#20#5000000
+0#2#2000001
+0#15#5000000
+0#1#5000001

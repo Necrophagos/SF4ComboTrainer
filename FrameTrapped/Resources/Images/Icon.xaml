@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<DrawingBrush x:Key="LK" Stretch="Uniform">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Brush="#FFB91919" Geometry="F1 M 63.9491,3.69977L 20.3372,21.4715L 2.27257,64.3763L 20.3372,107.281L 63.9491,125.053L 107.561,107.281L 125.626,64.3763L 107.561,21.4715L 63.9491,3.69977 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="6" LineJoin="Bevel" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFAB1E1E" Geometry="F1 M 64.1274,35.7096L 31.9395,35.7096L 31.9395,64.3763L 63.7404,64.3763L 63.7404,78.0761L 32.0428,78.0761L 32.0428,109.529L 17.7303,100.068L 18.0502,26.4338L 26.7,21.024L 64.1274,21.024L 64.1274,35.7096 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="9" LineJoin="Bevel" Brush="#FFFFFFFF"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFFF7676" Geometry="F1 M 111.781,35.668L 99.8003,35.668L 99.8783,109.332L 83.6574,114.597L 83.6574,35.6927L 63.9386,35.6927L 63.9386,21.024L 105.571,21.024L 111.781,35.668 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="9" LineJoin="Bevel" Brush="#FFFFFFFF"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFAB1E1E" Geometry="F1 M 64.1274,35.7096L 31.9395,35.7096L 31.9395,64.3763L 63.7404,64.3763L 63.7404,78.0761L 32.0428,78.0761L 32.0428,110.863L 17.7303,102.331L 18.0868,21.024L 64.1274,21.024L 64.1274,35.7096 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Brush="#FFFF7676" Geometry="F1 M 114.237,35.668L 99.8003,35.668L 99.8783,109.332L 83.6574,115.839L 83.6574,35.6927L 63.9386,35.6927L 63.9386,21.024L 109.026,21.024L 114.237,35.668 Z ">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+					<GeometryDrawing Geometry="F1 M 64.1476,3.52285L 20.5357,21.2946L 2.47109,64.1993L 20.5357,107.104L 64.1476,124.876L 107.759,107.104L 125.824,64.1993L 107.759,21.2946L 64.1476,3.52285 Z ">
+						<GeometryDrawing.Pen>
+							<Pen Thickness="6" LineJoin="Bevel" Brush="#FF000000"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+</ResourceDictionary>
